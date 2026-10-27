@@ -562,7 +562,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
   <p class="lede">Thirteen sub-stages, from processor design to AI models. On each row, <b style="color:var(--green)">Indian companies are on the left</b> and <b style="color:var(--navy)">global leaders on the right</b>, with bubbles sized by approximate annual revenue. Plants still being built are shown as dotted rings sized by committed investment. The figure at the left of each row is the gap between the biggest global and biggest Indian company. Click any bubble for details.</p>
   <div class="size-kpis" id="sizeKpis"></div>
   <div class="size-tools">
-    <div class="grp" id="scaleBtns"><button data-v="log" class="on">Readable scale</button><button data-v="lin">True scale</button></div>
+    <div class="grp" id="scaleBtns"><button data-v="log" class="on">Readable</button><button data-v="lin">True scale</button><button data-v="ppp">PPP-adjusted</button></div>
     <div class="grp" id="grpBtns"><button data-v="all" class="on">All stages</button><button data-v="SILICON">Silicon</button><button data-v="COMPONENTS">Components</button><button data-v="MAKE & SELL">Make &amp; sell</button><button data-v="SOFTWARE & AI">Software &amp; AI</button></div>
   </div>
   <div class="size-legend">
@@ -572,10 +572,11 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
     <span><i style="--c:transparent;--b:var(--ink-3);border-style:dashed"></i>Revenue not public (size band)</span>
     <span><i style="--c:transparent;--b:var(--green);border-style:dotted;border-width:2px"></i>Under construction (sized by investment)</span>
   </div>
+  <p class="small" id="scaleNote" style="margin:12px 0 0;color:var(--ink-2)"></p>
   <div class="card size-card"><svg id="sizeChart" role="img" aria-label="Company size by sub-stage of the phone value chain, Indian versus global"></svg></div>
   <div class="card size-detail" id="sizeDetail"></div>
   <div class="size-insights" id="sizeInsights"></div>
-  <p class="small muted" style="margin-top:12px">Approximate revenue for FY2024–25 or calendar 2024/25, whole company (not only the phone business), from public filings and press reports; foreign figures converted at ~₹84/US$. Indian arms of foreign brands show India revenue. *Jio's figure is whole-company telecom revenue, so it isn't a like-for-like AI comparison. Where figures aren't public, a size band is shown instead of a number. Indicative only; verify before citing.</p>
+  <p class="small muted" style="margin-top:12px">Approximate revenue for FY2024–25 or calendar 2024/25, whole company (not only the phone business), from public filings and press reports; foreign figures converted at ~₹84/US$. PPP factors use approximate 2024 price levels (World Bank/OECD style): India 0.25, US 1.0, UK 0.86, Japan 0.62, Korea 0.61, China 0.50, Taiwan 0.42. Indian arms of foreign brands show India revenue. *Jio's figure is whole-company telecom revenue, so it isn't a like-for-like AI comparison. Where figures aren't public, a size band is shown instead of a number. Indicative only; verify before citing.</p>
 </div></section>
 
 <section id="players"><div class="wrap">
@@ -1280,38 +1281,59 @@ const SROWS = [
   const OC={I:'var(--green)',G:'#20b3ad',F:'var(--navy)'}, ON={I:'Indian private',G:'Indian government / academic',F:'Foreign'};
   const band=v=>v<100?'< ₹100 cr':v<1000?'₹100–1,000 cr':v<10000?'₹1k–10k cr':v<100000?'₹10k cr–1 lakh cr':'₹1 lakh cr+';
   const short=v=>v>=100000?`~₹${(v/100000).toFixed(v>=1000000?0:1)} lakh cr`:v>=1000?`~₹${fmt(Math.round(v/100)*100)} cr`:`~₹${fmt(v)} cr`;
-  const val=c=>c[4]?`₹${fmt(c[2])} cr committed`:c[3]?short(c[2]):band(c[2]);
-  const ALL=SROWS.flatMap(r=>r.co), MAXV=Math.max(...ALL.map(c=>c[2]));
+  // PPP: re-express a foreign company's revenue in what it would buy in India.
+  // factor = India price level / home-country price level (price level = PPP rate ÷ market rate, ~2024).
+  // Rupee revenue (Indian firms, India arms of foreign brands, investments made in India) is unchanged.
+  const PLR={US:1,UK:.86,Japan:.62,Korea:.61,Taiwan:.42,China:.50}, PLR_IN=.246;
+  const home=c=>Object.keys(PLR).find(k=>new RegExp('\\b'+k+'$').test(c[5]));
+  const pppF=c=>(c[1]!=='F'||c[4]||/India/.test(c[0])||!home(c))?1:PLR_IN/PLR[home(c)];
+  const V=c=>scale==='ppp'?c[2]*pppF(c):c[2];
+  const val=c=>c[4]?`₹${fmt(c[2])} cr committed`:(c[3]?short(V(c)):band(V(c)))+(scale==='ppp'&&pppF(c)!==1?' PPP':'');
+  const ALL=SROWS.flatMap(r=>r.co);
+  let MAXV=1;
   const R=v=>scale==='log'?3+5.4*Math.log10(v+1):Math.max(1.6,Math.sqrt(v/MAXV)*44);
   const MID=700, W=1110;
   const gap=r=>{const ind=r.co.filter(c=>c[1]!=='F'&&!c[4]),fr=r.co.filter(c=>c[1]==='F');
     if(!ind.length)return {t:'No Indian company',none:1};
-    const top=ind.reduce((m,c)=>c[2]>m[2]?c:m),a=Math.max(...fr.map(c=>c[2])),b=top[2];
+    const top=ind.reduce((m,c)=>V(c)>V(m)?c:m),a=Math.max(...fr.map(V)),b=V(top);
     return a>=b?{t:`Gap ~${a/b>=100?fmt(Math.round(a/b/10)*10):Math.round(a/b)}× vs ${top[0]}`,x:a/b}:{t:`${top[0]} larger*`,x:a/b}};
 
-  // KPIs
-  const gaps=SROWS.map(gap), none=gaps.filter(g=>g.none).length, ratios=gaps.filter(g=>g.x).map(g=>g.x).sort((a,b)=>a-b);
-  const med=ratios[Math.floor(ratios.length/2)];
-  $('#sizeKpis').innerHTML=`
-    <div class="card"><b>${SROWS.length}</b>sub-stages of the phone chain</div>
-    <div class="card"><b>${ALL.length}</b>companies compared</div>
-    <div class="card"><b style="color:var(--red)">${none}</b>sub-stages with no Indian company yet</div>
-    <div class="card"><b>~${Math.round(med)}×</b>median gap, biggest global vs biggest Indian</div>`;
+  const none=SROWS.map(gap).filter(g=>g.none).length;
+  const NOTES={
+    log:'<b>Readable:</b> bubble size grows with the logarithm of revenue at market exchange rates, so every company stays visible. Good for comparing who exists where, but it hides how big the gaps are.',
+    lin:'<b>True scale:</b> bubble area is proportional to revenue at market exchange rates (~₹84/US$). This is the real financial gap: what each company can spend on global chips, equipment and licences.',
+    ppp:'<b>PPP-adjusted:</b> foreign revenue is re-expressed in what it would buy in India (purchasing-power parity, India ≈ ₹21 per international $ vs ₹84 market). US firms shrink ~4×, Japanese and Korean ~2.5×, Chinese ~2×, Taiwanese ~1.7×. This approximates how many engineers, salaries and local costs each company can fund. It flatters capital-heavy stages, though: fabs, tools and licences are paid at global prices.'};
+  function texts(){
+    const gaps=SROWS.map(gap), ratios=gaps.filter(g=>g.x).map(g=>g.x).sort((a,b)=>a-b);
+    const med=ratios[Math.floor(ratios.length/2)];
+    $('#sizeKpis').innerHTML=`
+      <div class="card"><b>${SROWS.length}</b>sub-stages of the phone chain</div>
+      <div class="card"><b>${ALL.length}</b>companies compared</div>
+      <div class="card"><b style="color:var(--red)">${none}</b>sub-stages with no Indian company yet</div>
+      <div class="card"><b>~${Math.round(med)}×</b>median gap, biggest global vs biggest Indian${scale==='ppp'?' <span class="pill p-saff">PPP</span>':''}</div>`;
+    $('#scaleNote').innerHTML=NOTES[scale];
+    const get=n=>V(ALL.find(c=>c[0]===n)), x=(a,b)=>Math.round(get(a)/get(b)), tag=scale==='ppp'?' (PPP)':'';
+    $('#sizeInsights').innerHTML=`
+      <div class="card"><b>~${x('Qualcomm','Tejas Networks')}×${tag}</b>Qualcomm vs the largest Indian firm with modem silicon (Tejas). Pure Indian chip-design startups are thousands of times smaller.</div>
+      <div class="card"><b>${none} of ${SROWS.length}</b>sub-stages have no Indian company at all: memory, display panels, camera sensors and passives. These are the deepest import dependencies.</div>
+      <div class="card"><b>~${x('Foxconn','Tata Electronics')}×${tag}</b>Foxconn vs Tata Electronics. Assembly is India's strongest stage, yet the global leader is still far larger.</div>`;
+  }
 
   function draw(){
+    MAXV=Math.max(...ALL.map(V));texts();
     const rows=SROWS.filter(r=>grp==='all'||r.g===grp);
     const out=[];let y=8,lastG=null;
     out.push(`<text class="side" x="${MID-14}" y="${y+10}" text-anchor="end">◀ INDIAN</text><text class="side" x="${MID+14}" y="${y+10}">GLOBAL ▶</text>`);
     y+=22;
     rows.forEach(r=>{
       if(r.g!==lastG){out.push(`<text class="grp-h" x="4" y="${y+14}">${r.g}</text><line x1="${4}" y1="${y+20}" x2="${W}" y2="${y+20}" stroke="var(--line)"/>`);y+=30;lastG=r.g}
-      const ind=r.co.filter(c=>c[1]!=='F').sort((a,b)=>b[2]-a[2]), fr=r.co.filter(c=>c[1]==='F').sort((a,b)=>b[2]-a[2]);
-      const maxR=Math.max(10,...r.co.map(c=>R(c[2])));const cy=y+maxR+4, rowH=maxR*2+38;
+      const ind=r.co.filter(c=>c[1]!=='F').sort((a,b)=>V(b)-V(a)), fr=r.co.filter(c=>c[1]==='F').sort((a,b)=>V(b)-V(a));
+      const maxR=Math.max(10,...r.co.map(c=>R(V(c))));const cy=y+maxR+4, rowH=maxR*2+38;
       const g=gap(r);
       out.push(`<text class="rl" x="4" y="${cy-8}">${r.n}</text><text class="rs" x="4" y="${cy+6}">${r.sub}</text>
         <text x="4" y="${cy+22}" style="font:700 11px Inter,sans-serif;fill:${g.none?'var(--red)':g.x<1?'var(--green)':'var(--ink-2)'}">${g.t}</text>`);
       out.push(`<line x1="${MID}" y1="${y-4}" x2="${MID}" y2="${y+rowH-6}" stroke="var(--line)" stroke-width="1.5"/>`);
-      const place=(list,dir)=>{let x=MID+dir*14;list.forEach(c=>{const r0=R(c[2]),lw=Math.max(r0*2,c[0].length*5.9,val(c).length*5.1)+12;
+      const place=(list,dir)=>{let x=MID+dir*14;list.forEach(c=>{const r0=R(V(c)),lw=Math.max(r0*2,c[0].length*5.9,val(c).length*5.1)+12;
         const cx=x+dir*lw/2;x+=dir*lw;
         const col=OC[c[1]], i=ALL.indexOf(c);
         const st=c[4]?`fill="none" stroke="${col}" stroke-width="2" stroke-dasharray="1.5 3" stroke-linecap="round"`:
@@ -1327,7 +1349,7 @@ const SROWS = [
     svg.setAttribute('viewBox',`0 0 ${W} ${y}`);svg.setAttribute('width',W);svg.setAttribute('height',y);
     svg.innerHTML=out.join('');
     svg.querySelectorAll('g.co').forEach(g=>{const c=ALL[+g.dataset.i];
-      g.addEventListener('mousemove',e=>showTip(e,`<b>${c[0]}</b> · ${ON[c[1]]}<br>${c[4]?'Pre-revenue · '+val(c):c[3]?short(c[2])+' revenue':'Revenue band: '+band(c[2])}<br>${c[6]}<br><i>Click for details</i>`));
+      g.addEventListener('mousemove',e=>showTip(e,`<b>${c[0]}</b> · ${ON[c[1]]}<br>${c[4]?'Pre-revenue · '+val(c):c[3]?short(c[2])+' revenue':'Revenue band: '+band(c[2])}${scale==='ppp'&&pppF(c)!==1?'<br>PPP-adjusted: '+(c[3]?short(V(c)):band(V(c)))+' (×'+pppF(c).toFixed(2)+')':''}<br>${c[6]}<br><i>Click for details</i>`));
       g.addEventListener('mouseleave',hideTip);
       g.addEventListener('click',()=>{pinned=pinned===+g.dataset.i?null:+g.dataset.i;draw();detail()})});
   }
@@ -1337,17 +1359,12 @@ const SROWS = [
     el.innerHTML=`<div class="top"><div><span class="pill" style="background:${OC[c[1]]};color:#fff">${ON[c[1]]}</span><h3 style="margin-top:8px">${c[0]}</h3><div class="small muted">${row.n} · ${c[5]}</div></div>
       <button onclick="this.closest('.size-detail').classList.remove('show')" style="border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit;font-size:.84rem">Close</button></div>
       <dl><div><dt>${c[4]?'Committed investment':'Revenue (approx.)'}</dt><dd>${c[4]?'₹'+fmt(c[2])+' cr':c[3]?short(c[2]):band(c[2])}</dd></div>
-      <div><dt>Status</dt><dd>${c[4]?'Under construction':'Operating'}</dd></div>
+      <div><dt>${pppF(c)!==1?'PPP-adjusted (India terms)':'Status'}</dt><dd>${pppF(c)!==1?(c[3]?short(c[2]*pppF(c)):band(c[2]*pppF(c)))+' · ×'+pppF(c).toFixed(2):c[4]?'Under construction':'Operating'}</dd></div>
       <div><dt>Stage gap</dt><dd>${g.t}</dd></div>
       <div><dt>India readiness, this layer</dt><dd>${L?L.score+'/100':'—'}</dd></div></dl>
       <p><b>Role in the phone:</b> ${c[6]}</p><p><b>India footprint:</b> ${c[7]}</p>`;
     el.classList.add('show');
   }
-  const get=n=>ALL.find(c=>c[0]===n)[2];
-  $('#sizeInsights').innerHTML=`
-    <div class="card"><b>~${Math.round(get('Qualcomm')/get('Tejas Networks'))}×</b>Qualcomm vs the largest Indian firm with modem silicon (Tejas). Pure Indian chip-design startups are thousands of times smaller.</div>
-    <div class="card"><b>${none} of ${SROWS.length}</b>sub-stages have no Indian company at all: memory, display panels, camera sensors and passives. These are the deepest import dependencies.</div>
-    <div class="card"><b>~${Math.round(get('Foxconn')/get('Tata Electronics'))}×</b>Foxconn vs Tata Electronics. Assembly is India's strongest stage, yet the global leader is still far larger.</div>`;
   const wire=(id,fn)=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);draw()});
   wire('#scaleBtns',v=>scale=v);wire('#grpBtns',v=>grp=v);
   draw();
