@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swadeshi AI Phone Tracker</title>
+<meta name="description" content="How far is India from a 100% indigenous AI smartphone? A layer-by-layer tracker of chips, components, OS, AI models, brands, investments, history and the gaps that remain.">
+<meta property="og:title" content="Swadeshi AI Phone Tracker — How Indian can an Indian AI phone be?">
+<meta property="og:description" content="Layer-by-layer readiness, companies, investments, past attempts and stop-gaps on India's road to an indigenous AI phone.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='16' y='4' width='32' height='56' rx='7' fill='%23e8772e'/><rect x='20' y='10' width='24' height='40' rx='2' fill='%23fff'/><circle cx='32' cy='30' r='6' fill='none' stroke='%231d3f8f' stroke-width='2'/></svg>">
+<style>
+:root{
+  --bg:#faf7f2; --surface:#ffffff; --surface-2:#f2ede4; --ink:#1b1a17; --ink-2:#4a463f; --ink-3:#7a7468;
+  --line:#e3dccf; --saffron:#e8772e; --saffron-soft:#fbe3d1; --green:#1f8a4c; --green-soft:#d8efe1;
+  --navy:#1d3f8f; --navy-soft:#dfe6f6; --red:#c2412d; --red-soft:#f7dcd6; --amber:#c98a12; --amber-soft:#f8ead0;
+  --track:#ece6db; --shadow:0 1px 2px rgba(30,25,15,.06),0 6px 24px rgba(30,25,15,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121210; --surface:#1b1a17; --surface-2:#24221e; --ink:#f3efe7; --ink-2:#c9c2b5; --ink-3:#958e81;
+    --line:#34312b; --saffron:#f08a45; --saffron-soft:#3b2717; --green:#3fb874; --green-soft:#16301f;
+    --navy:#7e9ce6; --navy-soft:#1c2540; --red:#ec6a55; --red-soft:#3a1d18; --amber:#e3a83a; --amber-soft:#382b12;
+    --track:#2c2a25; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121210; --surface:#1b1a17; --surface-2:#24221e; --ink:#f3efe7; --ink-2:#c9c2b5; --ink-3:#958e81;
+  --line:#34312b; --saffron:#f08a45; --saffron-soft:#3b2717; --green:#3fb874; --green-soft:#16301f;
+  --navy:#7e9ce6; --navy-soft:#1c2540; --red:#ec6a55; --red-soft:#3a1d18; --amber:#e3a83a; --amber-soft:#382b12;
+  --track:#2c2a25; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:600}
+.wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);margin-bottom:10px}
+.lede{color:var(--ink-2);max-width:760px;font-size:1.05rem;margin:14px 0 0}
+.muted{color:var(--ink-3)}
+.small{font-size:.86rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.p-red{background:var(--red-soft);color:var(--red)} .p-amber{background:var(--amber-soft);color:var(--amber)}
+.p-green{background:var(--green-soft);color:var(--green)} .p-navy{background:var(--navy-soft);color:var(--navy)}
+.p-saff{background:var(--saffron-soft);color:var(--saffron)}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.brand{font-family:Fraunces,serif;font-weight:800;font-size:1.05rem;text-decoration:none;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand i{width:10px;height:18px;border-radius:3px;background:linear-gradient(var(--saffron) 33%,#fff 33% 66%,var(--green) 66%);border:1px solid var(--line)}
+.navlinks{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;flex:1}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--ink-2);text-decoration:none;font-size:.88rem;font-weight:500;white-space:nowrap}
+.navlinks a:hover{color:var(--saffron)}
+#themeBtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;flex:none}
+
+/* hero */
+.hero{padding:56px 0 40px;border-top:none}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.4vw,3.9rem);font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--saffron)}
+.stamp{display:inline-flex;gap:8px;align-items:center;font-size:.82rem;color:var(--ink-3);margin-top:18px}
+.stamp b{color:var(--ink-2)}
+.gauge-card{padding:26px;text-align:center}
+.gauge-card .num{font-family:Fraunces,serif;font-size:3.4rem;font-weight:800;line-height:1}
+.gauge-legend{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:.8rem;color:var(--ink-2)}
+.gauge-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.stat{padding:18px}
+.stat .v{font-family:Fraunces,serif;font-weight:800;font-size:1.9rem;line-height:1.1}
+.stat .l{font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.countdown{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.countdown div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-align:center;min-width:72px}
+.countdown b{display:block;font-family:Fraunces,serif;font-size:1.6rem;line-height:1.1}
+.countdown span{font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.quote{border-left:4px solid var(--saffron);padding:6px 0 6px 16px;margin:22px 0 0;color:var(--ink-2);font-style:italic}
+
+/* stack */
+.stack-grid{display:grid;grid-template-columns:340px 1fr;gap:28px;margin-top:34px;align-items:start}
+.phone-svg{position:sticky;top:76px}
+.layer-list{display:flex;flex-direction:column;gap:10px}
+.layer{padding:14px 16px;cursor:pointer;transition:border-color .15s,transform .15s}
+.layer:hover{border-color:var(--saffron)}
+.layer.open{border-color:var(--saffron);box-shadow:0 0 0 3px var(--saffron-soft),var(--shadow)}
+.layer-head{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
+.layer-name{font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.layer-score{font-family:Fraunces,serif;font-weight:800;font-size:1.35rem}
+.bar{grid-column:1/-1;height:10px;background:var(--track);border-radius:99px;overflow:hidden;position:relative}
+.bar>i{position:absolute;inset:0 auto 0 0;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.layer-sub{grid-column:1/-1;font-size:.86rem;color:var(--ink-2)}
+.layer-body{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:.93rem}
+.layer.open .layer-body{display:block}
+.lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lb-grid h4{margin:0 0 6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.lb-grid ul{margin:0;padding-left:18px}
+.lb-grid li{margin:3px 0}
+.gap-box{background:var(--red-soft);border-radius:10px;padding:10px 12px;margin-top:12px}
+.gap-box b{color:var(--red)}
+.fix-box{background:var(--green-soft);border-radius:10px;padding:10px 12px;margin-top:8px}
+.fix-box b{color:var(--green)}
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-2);margin-top:18px}
+.legend-row span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px;background:var(--c)}
+
+/* bom */
+.bom{margin-top:30px;padding:24px}
+.bom-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;margin:14px 0}
+.bom-row .lbl{font-weight:600;font-size:.9rem}
+.bom-bar{display:flex;height:44px;border-radius:10px;overflow:hidden;background:var(--track)}
+.bom-seg{position:relative;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;border-right:2px solid var(--surface);overflow:hidden;cursor:default;min-width:0}
+.bom-seg span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.bom-seg .fill{position:absolute;left:0;bottom:0;height:100%;background:rgba(255,255,255,.0)}
+.bom-key{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px;font-size:.82rem;color:var(--ink-2)}
+.bom-key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:var(--c)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;padding:8px 10px;border-radius:8px;max-width:260px;z-index:50;opacity:0;transition:opacity .1s}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.note{padding:18px}
+
+/* gaps */
+.gaps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.gap{padding:18px 18px 16px;position:relative}
+.gap .rank{position:absolute;top:14px;right:16px;font-family:Fraunces,serif;font-weight:800;font-size:1.8rem;color:var(--line)}
+.gap h3{padding-right:40px;margin-bottom:6px}
+.gap p{margin:6px 0;font-size:.92rem;color:var(--ink-2)}
+.gap .stop{font-size:.88rem;background:var(--surface-2);border-radius:8px;padding:8px 10px;margin-top:10px}
+.gap .stop b{color:var(--green)}
+.sev{display:flex;gap:3px;margin-bottom:8px}
+.sev i{width:18px;height:6px;border-radius:3px;background:var(--track)}
+.sev i.on{background:var(--red)}
+
+/* money */
+.money-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+.chart{padding:22px}
+.chart h3{margin-bottom:4px}
+.hbar{display:grid;grid-template-columns:205px 1fr 80px;gap:10px;align-items:center;margin:9px 0;font-size:.86rem}
+.hbar .t{height:16px;background:var(--track);border-radius:4px;overflow:hidden}
+.hbar .t i{display:block;height:100%;border-radius:4px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.hbar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.hbar .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:700}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.table-wrap{overflow-x:auto;margin-top:20px}
+
+/* players */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.filters button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:6px 12px;border-radius:999px;font:inherit;font-size:.84rem;cursor:pointer}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.players{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.player{padding:14px 16px}
+.player .top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.player h3{font-family:Inter,sans-serif;font-size:.98rem;font-weight:700}
+.player p{margin:6px 0 0;font-size:.86rem;color:var(--ink-2)}
+.player .meta{font-size:.78rem;color:var(--ink-3);margin-top:8px}
+
+/* timeline */
+.timeline{position:relative;margin-top:34px;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.era{font-family:Fraunces,serif;font-weight:800;font-size:1.05rem;margin:28px 0 10px;color:var(--ink-2)}
+.ev{position:relative;margin:0 0 14px;padding:12px 16px}
+.ev::before{content:"";position:absolute;left:-26px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--navy));border:3px solid var(--bg)}
+.ev .yr{font-weight:800;font-variant-numeric:tabular-nums;margin-right:8px}
+.ev p{margin:4px 0 0;font-size:.9rem;color:var(--ink-2)}
+
+/* attempts */
+.attempts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.attempt{padding:18px}
+.attempt .hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.attempt p{font-size:.9rem;color:var(--ink-2);margin:8px 0 0}
+.attempt .lesson{margin-top:10px;font-size:.86rem;border-top:1px dashed var(--line);padding-top:8px}
+.attempt .lesson b{color:var(--saffron)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.stage{padding:18px;border-top:5px solid var(--c)}
+.stage .when{font-family:Fraunces,serif;font-weight:800;font-size:1.4rem}
+.stage ul{padding-left:18px;margin:10px 0 0;font-size:.88rem;color:var(--ink-2)}
+.stage li{margin:4px 0}
+.check{list-style:none;padding:0;margin:16px 0 0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.check .ic{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:800;color:#fff}
+
+/* progress line */
+.pline{display:flex;gap:4px;margin-top:28px;height:34px}
+.pseg{flex:1;border-radius:6px;border:1.5px solid var(--green);cursor:pointer;position:relative;transition:transform .15s}
+.pseg:hover,.pseg.hl{transform:translateY(-3px)}
+.pseg.done{background:var(--green)}
+.pseg.prog{background:repeating-linear-gradient(-45deg,var(--green) 0 5px,var(--green-soft) 5px 10px)}
+.pseg.pend{background:#fff;border-color:var(--line)}
+.pline-scale{display:flex;justify-content:space-between;font-size:.76rem;color:var(--ink-3);margin-top:8px}
+.pline-sum{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-size:.92rem;align-items:center}
+.pline-sum b{font-family:Fraunces,serif;font-size:1.5rem;margin-right:6px}
+.pline-sum span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-2px;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.mcols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.mcol{padding:16px 18px}
+.mcol h3{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.mcol ol{margin:0;padding-left:0;list-style:none;font-size:.88rem}
+.mcol li{display:flex;gap:10px;padding:6px 4px;border-bottom:1px solid var(--line)}
+.mcol li:last-child{border-bottom:none}
+.mcol li.hl{background:var(--surface-2);border-radius:6px}
+.mcol .no{flex:none;width:24px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:.72rem;font-weight:800}
+.mcol .yr{color:var(--ink-3);font-size:.78rem}
+
+/* opportunities */
+.opps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.opp{padding:20px;display:flex;flex-direction:column}
+.opp .hd{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.opp .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.opp p{font-size:.9rem;color:var(--ink-2);margin:8px 0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.facts div{background:var(--surface-2);border-radius:8px;padding:8px 10px;font-size:.78rem;color:var(--ink-3)}
+.facts b{display:block;color:var(--ink);font-size:.9rem}
+.cands h4{margin:10px 0 6px;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.cand{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-top:1px dashed var(--line);font-size:.87rem}
+.cand b{flex:none;width:170px}
+.cand span{color:var(--ink-2)}
+.first{margin-top:auto;padding-top:12px}
+.first div{background:var(--green-soft);border-radius:8px;padding:9px 12px;font-size:.86rem}
+.first b{color:var(--green)}
+.diy{margin-top:20px;padding:22px}
+.diy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px}
+.diy-grid div{font-size:.87rem;color:var(--ink-2)}
+.diy-grid b{display:block;color:var(--ink);margin-bottom:4px}
+@media (max-width:980px){.mcols,.diy-grid{grid-template-columns:1fr 1fr}.opps{grid-template-columns:1fr}}
+@media (max-width:640px){.mcols,.diy-grid,.facts{grid-template-columns:1fr}.pline{gap:2px;height:28px}.pseg{border-radius:3px}.cand{flex-direction:column;gap:2px}.cand b{width:auto}}
+
+/* sources */
+.sources{columns:2;column-gap:32px;margin-top:24px;font-size:.86rem;padding-left:18px}
+.sources li{break-inside:avoid;margin:0 0 8px}
+footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-3)}
+
+@media (max-width:980px){
+  .hero-grid,.stack-grid,.money-grid,.split2{grid-template-columns:1fr}
+  .phone-svg{position:static;max-width:320px;margin:0 auto}
+  .players{grid-template-columns:repeat(2,1fr)}
+  .road{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  section{padding:48px 0}
+  .gaps,.attempts,.players,.road,.lb-grid{grid-template-columns:1fr}
+  .bom-row{grid-template-columns:1fr;gap:6px}
+  .hbar{grid-template-columns:110px 1fr 70px;font-size:.8rem}
+  .sources{columns:1}
+  .gauge-card .num{font-size:2.8rem}
+  #bomCost .bom-seg span{display:none}
+  #bomOwn .bom-seg span{font-size:.62rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <a class="brand" href="#top"><i></i>Swadeshi AI Phone</a>
+  <div class="navlinks">
+    <a href="#progress">Progress</a><a href="#stack">The stack</a><a href="#value">Value</a><a href="#gaps">Stop-gaps</a><a href="#next">Up for grabs</a><a href="#money">Investment</a>
+    <a href="#players">Companies</a><a href="#history">History</a><a href="#attempts">Past attempts</a><a href="#roadmap">Roadmap</a><a href="#sources">Sources</a>
+  </div>
+  <button id="themeBtn" aria-label="Toggle theme">◐</button>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="kicker">Project Sprint · India deep-tech tracker</div>
+      <h1>How far is India from a <em>100% indigenous</em> AI phone?</h1>
+      <p class="lede">A smartphone is a stack of a dozen technologies — chip, modem, memory, display, camera, battery, board, body, factory, operating system, AI models and a brand. India is world-class at some, absent from others. This tracker scores each layer, names the companies and the money behind them, and lists exactly what still blocks a phone that is Indian all the way down.</p>
+      <blockquote class="quote">“This is 23 October 2026. Please note it: 23 October 2028. You will have Indian-designed, Indian-manufactured, Indian-branded mobile phones.”<br><span class="small muted" style="font-style:normal">— Ashwini Vaishnaw, Union Minister for Electronics &amp; IT, New Delhi</span></blockquote>
+      <div class="countdown" id="countdown" aria-label="Countdown to 23 October 2028"></div>
+      <div class="stamp">Data as of <b>27 Oct 2026</b> · readiness scores are editorial estimates, see <a href="#method">method</a></div>
+    </div>
+    <div class="card gauge-card">
+      <div class="kicker" style="margin-bottom:4px">Indigenous share of an Indian AI phone</div>
+      <svg id="gauge" viewBox="0 0 300 180" width="100%" role="img" aria-label="Gauge"></svg>
+      <div class="num" id="gaugeNum">0%</div>
+      <div class="small muted">by bill-of-materials value, Indian-owned technology</div>
+      <div class="gauge-legend">
+        <span style="--c:var(--green)">Indian-owned</span>
+        <span style="--c:var(--amber)">Made in India, foreign IP</span>
+        <span style="--c:var(--track)">Imported</span>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="card stat"><div class="v" style="color:var(--green)">#2</div><div class="l">India's rank among the world's phone manufacturers</div></div>
+    <div class="card stat"><div class="v" style="color:var(--amber)">25–28%</div><div class="l">Domestic value addition in phones made in India (official est.)</div></div>
+    <div class="card stat"><div class="v" style="color:var(--saffron)">7%</div><div class="l">Indian brands' share of India's market, Q3 2026 (2% a year earlier)</div></div>
+    <div class="card stat"><div class="v" style="color:var(--red)">0</div><div class="l">Indian-designed smartphone processors or cellular modems in mass production</div></div>
+  </div>
+</div></header>
+
+<section id="progress"><div class="wrap">
+  <div class="kicker">00 · Progress line</div>
+  <h2>25 milestones to a fully Indian AI phone</h2>
+  <p class="lede">Every block is one milestone, in rough order of difficulty, from easiest on the left to hardest on the right. <b style="color:var(--green)">Green</b> is done, <b>striped</b> is under way, <b>white</b> is not yet started. Hover or tap a block to see it.</p>
+  <div class="pline" id="pline" role="img" aria-label="Milestone progress bar"></div>
+  <div class="pline-scale"><span>← Easier · software, assembly</span><span>Harder · silicon, fabs →</span></div>
+  <div class="pline-sum" id="plineSum"></div>
+  <div class="mcols" id="mcols"></div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+  <div class="kicker">01 · The stack</div>
+  <h2>Layer by layer: where India stands</h2>
+  <p class="lede">Each bar is how much of that layer is Indian-owned today — design IP, fabrication and control — not merely assembled here. Tap any layer for the companies, the money, the blocker and the realistic stop-gap.</p>
+  <div class="legend-row">
+    <span style="--c:var(--red)">0–20 · Absent / dependent</span>
+    <span style="--c:var(--amber)">21–50 · Emerging</span>
+    <span style="--c:var(--green)">51–100 · Capable</span>
+  </div>
+  <div class="stack-grid">
+    <div class="phone-svg card" style="padding:18px"><svg id="phone" viewBox="0 0 300 560" width="100%" role="img" aria-label="Exploded phone diagram"></svg>
+      <p class="small muted" style="text-align:center;margin:6px 0 0">Exploded view — colour = readiness. Click a part.</p></div>
+    <div class="layer-list" id="layers"></div>
+  </div>
+</div></section>
+
+<section id="value"><div class="wrap">
+  <div class="kicker">02 · Where the money in a phone goes</div>
+  <h2>Assembled in India ≠ Indian</h2>
+  <p class="lede">An indicative bill of materials for a ₹20,000 AI-capable Android phone. The top bar is what each part costs; the bottom bar shows how much of that value is Indian-owned, merely made in India, or imported. The chip and memory alone are ~40% of the phone — and both are almost entirely imported.</p>
+  <div class="card bom">
+    <div class="bom-row"><div class="lbl">Cost share by part</div><div class="bom-bar" id="bomCost"></div></div>
+    <div class="bom-row"><div class="lbl">Who owns that value</div><div class="bom-bar" id="bomOwn"></div></div>
+    <div class="bom-key" id="bomKey"></div>
+  </div>
+  <div class="split2">
+    <div class="card note"><h3>Why official “value addition” looks higher</h3><p class="small" style="color:var(--ink-2)">The government's 25–28% domestic value addition counts work done in India — assembly, testing, locally made chargers, enclosures and packaging — regardless of who owns the technology. Our ~<b id="ownedTxt">18</b>% counts only value from Indian-owned design and production. Both are correct; they answer different questions.</p></div>
+    <div class="card note"><h3>What the 2028 target actually requires</h3><p class="small" style="color:var(--ink-2)">“Indian-designed, Indian-manufactured, Indian-branded” means owning the phone's <b>system design</b> (board, industrial design, software) and the <b>brand</b>, plus building it here. It does <b>not</b> require an Indian processor, modem, memory or OS — which is why it is achievable by 2028 while a fully indigenous phone is not.</p></div>
+  </div>
+</div></section>
+
+<section id="gaps"><div class="wrap">
+  <div class="kicker">03 · Stop-gaps</div>
+  <h2>What is blocking a fully Indian AI phone right now</h2>
+  <p class="lede">Ranked by how hard each gap is to close. Severity bars reflect capital needed, time to close and how concentrated the global supply is. Each comes with the realistic interim workaround.</p>
+  <div class="gaps" id="gapList"></div>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <div class="kicker">03b · Up for grabs</div>
+  <h2>The next pending stages anyone ambitious could take up</h2>
+  <p class="lede">These are the next white blocks on the progress line, ordered by what is closest to reach. For each we list what it takes, which schemes already fund it, and who looks capable of doing it. <b>The candidates are our suggestions based on existing capability, not announced plans.</b></p>
+  <div class="opps" id="opps"></div>
+  <div class="card diy">
+    <h3>Not a conglomerate? Ways a startup, college or individual can help</h3>
+    <div class="diy-grid">
+      <div><b>Build on RISC-V</b>Contribute to the open Shakti and VEGA cores, or tape out a small chip through ISM's ChipIN centre and C-DAC's design tools.</div>
+      <div><b>Indian-language data</b>Contribute speech and text datasets to AIKosh. On-device models are only as good as their data from Indian dialects.</div>
+      <div><b>Apps for an Indian Android</b>Publish on Indus Appstore and avoid hard dependencies on Google Play Services, so apps run on de-Googled phones.</div>
+      <div><b>Fund &amp; buy</b>Back deep-tech founders, and buy Indian-brand phones. Volume is what lets Indian brands negotiate chip supply.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="money"><div class="wrap">
+  <div class="kicker">04 · Investment</div>
+  <h2>The money: government schemes and private bets</h2>
+  <p class="lede">India has committed well over ₹4 lakh crore across schemes that touch the phone stack. Most of it funds manufacturing and mature-node chips — very little goes to the leading-edge processor, modem and OS layers where the dependence is greatest.</p>
+  <div class="money-grid">
+    <div class="card chart"><h3>Government schemes (₹ crore outlay)</h3><p class="small muted">Approved outlays; disbursement is lower and phased.</p><div id="schemeChart"></div></div>
+    <div class="card chart"><h3>Approved chip projects (₹ crore investment)</h3><p class="small muted">India Semiconductor Mission projects relevant to electronics. 50% of project cost is central support.</p><div id="ismChart"></div></div>
+  </div>
+  <div class="table-wrap card" style="padding:6px 8px">
+    <table>
+      <thead><tr><th>Chip project</th><th>Location</th><th>Type</th><th>Relevance to a phone</th><th style="text-align:right">₹ crore</th></tr></thead>
+      <tbody id="ismTable"></tbody>
+    </table>
+  </div>
+</div></section>
+
+<section id="players"><div class="wrap">
+  <div class="kicker">05 · Companies</div>
+  <h2>Who is building which layer</h2>
+  <p class="lede">Indian-owned firms and the foreign firms building in India. Ownership matters: Samsung's Noida factory is huge, but the IP stays in Korea.</p>
+  <div class="filters" id="filters"></div>
+  <div class="players" id="playerList"></div>
+</div></section>
+
+<section id="history"><div class="wrap">
+  <div class="kicker">06 · History</div>
+  <h2>Forty years of trying: 1984 → 2028</h2>
+  <p class="lede">India almost built a chip industry in the 1980s, briefly owned its own phone market in 2014, and lost both. The current push is the largest and best-funded yet.</p>
+  <div class="timeline" id="timeline"></div>
+</div></section>
+
+<section id="attempts"><div class="wrap">
+  <div class="kicker">07 · Past attempts</div>
+  <h2>What was tried, what happened, what it taught</h2>
+  <div class="attempts" id="attemptList"></div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <div class="kicker">08 · Roadmap</div>
+  <h2>How far, realistically?</h2>
+  <p class="lede">Our assessment of when each level of “indigenous” becomes realistic, given current projects, funding and global supply chains.</p>
+  <div class="road">
+    <div class="card stage" style="--c:var(--green)"><div class="pill p-green">Level 1</div><div class="when">2027–28</div><h3>Designed, made &amp; branded in India</h3><ul><li>Indian-owned board design, industrial design, software</li><li>Assembled under MPMS; Indian brand sells it</li><li>Indian on-device AI (Sarvam Edge-class) for 22 languages</li><li>Foreign SoC, modem, memory, Android</li></ul><p class="small"><b>~20–25% Indian-owned value.</b> On track — the government's stated target.</p></div>
+    <div class="card stage" style="--c:var(--amber)"><div class="pill p-amber">Level 2</div><div class="when">2029–31</div><h3>Indian chips around the processor</h3><ul><li>Power-management, display-driver, audio, sensor-hub chips designed in India, made at Tata Dholera (28–110 nm)</li><li>Memory packaged at Micron Sanand / Tata Assam</li><li>Display &amp; camera modules with Indian sub-components</li></ul><p class="small"><b>~30–35% Indian-owned value.</b> Plausible if Dholera ramps on time.</p></div>
+    <div class="card stage" style="--c:var(--saffron)"><div class="pill p-saff">Level 3</div><div class="when">2031–35</div><h3>Indian-designed AI processor</h3><ul><li>Indian SoC with own NPU, on licensed Arm or RISC-V cores, fabbed at TSMC/Samsung</li><li>Indian 4G/5G modem (licensed patents)</li><li>Hardened AOSP fork with Indian app store &amp; services</li></ul><p class="small"><b>~50–60% Indian-owned value.</b> Needs a ₹10,000+ cr, decade-long fabless champion.</p></div>
+    <div class="card stage" style="--c:var(--red)"><div class="pill p-red">Level 4</div><div class="when">2035+ / maybe never</div><h3>100% indigenous</h3><ul><li>Leading-edge (≤5 nm) fab in India</li><li>Indian DRAM/NAND, OLED panels, image sensors, battery cells</li><li>Independent OS ecosystem</li></ul><p class="small"><b>No country does this alone</b> — not the US, China or Korea. A goal of “Indian-controlled”, not “100% Indian”, is the realistic target.</p></div>
+  </div>
+  <div class="card" style="padding:22px;margin-top:20px">
+    <h3>October 2028 checklist</h3>
+    <ul class="check" id="checklist"></ul>
+  </div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="kicker">09 · Method &amp; sources</div>
+  <h2 id="method">How we scored this</h2>
+  <p class="lede">Each layer is scored 0–100 for Indian ownership of design IP, fabrication capability and supply control, based on the public record as of 27 October 2026. The headline figure weights each layer by its indicative share of a mid-range phone's bill of materials. Scores and BoM shares are editorial estimates meant to compare layers, not official statistics. Corrections welcome.</p>
+  <ol class="sources">
+    <li>Light Reading — “India targets homegrown smartphone brand by October 2028” (Oct 2026). <a href="https://www.lightreading.com/smartphones-devices/india-targets-homegrown-smartphone-brand-by-october-2028">link</a></li>
+    <li>PIB — Government notifies ₹62,500 cr Mobile Phone Manufacturing Scheme (21 Aug 2026). <a href="https://www.pib.gov.in">pib.gov.in</a></li>
+    <li>PM India — Cabinet approves MPMS (15 Jul 2026). <a href="https://www.pmindia.gov.in">pmindia.gov.in</a></li>
+    <li>Counterpoint Research — India smartphone market Q3 2026: market −20% YoY; Indian brands 2% → 7%. <a href="https://counterpointresearch.com">counterpointresearch.com</a></li>
+    <li>India Semiconductor Mission — Semicon 2.0, ₹1,27,500 cr outlay; Semicon 1.0 schemes. <a href="https://www.ism.gov.in/investment/details">ism.gov.in</a></li>
+    <li>Adda247 — Semiconductor plants in India 2026: complete list (Aug 2026). <a href="https://currentaffairs.adda247.com/semiconductor-plants-in-india-2026-complete-list-locations-and-manufacturing-details/">link</a></li>
+    <li>Tata Electronics — Semiconductor foundry: 50,000 wafers/month, 28–110 nm. <a href="https://www.tataelectronics.com/semiconductor-foundry">link</a></li>
+    <li>India Today — Tata Dholera to start with 55/90 nm, then 28 nm (Jul 2026); sir-dholera.com — ~50% civil completion.</li>
+    <li>Micron Investor Relations — Opening of Sanand ATMP (Feb 2026). <a href="https://investors.micron.com">investors.micron.com</a></li>
+    <li>PIB — ECMS: 106 projects, ₹69,548 cr approved investment, 15 states (Sep 2026); camera-module approval to SkyQuad (Aug 2026).</li>
+    <li>Vision IAS — Union Budget 2026–27 raises ECMS outlay to ₹40,000 cr.</li>
+    <li>Sarvam AI — Sarvam Edge on-device models (&lt;1 GB, 22+ languages); Sarvam 105B. <a href="https://www.sarvam.ai/products/edge">sarvam.ai</a></li>
+    <li>PIB / Digital India — IndiaAI Mission: 38,000+ GPUs onboarded; ThePrint — ₹1,058 cr compute subsidy to 9 model builders.</li>
+    <li>The Hindu — Netrasemi unveils A2000 AI SoC (May 2026). <a href="https://www.thehindu.com">thehindu.com</a></li>
+    <li>SEMICON India 2026 (PIB, Sep 2026) — C-DAC &amp; IndieSemiC ISC-VEGA-SOM system-on-module.</li>
+    <li>Wikipedia — BharOS (Android-based, IIT Madras / JandK Operations, 2023). <a href="https://en.wikipedia.org/wiki/BharOS">link</a></li>
+    <li>Ai+ / NxtQuantum — “Built in India, powered by NxtQuantum OS”. <a href="https://aiplusstore.com/pages/about-us">link</a></li>
+    <li>WION — “India is yet to build its first fully indigenous computer or mobile phone” (Jun 2026).</li>
+    <li>NITI Aayog — Future of India's Semiconductor Industry (May 2026). <a href="https://niti.gov.in">niti.gov.in</a></li>
+    <li>Historical: Canalys (Micromax #1/#2 in India, 2014); MeitY PLI for Large Scale Electronics Manufacturing (Apr 2020); Union Cabinet ISM approval (Dec 2021); Vedanta–Foxconn JV and Foxconn exit (Jul 2023); IndiaAI Mission approval (Mar 2024).</li>
+  </ol>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Swadeshi AI Phone Tracker</b> · A Project Sprint research page · projectsprint.vokalglobe.com</p>
+  <p>Independent analysis. Figures in ₹ crore unless noted; 1 lakh crore = ₹1 trillion ≈ US$11–12 bn. Readiness scores are editorial judgements. Last updated 27 Oct 2026.</p>
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+// ---------- data ----------
+const LAYERS = [
+  {id:'soc', name:'Processor (SoC) + AI engine (NPU)', score:4, weight:24, made:0,
+   sub:'The brain. Every phone sold in India runs a Qualcomm, MediaTek, Apple, Samsung or Unisoc chip.',
+   india:['Large design centres of Qualcomm, MediaTek, Intel, AMD, Nvidia in Bengaluru/Hyderabad design parts of global chips — IP owned abroad','Shakti (IIT Madras) and VEGA (C-DAC) RISC-V cores — embedded/IoT class','Mindgrove Technologies — Secure IoT, India\'s first commercial Indian-designed SoC (28 nm)','Netrasemi A2000 edge-AI SoC with in-house NPU (May 2026, Zoho-backed)','ISC-VEGA-SOM system-on-module (C-DAC + IndieSemiC, SEMICON India 2026)'],
+   money:['Design Linked Incentive (DLI) scheme under ISM','Semicon 2.0 pillar 1: “Design of chips” (₹1,27,500 cr total outlay)'],
+   gap:'No Indian application processor anywhere near smartphone class (multi-core 3–5 nm CPU + GPU + NPU + ISP). Leading-edge fabrication exists only at TSMC, Samsung and Intel.',
+   fix:'Go fabless: an Indian SoC on licensed Arm or RISC-V cores, own NPU and ISP, manufactured at TSMC. Ship first in a mid-range phone where 6–7 nm is acceptable.'},
+  {id:'modem', name:'Cellular modem & RF', score:4, weight:6, made:0,
+   sub:'4G/5G connectivity — dominated by Qualcomm and MediaTek patents.',
+   india:['Signalchip (Bengaluru) — India\'s first indigenous 4G/LTE modem chips (Agumbe series, 2017)','Saankhya Labs (now Tejas Networks) — broadcast & 5G baseband SoCs','C-DOT + TCS + Tejas — indigenous 4G/5G network stack for BSNL (network side, not handset)'],
+   money:['Telecom PLI; DLI scheme'],
+   gap:'No Indian handset modem in production. Thousands of 3GPP standard-essential patents must be licensed; certification with every carrier takes years.',
+   fix:'Use an integrated SoC modem from a partner; in parallel fund a Signalchip-style 4G/5G modem for feature phones and IoT first, then phones.'},
+  {id:'mem', name:'Memory (DRAM / NAND)', score:12, weight:18, made:35,
+   sub:'RAM and storage — Samsung, SK hynix, Micron, Kioxia and China\'s YMTC/CXMT.',
+   india:['Micron Sanand ATMP (₹22,516 cr) — assembles &amp; tests DRAM/NAND from imported wafers; shipping globally since Sep 2026','Tata Semiconductor Assembly &amp; Test, Assam (₹27,120 cr) — advanced packaging'],
+   money:['ISM 50% fiscal support on ATMP/OSAT projects'],
+   gap:'No memory wafer fab in India. The 2026 memory price spike pushed India\'s smartphone market down 20% in Q3 — proof of the exposure.',
+   fix:'Long-term supply contracts plus local packaging. A memory fab is a US$15–20 bn bet — only viable with a global partner.'},
+  {id:'disp', name:'Display', score:12, weight:13, made:40,
+   sub:'OLED/LCD panels come from Samsung Display, BOE, LG, Tianma, Visionox.',
+   india:['Samsung Display Noida — display module assembly','HCL–Foxconn JV, Jewar (₹3,706 cr) — display driver ICs','ECMS: display-module sub-assembly approvals'],
+   money:['Semicon 1.0 display-fab scheme (50% support) — no taker yet','ECMS (₹40,000 cr outlay after Budget 2026–27)'],
+   gap:'No display panel fab. Vedanta\'s AMOLED fab plan never materialised.',
+   fix:'Local module assembly and Indian-designed driver ICs now; court a Korean/Japanese panel maker for a Gen-6 OLED fab under ISM.'},
+  {id:'cam', name:'Camera', score:12, weight:9, made:35,
+   sub:'Image sensors from Sony, Samsung, OmniVision; lenses from Sunny, Largan.',
+   india:['ECMS camera-module sub-assembly approvals (e.g. SkyQuad Electronics, Aug 2026)','Module assembly by contract manufacturers for Apple/Samsung'],
+   money:['ECMS'],
+   gap:'No Indian image-sensor design or fab; lens and actuator supply chain is in China/Taiwan/Japan.',
+   fix:'Indian ISP (image processing) and camera AI software — software is where a brand differentiates anyway.'},
+  {id:'bat', name:'Battery', score:20, weight:4, made:60,
+   sub:'Li-ion polymer cells mostly from ATL, Sunwoda, Desay (China).',
+   india:['Pack assembly in India (e.g. ATL/TDK in Haryana, Sunwoda)','Chargers and adapters are largely made in India'],
+   money:['ACC battery PLI (₹18,100 cr) — aimed at EV/grid cells, not phone pouch cells'],
+   gap:'Cells — the chemistry and electrode — are imported.',
+   fix:'Extend battery incentives to consumer pouch cells; partner with a Japanese/Korean cell maker.'},
+  {id:'pcb', name:'Circuit boards & passives', score:30, weight:8, made:55,
+   sub:'Multilayer HDI boards, copper-clad laminate, capacitors, resistors, inductors.',
+   india:['Indian firms design phone boards — per the minister, one Indian-designed 5G handset board was picked by a major US carrier and is shipping','ECMS approvals for PCBs, copper-clad laminates and passives (106 projects, ₹69,548 cr)','Kaynes, Dixon and other EMS firms in board assembly'],
+   money:['ECMS — 106 projects / ₹69,548 cr approved investment across 15 states (Aug 2026)'],
+   gap:'HDI board fabrication and multi-layer ceramic capacitors (MLCCs) still largely imported.',
+   fix:'ECMS ramps through 2027–28; board design is already an Indian strength — make it the core of the 2028 phone.'},
+  {id:'mech', name:'Enclosure & mechanicals', score:55, weight:7, made:80,
+   sub:'Frames, glass, buttons, speakers, haptics.',
+   india:['Tata Electronics (Hosur) — iPhone enclosures','Domestic sourcing of chargers, cables, packaging, plastics'],
+   money:['MPMS +1.5% incentive for domestic sourcing of key components'],
+   gap:'Cover glass and precision metals still imported.',
+   fix:'Already improving — MPMS pays extra for local sourcing.'},
+  {id:'asm', name:'Assembly, test & manufacturing', score:85, weight:4, made:100,
+   sub:'India is the world\'s No. 2 phone producer.',
+   india:['Dixon Technologies, Lava, Optiemus, Bhagwati (Indian-owned EMS)','Tata Electronics — iPhone assembly (ex-Wistron, Pegatron India)','Foxconn, Samsung Noida (one of the world\'s largest phone factories)'],
+   money:['PLI for Large Scale Electronics Manufacturing (₹40,951 cr, 2020)','MPMS (₹62,500 cr, FY2026–27 to FY2030–31) — target ₹15 lakh cr production'],
+   gap:'Scale is there; the factories mostly build foreign brands.',
+   fix:'MPMS pays Indian brands a 5% incentive — channel capacity to Indian-designed phones.'},
+  {id:'os', name:'Operating system', score:8, weight:4, made:0,
+   sub:'Android (Google) or iOS. Every “Indian OS” so far is an Android fork.',
+   india:['BharOS (IIT Madras-incubated JandK Operations, 2023) — de-Googled AOSP; no mass-market phone ships it','NxtQuantum OS on Ai+ phones — Android-based, “governed by Indian laws”','Indus Appstore (PhonePe, 2024) — an Indian Android app store'],
+   money:['No dedicated public funding at scale'],
+   gap:'A new OS without apps fails (Windows Phone, Tizen, Firefox OS, KaiOS-on-smartphones). Google Mobile Services licensing gives Google control over distribution.',
+   fix:'A hardened AOSP fork + Indus Appstore + Indian default services. Independence through the app layer, not a from-scratch kernel.'},
+  {id:'ai', name:'AI models & on-device intelligence', score:60, weight:3, made:100,
+   sub:'The “AI” in an AI phone — speech, translation, assistant, camera AI.',
+   india:['Sarvam AI — Sarvam Edge on-device ASR, translation &amp; TTS for 22+ languages in under 1 GB; Sarvam 105B sovereign model','BharatGen (IIT Bombay-led consortium) — Param models','Krutrim (Ola), Soket AI, Gnani.ai, CoRover BharatGPT','IndiaAI Mission: 38,000+ GPUs onboarded; ₹1,058 cr compute subsidy to 9 model builders'],
+   money:['IndiaAI Mission (₹10,372 cr, 2024)'],
+   gap:'Models are competitive for Indian languages, but run on foreign NPUs; frontier reasoning still trails US/China.',
+   fix:'Ship Indian models as default assistant in Indian-brand phones — this is India\'s strongest layer today.'},
+  {id:'brand', name:'Brand, design & distribution', score:25, weight:0, made:0,
+   sub:'Not part of the bill of materials, but where the profit and control sit.',
+   india:['Lava (Agni series, in-house R&amp;D)','Ai+ / NxtQuantum (Madhav Sheth, launched Jul 2025; 2 mn units in 10 months)','Micromax, Karbonn, Intex — once dominant, now marginal','Indian brands: 2% → 7% share (Q3 2025 → Q3 2026)'],
+   money:['MPMS: 5% incentive for Indian brands + additional incentives for domestic design'],
+   gap:'Chinese brands still hold ~67–68% of the market; Samsung leads at 17%. After-sales networks and R&amp;D budgets are thin.',
+   fix:'Use the Q3 2026 window when Chinese brands lost share; MPMS support + government procurement for early volume.'}
+];
+const GAPS = [
+  {t:'No smartphone-class processor', sev:5, d:'India has world-class chip-design talent but it works for foreign companies. No Indian firm has taped out a phone application processor. Leading-edge (3–5 nm) fabs exist only in Taiwan, Korea and the US.', s:'Fabless model: Indian SoC on licensed Arm/RISC-V, fabbed at TSMC. Interim: buy MediaTek/Qualcomm, own everything around it.'},
+  {t:'No cellular modem', sev:5, d:'4G/5G modems are a patent fortress (Qualcomm, Huawei, Ericsson, Nokia). Even Apple took years to replace Qualcomm.', s:'License integrated modem in partner SoC; build Indian 4G modem for feature phones and IoT first (Signalchip lineage).'},
+  {t:'No memory fab', sev:5, d:'DRAM and NAND are an oligopoly. India only packages memory (Micron Sanand). The 2026 memory price spike shrank the Indian market 20% in one quarter.', s:'Long-term supply agreements; scale Micron/Tata packaging; pursue a memory fab only with a global partner.'},
+  {t:'No leading-edge fab', sev:5, d:'Tata–PSMC Dholera (₹91,526 cr) will make 28–110 nm chips — good for power, display-driver and microcontroller chips, two generations behind phone processors. First chips slipping past Dec 2026.', s:'Use Dholera for the chips around the SoC (PMIC, DDIC, audio, sensors). Leading edge stays offshore through the 2030s.'},
+  {t:'Operating system dependency', sev:4, d:'Every “Indian OS” is Android underneath. Google controls Play Services, which most apps need.', s:'Hardened AOSP fork + Indus Appstore + Indian default apps and AI assistant.'},
+  {t:'Display panels & image sensors', sev:4, d:'No panel fab and no image-sensor maker. India assembles modules only.', s:'ECMS module assembly now; Indian-designed display driver ICs (HCL–Foxconn); invite a Korean/Japanese OLED fab.'},
+  {t:'Thin brand share & R&D budgets', sev:3, d:'Indian brands hold 7%. Past champions (Micromax, Karbonn, Intex) lost to Chinese brands on R&D, scale and after-sales.', s:'MPMS 5% brand incentive, export push, government and enterprise procurement for volume.'},
+  {t:'Battery cells', sev:3, d:'Packs are assembled here; cells and electrode materials are imported.', s:'Extend cell PLI to consumer pouch cells; JV with ATL/Samsung SDI-class makers.'},
+  {t:'Design IP ownership', sev:3, d:'India designs for the world but owns little IP. Only one Indian-designed handset board has shipped at scale (to a US carrier).', s:'MPMS rewards Indian design; DLI for chip IP; make Indian IP ownership the metric, not assembly volume.'},
+  {t:'Execution & timelines', sev:2, d:'History of announced fabs that never happened (2007, 2013–14, Vedanta–Foxconn 2022–23). Dholera timing already slipping.', s:'Milestone-linked disbursal; publish progress dashboards; avoid single-partner dependency.'}
+];
+const SCHEMES = [
+  ['Semicon 2.0 (ISM)',127500,'var(--navy)'],
+  ['Semicon India 1.0 (ISM)',76000,'var(--navy)'],
+  ['Mobile Phone Mfg Scheme',62500,'var(--saffron)'],
+  ['PLI – Large Scale Electronics',40951,'var(--saffron)'],
+  ['Electronics Components (ECMS)',40000,'var(--amber)'],
+  ['ACC Battery PLI',18100,'var(--amber)'],
+  ['IndiaAI Mission',10372,'var(--green)']
+];
+const ISM = [
+  ['Tata Electronics + PSMC','Dholera, Gujarat','Fab, 28–110 nm','PMIC, display driver, MCU-class chips',91526],
+  ['Tata Semiconductor Assembly & Test','Morigaon, Assam','OSAT','Packaging incl. advanced packages',27120],
+  ['Micron Technology','Sanand, Gujarat','ATMP','DRAM & NAND packaging — phone memory',22516],
+  ['CG Power + Renesas + Stars','Sanand, Gujarat','OSAT','Consumer & industrial chips',7584],
+  ['HCL–Foxconn JV','Jewar, Uttar Pradesh','OSAT','Display driver ICs — every phone screen',3706],
+  ['Kaynes Semicon','Sanand, Gujarat','OSAT','Wire-bond & substrate packages',3307],
+  ['SiCSem','Bhubaneswar, Odisha','Compound fab','Silicon carbide — fast chargers',2066],
+  ['3D Glass Solutions','Bhubaneswar, Odisha','Adv. packaging','Glass substrates, 3D packaging',1943],
+  ['ASIP Technologies','Andhra Pradesh','OSAT','Packaging',480],
+  ['CDIL','Mohali, Punjab','ATMP','Power discretes',117]
+];
+const PLAYERS = [
+  ['Sarvam AI','ai','Indian','On-device Indian-language AI (Sarvam Edge, <1 GB) and Sarvam 105B sovereign model. Selected under IndiaAI Mission.','Bengaluru'],
+  ['BharatGen','ai','Indian','Government-funded consortium led by IIT Bombay building Param multilingual foundation models.','Mumbai'],
+  ['Krutrim (Ola)','ai','Indian','LLMs and cloud; announced Bodhi AI chips in 2024.','Bengaluru'],
+  ['Gnani.ai / Soket AI / CoRover','ai','Indian','Voice AI and foundation-model builders under IndiaAI Mission.','Various'],
+  ['Lava International','brand','Indian','Largest Indian phone brand; Agni series; in-house design &amp; Noida manufacturing.','Noida'],
+  ['Ai+ (NxtQuantum)','brand','Indian','Founded 2025 by ex-Realme CEO Madhav Sheth; NxtQuantum OS; fastest-growing brand in Q3 2026.','Hyderabad'],
+  ['Micromax','brand','Indian','#1 in India in 2014, collapsed by 2018; “In” comeback in 2020 failed to scale.','Gurugram'],
+  ['Dixon Technologies','asm','Indian','Largest Indian EMS; builds phones for Motorola, Xiaomi and others.','Noida'],
+  ['Tata Electronics','asm','Indian','iPhone assembly and enclosures; Dholera fab with PSMC; Assam OSAT.','Bengaluru'],
+  ['Optiemus / Bhagwati / Padget','asm','Indian','Indian contract manufacturers under PLI.','NCR'],
+  ['Foxconn','asm','Foreign','Largest iPhone maker in India (Tamil Nadu, Karnataka); HCL JV for display drivers.','Taiwan'],
+  ['Samsung','asm','Foreign','Noida factory among world\'s largest; 17% share — No. 1 in India, Q3 2026.','Korea'],
+  ['Micron','chip','Foreign','₹22,516 cr Sanand memory ATMP; shipping since Sep 2026.','USA'],
+  ['Tata–PSMC','chip','Indian','India\'s first commercial fab, Dholera; 50k wafers/month, 28–110 nm.','Gujarat'],
+  ['Mindgrove Technologies','chip','Indian','IIT Madras spin-off; Secure IoT SoC on Shakti RISC-V core.','Chennai'],
+  ['Netrasemi','chip','Indian','A2000 edge-AI SoC with in-house NPU, VPU and ISP (2026). Zoho-backed.','Thiruvananthapuram'],
+  ['C-DAC (VEGA) / IndieSemiC','chip','Indian','VEGA RISC-V processors; ISC-VEGA-SOM system-on-module (2026).','Pune / Bengaluru'],
+  ['IIT Madras – Shakti','chip','Indian','Open-source RISC-V processor family since 2016.','Chennai'],
+  ['Signalchip','chip','Indian','India\'s first indigenous LTE modem chips (Agumbe).','Bengaluru'],
+  ['HCL–Foxconn JV','chip','JV','Display driver IC OSAT at Jewar (₹3,706 cr).','UP'],
+  ['SkyQuad Electronics','comp','Indian','Camera-module sub-assembly approved under ECMS.','India'],
+  ['Kaynes Technology','comp','Indian','EMS, PCBs and Kaynes Semicon OSAT at Sanand.','Mysuru'],
+  ['JandK Operations – BharOS','os','Indian','IIT Madras-incubated de-Googled Android fork (2023).','Chennai'],
+  ['Indus Appstore (PhonePe)','os','Indian','Indian Android app store launched 2024.','Bengaluru'],
+  ['Qualcomm / MediaTek','chip','Foreign','Supply nearly every Android SoC sold in India; large Indian design centres.','USA / Taiwan']
+];
+const CATS = {all:'All',ai:'AI models',brand:'Brands',asm:'Manufacturing',chip:'Chips & fabs',comp:'Components',os:'OS & apps'};
+const TIMELINE = [
+  ['The first try',[
+    ['1984','Semiconductor Complex Ltd (SCL), Mohali, starts — then close to the global state of the art.','var(--green)'],
+    ['1989','Fire guts SCL. India falls a decade behind and never catches up; SCL becomes a strategic/space fab.','var(--red)'],
+    ['2007','First semiconductor policy draws no viable fab proposals.','var(--red)']]],
+  ['The Indian-brand boom',[
+    ['2008–12','Micromax, Karbonn, Lava, Intex, Spice ride cheap Chinese-designed (ODM) phones to dominate feature phones.','var(--amber)'],
+    ['2014','Micromax becomes India\'s No. 1/2 phone brand, briefly passing Samsung. Indian brands hold ~40%+ share.','var(--green)'],
+    ['2013–14','Two fab consortia (Jaiprakash–IBM–TowerJazz; HSMC–STMicro) approved — both collapse by 2016.','var(--red)'],
+    ['2014–15','Xiaomi, Oppo, Vivo arrive with online sales, heavy marketing and deep R&amp;D. Make in India launched.','var(--amber)'],
+    ['2016','Freedom 251 “₹251 smartphone” fiasco. Jio launches; 4G-only shift catches Indian 3G brands off-guard.','var(--red)'],
+    ['2017','Phased Manufacturing Programme raises duties on parts. JioPhone (KaiOS) sells tens of millions.','var(--amber)'],
+    ['2018','IIT Madras tapes out first Shakti RISC-V chip. Indian brands fall below 10% share.','var(--navy)']]],
+  ['The reset',[
+    ['2020','Galwan clash; Chinese app bans. PLI for Large Scale Electronics (₹40,951 cr). Micromax “In” relaunch.','var(--saffron)'],
+    ['2021','India Semiconductor Mission approved with ₹76,000 cr.','var(--navy)'],
+    ['2022','Vedanta–Foxconn announce ₹1.54 lakh cr Gujarat fab.','var(--amber)'],
+    ['2023','Foxconn exits Vedanta JV (Jul). Micron Sanand approved (Jun). BharOS unveiled (Jan). Tata buys Wistron India.','var(--amber)'],
+    ['2024','Tata–PSMC Dholera fab, Tata Assam OSAT, CG–Renesas approved (Feb). IndiaAI Mission ₹10,372 cr (Mar). Indus Appstore.','var(--navy)'],
+    ['2025','ECMS components scheme. Sarvam selected for sovereign LLM. Ai+ brand launches (Jul). More OSATs approved.','var(--navy)']]],
+  ['2026 — the push',[
+    ['Feb 2026','Micron Sanand ATMP inaugurated — India\'s first semiconductor plant to produce.','var(--green)'],
+    ['May 2026','Netrasemi A2000 edge-AI SoC unveiled.','var(--green)'],
+    ['Jul 2026','Cabinet approves Semicon 2.0 (₹1,27,500 cr) and MPMS (₹62,500 cr).','var(--saffron)'],
+    ['Aug 2026','MPMS notified. ECMS crosses 106 projects / ₹69,548 cr.','var(--saffron)'],
+    ['Sep 2026','Micron begins global shipments from Sanand. SEMICON India 2026: ISC-VEGA-SOM.','var(--green)'],
+    ['Q3 2026','Memory-price shock: market −20% YoY. Indian brands rise to 7%.','var(--amber)'],
+    ['23 Oct 2026','Minister sets 23 Oct 2028 for Indian-designed, -made, -branded phones.','var(--saffron)']]],
+  ['Ahead',[
+    ['Dec 2026+','Tata Dholera first chips (55/90 nm, then 28 nm) — originally Dec 2026, now slipping.','var(--ink-3)'],
+    ['2027','Micron Sanand scales to hundreds of millions of chips. First Indian-designed phones expected (10–14 months per MeitY).','var(--ink-3)'],
+    ['23 Oct 2028','Target: Indian-designed, Indian-manufactured, Indian-branded phones.','var(--saffron)']]]
+];
+const ATTEMPTS = [
+  ['Semiconductor Complex Ltd (SCL)','1984–89','Failed','p-red','India\'s first serious chip fab, near the global frontier at launch. A 1989 fire destroyed it; rebuilt slowly as a strategic fab, never commercial.','Fabs need continuous reinvestment — one shock and you fall a generation behind.'],
+  ['Micromax & the 2010s Indian brands','2008–2018','Rise and fall','p-amber','Micromax, Karbonn, Intex, Lava and Spice rebadged Chinese ODM phones, won on price and distribution, and peaked around 2014. Chinese brands with real R&amp;D and online channels wiped them out.','Rebadging is not a moat. Owning design and software is.'],
+  ['Fab consortia (JP–IBM–TowerJazz, HSMC–ST)','2013–16','Collapsed','p-red','Two approved fabs worth ~₹60,000 cr never broke ground — funding, partners and incentives didn\'t line up.','Incentives alone don\'t make fabs; credible technology partners and anchor customers do.'],
+  ['Freedom 251','2016','Fiasco','p-red','Ringing Bells promised a ₹251 smartphone; took lakhs of bookings, delivered few devices, ended in fraud cases.','Credibility is a national asset — hype damages the next genuine attempt.'],
+  ['YU (Micromax + Cyanogen)','2014–17','Faded','p-red','An Indian brand with a customised Android (Cyanogen OS) for enthusiasts. Cyanogen collapsed and so did YU.','Building on someone else\'s software platform is a single point of failure.'],
+  ['JioPhone (KaiOS)','2017–','Partial success','p-green','A ₹1,500 4G feature phone on KaiOS, sold in very large numbers. Showed India can drive massive volume — but the OS, chip and design were not Indian.','Distribution and pricing power can beat incumbents — use it for Indian tech.'],
+  ['Shakti RISC-V (IIT Madras)','2016–','Ongoing','p-navy','Open-source processor family; chips taped out at Intel 22 nm and SCL 180 nm; base for Mindgrove\'s commercial SoC.','Real indigenous IP exists — it needs commercial scale and phone-class ambition.'],
+  ['Micromax “In”','2020–22','Faded','p-red','Relaunch on Galwan-era sentiment; strong first sales, then lost to Chinese brands on specs and service.','Patriotism opens the door; product quality keeps the customer.'],
+  ['Vedanta–Foxconn fab','2022–23','Collapsed','p-red','₹1.54 lakh cr Gujarat fab-and-display plan. Foxconn exited in July 2023 without a technology partner in place.','A fab without a proven process licensor is a press release.'],
+  ['BharOS','2023–','Stalled','p-amber','De-Googled Android fork tested by ministers. No mainstream phone shipped it; few users.','An OS is an ecosystem problem, not a code problem.'],
+  ['Micron Sanand ATMP','2023–26','Delivered','p-green','Approved June 2023, operating Feb 2026, exporting Sep 2026. India\'s first working semiconductor plant.','Proof that anchored, partner-led projects can deliver on time.'],
+  ['Ai+ / NxtQuantum','2025–','Early traction','p-green','Indian brand with own Android-based OS; 2 mn units in 10 months; drove Indian share to 7% with Lava.','The Q3 2026 window is real — scale and R&amp;D will decide if it lasts.']
+];
+const CHECK = [
+  ['g','Indian-owned phone board design','Shown: one Indian-designed 5G handset ships with a US carrier.'],
+  ['g','Manufacturing capacity','World No. 2 producer; MPMS adds incentives through FY2031.'],
+  ['g','Indian-language on-device AI','Sarvam Edge and others run on-device in 22+ languages.'],
+  ['a','Indian brand with scale','7% share — needs to reach 15–20% to matter globally.'],
+  ['a','Locally sourced components','25–28% value addition; ECMS projects ramp 2027–28.'],
+  ['a','Indian OS layer','Android forks only; needs default Indian apps & store.'],
+  ['r','Indian processor & modem','Not required for the 2028 target — and not on track for it.'],
+  ['r','Domestic memory, display panels, sensors','Not before the 2030s.']
+];
+
+// ---------- helpers ----------
+const $ = s=>document.querySelector(s);
+const colorFor = v => v<=20?'var(--red)':v<=50?'var(--amber)':'var(--green)';
+const pillFor = v => v<=20?['p-red','Dependent']:v<=50?['p-amber','Emerging']:['p-green','Capable'];
+const fmt = n => n.toLocaleString('en-IN');
+const tip = $('#tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(e.clientX+14,innerWidth-270);tip.style.left=x+'px';tip.style.top=(e.clientY+14)+'px'}
+function hideTip(){tip.style.opacity=0}
+
+// theme
+(function(){
+  const root=document.documentElement;let t=null;try{t=localStorage.getItem('theme')}catch(e){}
+  if(t)root.dataset.theme=t;
+  $('#themeBtn').onclick=()=>{const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+
+// countdown
+function tick(){
+  const ms=new Date('2028-10-23T00:00:00+05:30')-new Date();
+  const d=Math.max(0,Math.floor(ms/864e5)),h=Math.max(0,Math.floor(ms/36e5)%24),m=Math.max(0,Math.floor(ms/6e4)%60);
+  $('#countdown').innerHTML=`<div><b>${fmt(d)}</b><span>days</span></div><div><b>${h}</b><span>hours</span></div><div><b>${m}</b><span>min</span></div><div style="text-align:left;border:none;background:none;padding:8px 0"><span style="text-transform:none;letter-spacing:0;font-size:.85rem;color:var(--ink-2)">to the government's<br>23 Oct 2028 target</span></div>`;
+}
+tick();setInterval(tick,30000);
+
+// headline numbers
+const bomLayers = LAYERS.filter(l=>l.weight>0);
+const totW = bomLayers.reduce((a,l)=>a+l.weight,0);
+const owned = bomLayers.reduce((a,l)=>a+l.weight*l.score/100,0)/totW*100;
+const madeHere = bomLayers.reduce((a,l)=>a+l.weight*Math.max(0,l.made-l.score)/100,0)/totW*100;
+$('#ownedTxt').textContent = Math.round(owned);
+
+// gauge
+(function(){
+  const svg=$('#gauge'),cx=150,cy=150,r=115,sw=26;
+  const pt=(f)=>{const a=Math.PI*(1-f);return [cx+r*Math.cos(a),cy-r*Math.sin(a)]};
+  const arc=(f0,f1,c)=>{const [x0,y0]=pt(f0),[x1,y1]=pt(f1);return `<path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${c}" stroke-width="${sw}" fill="none" stroke-linecap="butt"/>`};
+  const o=owned/100,m=madeHere/100;
+  svg.innerHTML = arc(0,1,'var(--track)')+`<g id="gArcs"></g>`+
+    [0,25,50,75,100].map(v=>{const [x,y]=pt(v/100);const [x2,y2]=[cx+(r+22)*Math.cos(Math.PI*(1-v/100)),cy-(r+22)*Math.sin(Math.PI*(1-v/100))];return `<text x="${x2}" y="${y2+4}" font-size="10" text-anchor="middle" fill="var(--ink-3)">${v}</text>`}).join('');
+  let f=0;const g=$('#gArcs');
+  function step(){f=Math.min(1,f+0.03);const e=1-Math.pow(1-f,3);
+    g.innerHTML=arc(0,Math.max(0.001,o*e),'var(--green)')+arc(o*e,Math.max(o*e+0.001,(o+m)*e),'var(--amber)');
+    $('#gaugeNum').textContent=Math.round(owned*e)+'%';if(f<1)requestAnimationFrame(step)}
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){step();ob.disconnect()}}).observe(svg);
+})();
+
+// layers list
+(function(){
+  const box=$('#layers');
+  box.innerHTML = LAYERS.map(l=>{const [pc,pt]=pillFor(l.score);return `
+  <div class="card layer" id="L-${l.id}" data-id="${l.id}">
+    <div class="layer-head">
+      <div class="layer-name">${l.name} <span class="pill ${pc}">${pt}</span>${l.weight?`<span class="small muted">~${l.weight}% of phone cost</span>`:''}</div>
+      <div class="layer-score" style="color:${colorFor(l.score)}">${l.score}</div>
+      <div class="bar"><i data-w="${l.score}" style="background:${colorFor(l.score)}"></i></div>
+      <div class="layer-sub">${l.sub}</div>
+    </div>
+    <div class="layer-body">
+      <div class="lb-grid">
+        <div><h4>Indian capability &amp; players</h4><ul>${l.india.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div><h4>Money behind it</h4><ul>${l.money.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      </div>
+      <div class="gap-box"><b>The gap:</b> ${l.gap}</div>
+      <div class="fix-box"><b>Stop-gap:</b> ${l.fix}</div>
+    </div>
+  </div>`}).join('');
+  box.addEventListener('click',e=>{const c=e.target.closest('.layer');if(c)openLayer(c.dataset.id,false)});
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){box.querySelectorAll('.bar>i').forEach(i=>i.style.width=i.dataset.w+'%');ob.disconnect()}}).observe(box);
+})();
+function openLayer(id,scroll){
+  const el=$('#L-'+id),was=el.classList.contains('open');
+  document.querySelectorAll('.layer.open').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('#phone [data-id]').forEach(p=>p.style.opacity=1);
+  if(!was){el.classList.add('open');
+    document.querySelectorAll('#phone [data-id]').forEach(p=>p.style.opacity=p.dataset.id===id?1:.35);
+    if(scroll)el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+
+// exploded phone
+(function(){
+  const L=Object.fromEntries(LAYERS.map(l=>[l.id,l]));
+  const parts=[ // [id,label,y,h,inset]
+    ['ai','AI models',8,26,30],['os','Operating system',44,26,30],
+    ['disp','Display',84,40,6],['cam','Camera',134,30,70],
+    ['soc','SoC + NPU',176,40,60],['modem','Modem & RF',224,26,60],['mem','Memory',258,30,60],
+    ['pcb','Circuit board',300,30,10],['bat','Battery',342,56,20],
+    ['mech','Enclosure',410,40,0],['asm','Assembly & test',462,26,30],['brand','Brand & design',498,26,30]];
+  let s='';
+  parts.forEach(([id,lab,y,h,ins])=>{const l=L[id],c=colorFor(l.score);const x=4+ins*0.8,w=172-ins*1.6;
+    const soft = id==='ai'||id==='os'||id==='brand'||id==='asm';
+    s+=`<g data-id="${id}" style="cursor:pointer;transition:opacity .2s">
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${soft?13:6}" fill="${c}" fill-opacity="${soft?.16:.85}" stroke="${c}" stroke-width="${soft?1.5:0}" ${soft?'stroke-dasharray="4 3"':''}/>
+      <text x="${x+w/2}" y="${y+h/2+4}" font-size="12" font-weight="700" text-anchor="middle" fill="${soft?c:'#fff'}" style="pointer-events:none">${l.score}</text>
+      <line x1="${x+w+3}" y1="${y+h/2}" x2="186" y2="${y+h/2}" stroke="var(--line)" stroke-dasharray="2 2"/>
+      <text x="190" y="${y+h/2+4}" font-size="11.5" fill="var(--ink-2)" style="pointer-events:none">${lab}</text>
+    </g>`});
+  const svg=$('#phone');svg.innerHTML=s;svg.setAttribute('viewBox','0 0 290 530');
+  svg.querySelectorAll('[data-id]').forEach(g=>{
+    g.addEventListener('click',()=>openLayer(g.dataset.id,true));
+    g.addEventListener('mousemove',e=>{const l=L[g.dataset.id];showTip(e,`<b>${l.name}</b><br>Readiness ${l.score}/100`)});
+    g.addEventListener('mouseleave',hideTip)});
+})();
+
+// BoM
+(function(){
+  const pal=['#1d3f8f','#3b5fb8','#6a3fa0','#b0457a','#c2412d','#c98a12','#7a8b2e','#1f8a4c','#2a9d8f','#5a6772','#e8772e'];
+  const cost=$('#bomCost'),own=$('#bomOwn'),key=$('#bomKey');
+  cost.innerHTML=bomLayers.map((l,i)=>`<div class="bom-seg" data-i="${i}" style="flex:${l.weight};background:${pal[i]}"><span>${l.weight>=9?l.name.split(' ')[0]:''}</span></div>`).join('');
+  const imp=100-owned-madeHere;
+  own.innerHTML=[[owned,'var(--green)','Indian-owned','own','#fff'],[madeHere,'var(--amber)','Made in India, foreign IP','made','#fff'],[imp,'var(--track)','Imported','imp','var(--ink-2)']]
+    .map(([v,c,l,k,tc])=>`<div class="bom-seg" data-k="${k}" style="flex:${v};background:${c};color:${tc}"><span>${l} ${Math.round(v)}%</span></div>`).join('');
+  key.innerHTML=bomLayers.map((l,i)=>`<span style="--c:${pal[i]}">${l.name} · ${l.weight}%</span>`).join('')+
+    `<span style="--c:var(--green)"><b>Indian-owned ${Math.round(owned)}%</b></span><span style="--c:var(--amber)"><b>Made here, foreign IP ${Math.round(madeHere)}%</b></span><span style="--c:var(--track)"><b>Imported ${Math.round(100-owned-madeHere)}%</b></span>`;
+  [cost,own].forEach(b=>b.querySelectorAll('.bom-seg').forEach(s=>{
+    s.addEventListener('mousemove',e=>{if(s.dataset.k){showTip(e,{own:'Value from Indian-owned design &amp; production',made:'Built in India, but technology owned abroad',imp:'Imported parts'}[s.dataset.k]);return}
+      const l=bomLayers[s.dataset.i];showTip(e,`<b>${l.name}</b><br>${l.weight}% of phone cost<br>Readiness ${l.score}/100`)});
+    s.addEventListener('mouseleave',hideTip)}));
+})();
+
+// gaps
+$('#gapList').innerHTML=GAPS.map((g,i)=>`<div class="card gap"><div class="rank">${String(i+1).padStart(2,'0')}</div>
+  <div class="sev" title="Severity ${g.sev}/5">${[1,2,3,4,5].map(n=>`<i class="${n<=g.sev?'on':''}"></i>`).join('')}</div>
+  <h3>${g.t}</h3><p>${g.d}</p><div class="stop"><b>Stop-gap →</b> ${g.s}</div></div>`).join('');
+
+// money charts
+function hbars(el,rows,max){
+  el.innerHTML=rows.map(r=>`<div class="hbar"><div class="n" title="${r[0]}">${r[0]}</div><div class="t"><i data-w="${r[1]/max*100}" style="background:${r[2]}"></i></div><div class="v">₹${fmt(r[1])}</div></div>`).join('');
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){el.querySelectorAll('i').forEach(i=>i.style.width=i.dataset.w+'%');ob.disconnect()}}).observe(el);
+}
+hbars($('#schemeChart'),SCHEMES,127500);
+hbars($('#ismChart'),ISM.map(r=>[r[0],r[4],r[2].startsWith('Fab')?'var(--navy)':r[2].includes('Compound')?'var(--saffron)':'var(--amber)']),91526);
+$('#ismTable').innerHTML=ISM.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="num">${fmt(r[4])}</td></tr>`).join('')+
+  `<tr><td colspan="4" class="muted">Also approved: Crystal Matrix (GaN, Dholera), Suchi Semicon (Surat) and others. Total pipeline ≈ ₹1.64 lakh cr across 12+ projects.</td><td class="num"><b>≈1,64,000</b></td></tr>`;
+
+// players
+(function(){
+  let cur='all';
+  $('#filters').innerHTML=Object.entries(CATS).map(([k,v])=>`<button data-k="${k}" class="${k==='all'?'on':''}">${v}</button>`).join('');
+  function render(){$('#playerList').innerHTML=PLAYERS.filter(p=>cur==='all'||p[1]===cur).map(p=>`
+    <div class="card player"><div class="top"><h3>${p[0]}</h3><span class="pill ${p[2]==='Indian'?'p-green':p[2]==='JV'?'p-amber':'p-navy'}">${p[2]}</span></div>
+    <p>${p[3]}</p><div class="meta">${CATS[p[1]]} · ${p[4]}</div></div>`).join('')}
+  $('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.k;
+    document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));render()});
+  render();
+})();
+
+// timeline
+$('#timeline').innerHTML=TIMELINE.map(([era,evs])=>`<div class="era">${era}</div>`+evs.map(([y,t,c])=>`<div class="card ev" style="--c:${c}"><span class="yr">${y}</span><p>${t}</p></div>`).join('')).join('');
+
+// attempts
+$('#attemptList').innerHTML=ATTEMPTS.map(a=>`<div class="card attempt"><div class="hd"><h3>${a[0]}</h3><span class="pill ${a[3]}">${a[2]}</span></div>
+  <div class="small muted">${a[1]}</div><p>${a[4]}</p><div class="lesson"><b>Lesson:</b> ${a[5]}</div></div>`).join('');
+
+// ---------- progress line ----------
+const MILESTONES = [
+  ['d','World-scale phone assembly','India is the #2 producer globally','2019–24'],
+  ['d','Manufacturing incentives in place','PLI (2020) → MPMS ₹62,500 cr (2026)','2020–26'],
+  ['d','Indian app store','Indus Appstore by PhonePe','2024'],
+  ['d','National AI compute','38,000+ GPUs onboarded under IndiaAI','2025–26'],
+  ['d','Indian-language on-device AI','Sarvam Edge, 22+ languages, under 1 GB','2026'],
+  ['d','Sovereign foundation model','Sarvam 105B, BharatGen Param','2026'],
+  ['d','Indian RISC-V processor cores','Shakti (IIT Madras), VEGA (C-DAC)','2018+'],
+  ['d','Indian-designed handset board shipped','5G handset sold by a US carrier','2025–26'],
+  ['d','Indian edge-AI chip with NPU','Netrasemi A2000','May 2026'],
+  ['d','Memory packaging in India','Micron Sanand, exporting since Sep 2026','2026'],
+  ['p','Indian phone OS layer','BharOS, NxtQuantum OS: Android forks, small user base','2023–'],
+  ['p','Indian brands at scale','7% share today; ~20% needed to matter','2025–'],
+  ['p','Component ecosystem','ECMS: 106 projects, ₹69,548 cr','2025–28'],
+  ['p','First commercial chip fab output','Tata–PSMC Dholera, 28–110 nm','2026–27'],
+  ['p','Display driver ICs','HCL–Foxconn, Jewar','2026–27'],
+  ['p','Indian-designed, -made, -branded phone','Government target: 23 Oct 2028','2028'],
+  ['n','Indian AI assistant as default on phones','No Indian-brand phone ships one system-wide','—'],
+  ['n','Phone power-management & charging chips','A good fit for Dholera\'s 28–110 nm nodes','—'],
+  ['n','Indian camera image processor & AI camera','Software-heavy, so it is reachable','—'],
+  ['n','Phone battery cell manufacturing','Packs are assembled here; cells are imported','—'],
+  ['n','Indian 4G/5G handset modem','Signalchip lineage; no phone modem yet','—'],
+  ['n','Indian smartphone processor (SoC)','Fabless design, manufactured at TSMC','—'],
+  ['n','OLED display panel fab','Vedanta plan stalled','—'],
+  ['n','Memory wafer fab (DRAM/NAND)','Needs a global partner','—'],
+  ['n','Leading-edge logic fab (≤7 nm)','Only TSMC, Samsung and Intel have one','—']
+];
+(function(){
+  const cls={d:'done',p:'prog',n:'pend'};
+  const pl=$('#pline');
+  pl.innerHTML=MILESTONES.map((m,i)=>`<div class="pseg ${cls[m[0]]}" data-i="${i}" tabindex="0" aria-label="${i+1}. ${m[1]}"></div>`).join('');
+  const c={d:0,p:0,n:0};MILESTONES.forEach(m=>c[m[0]]++);
+  $('#plineSum').innerHTML=`<span style="--c:var(--green)"><b>${c.d}</b>done</span><span style="--c:var(--green-soft);--b:var(--green)"><b>${c.p}</b>in progress</span><span style="--c:#fff;--b:var(--line)"><b>${c.n}</b>not started</span><span class="muted small">${Math.round(c.d/MILESTONES.length*100)}% of milestones complete; most of what's done is software and assembly</span>`;
+  const col=(k,title,pc,pt)=>`<div class="card mcol"><h3><span class="pill ${pc}">${pt}</span>${title}</h3><ol>${MILESTONES.map((m,i)=>m[0]!==k?'':
+    `<li data-i="${i}"><span class="no" style="${k==='d'?'background:var(--green);color:#fff':k==='p'?'background:var(--green-soft);color:var(--green)':'background:#fff;color:var(--ink-3);border:1px solid var(--line)'}">${i+1}</span><div><b>${m[1]}</b><div class="small muted">${m[2]}${m[3]!=='—'?' · <span class="yr">'+m[3]+'</span>':''}</div></div></li>`).join('')}</ol></div>`;
+  $('#mcols').innerHTML=col('d','Done','p-green','✓')+col('p','In progress','p-amber','◐')+col('n','Not started','p-red','○');
+  const hl=i=>{document.querySelectorAll('.pseg,.mcol li').forEach(x=>x.classList.toggle('hl',x.dataset.i==String(i)))};
+  pl.querySelectorAll('.pseg').forEach(s=>{
+    s.addEventListener('mousemove',e=>{const m=MILESTONES[s.dataset.i];showTip(e,`<b>${+s.dataset.i+1}. ${m[1]}</b><br>${m[2]}<br><i>${{d:'Done',p:'In progress',n:'Not started'}[m[0]]}</i>`);hl(s.dataset.i)});
+    s.addEventListener('mouseleave',()=>{hideTip();hl(-1)});
+    s.addEventListener('click',()=>{const li=document.querySelector(`.mcol li[data-i="${s.dataset.i}"]`);hl(s.dataset.i);li.scrollIntoView({behavior:'smooth',block:'center'})})});
+  document.querySelectorAll('.mcol li').forEach(li=>{li.addEventListener('mouseenter',()=>hl(li.dataset.i));li.addEventListener('mouseleave',()=>hl(-1))});
+})();
+
+// ---------- opportunities ----------
+const OPPS = [
+  {m:17,t:'Make an Indian AI assistant the phone default',lvl:['p-green','Closest'],
+   d:'The models already exist: Sarvam Edge runs speech, translation and text-to-speech on-device in 22+ languages. What is missing is a phone maker shipping one as the system-wide assistant for wake word, voice typing, call translation and screen help, instead of Google Assistant or Gemini.',
+   f:['₹50–200 cr','12–18 months','IndiaAI Mission'],
+   c:[['Sarvam AI','Has production on-device models; needs an OEM partner'],['Lava / Ai+ (NxtQuantum)','Indian brands with their own software teams and an incentive to differentiate'],['BharatGen (IIT Bombay)','Government-backed open models suited to public-interest defaults'],['Jio Platforms','Mass distribution through JioBharat and JioPhone; in-house AI stack']],
+   first:'Bundle Sarvam Edge as the default voice assistant on one Indian-brand phone in 2027, ahead of the 2028 target.'},
+  {m:18,t:'Design phone power-management & charging chips',lvl:['p-green','Near-term'],
+   d:'Every phone has several power-management chips (PMICs) and charger chips. They are analog/mixed-signal, built on 28–180 nm, which Tata Dholera and SCL Mohali can make. That makes them the most natural first Indian silicon inside a phone.',
+   f:['₹300–800 cr','3–4 years','DLI + Semicon 2.0 design pillar'],
+   c:[['L&T Semiconductor Technologies','Fabless unit started 2024 with a power/analog focus'],['CG Semi + Renesas','Renesas is a global PMIC leader; joint OSAT at Sanand'],['Tata Electronics','Can be foundry and phone customer at once'],['MosChip Technologies','Hyderabad mixed-signal design house with tape-out experience']],
+   first:'Sign an Indian phone brand as anchor customer, then tape out a PMIC on Dholera\'s 55/90 nm line.'},
+  {m:19,t:'Build the Indian camera brain (image processor + AI camera)',lvl:['p-green','Near-term'],
+   d:'Image sensors are imported, but how a photo looks comes from the image-signal processor (ISP) and AI tuning. That is largely software and IP, an Indian strength, and it is how phone brands set themselves apart.',
+   f:['₹100–400 cr','2–3 years','DLI · MPMS design incentive'],
+   c:[['Netrasemi','Already has an in-house ISP, VPU and NPU in the A2000'],['Ittiam Systems','Bengaluru imaging and video codec IP, licensed globally'],['Tata Elxsi','Camera and multimedia software services for global OEMs'],['Lava R&D','Own phone camera tuning team in India']],
+   first:'Ship an Indian camera AI pipeline (night mode, skin tones, documents) as software on a MediaTek-based Indian phone.'},
+  {m:11,t:'Finish the Indian OS layer',lvl:['p-amber','In progress, needs a champion'],
+   d:'A new kernel isn\'t the goal. What\'s needed is a hardened Android (AOSP) fork with Indian default services: app store, browser, maps, payments, messaging, AI assistant. That way apps work without Google Mobile Services. BharOS and NxtQuantum OS have started; neither has scale.',
+   f:['₹200–500 cr / yr','2–3 years','None dedicated — gap'],
+   c:[['NxtQuantum (Ai+)','Already ships its own OS on a fast-growing brand'],['PhonePe – Indus Appstore','The Indian app distribution layer'],['Zoho','Privacy-first app suite (Arattai, Ulaa browser); also backs Netrasemi'],['JandK Operations (BharOS)','IIT Madras-incubated; government trust'],['Jio Platforms','Has built feature-phone OS and services at 100 mn+ scale']],
+   first:'A consortium standard: one shared Indian AOSP base plus Indus Appstore, licensed free to every Indian brand.'},
+  {m:20,t:'Make phone battery cells in India',lvl:['p-amber','Mid-term'],
+   d:'India assembles battery packs but imports the lithium-polymer pouch cells. Current battery incentives target EV and grid cells. Phone cells are smaller and high-volume, and need a different production line.',
+   f:['₹2,000–5,000 cr','3–5 years','ACC PLI (needs extension) · ECMS'],
+   c:[['Ola Electric','Own cell R&D and gigafactory in Tamil Nadu'],['Tata AGRATAS','Tata cell business; group is also a phone maker'],['Amara Raja / Exide Energy','Established battery makers building lithium-ion lines'],['Reliance New Energy','Battery gigafactory plans and Jio device demand']],
+   first:'JV with a Japanese or Korean pouch-cell maker for a line dedicated to phone and wearable cells.'},
+  {m:21,t:'Build an Indian 4G/5G handset modem',lvl:['p-red','Hard'],
+   d:'A modem is the hardest chip after the processor: it requires 3GPP standard-essential patent licences and carrier certification. Start with 4G for feature phones and IoT, where volumes are large and the requirements lighter.',
+   f:['₹1,500–3,000 cr','4–6 years','DLI · Telecom PLI'],
+   c:[['Signalchip','Designed India\'s first LTE modem chips (Agumbe)'],['Tejas Networks / Saankhya Labs','Tata-owned; 5G and broadcast baseband silicon'],['Jio Platforms','In-house 5G stack (Radisys); can be anchor buyer'],['C-DOT · IIT Madras CEWiT','Indigenous 4G/5G protocol stacks and the national 5G testbed']],
+   first:'A 4G Cat-1 modem for JioBharat-class feature phones, with an anchor order from an Indian brand.'},
+  {m:22,t:'Design an Indian smartphone processor (SoC)',lvl:['p-red','Hard'],
+   d:'This is the big prize: a mid-range phone chip with licensed Arm or RISC-V CPU cores, an Indian NPU and ISP, made at TSMC on 6–7 nm. It doesn\'t have to beat Snapdragon, only be good enough for a ₹15,000 phone.',
+   f:['₹5,000–15,000 cr','5–7 years','Semicon 2.0 design pillar'],
+   c:[['Tata Electronics + Tejas + Tata Elxsi','The only Indian group with a phone factory, modem team, design services and a fab'],['Jio Platforms / Reliance','Capital, a phone brand and a 450 mn+ subscriber base'],['Ola Krutrim','Announced Bodhi AI chips; has silicon ambition'],['Mindgrove + InCore + Netrasemi','Startup trio with an SoC, RISC-V CPU cores and an NPU between them']],
+   first:'Start with a smartwatch or feature-phone SoC, then step up to a phone in a second generation. Use one Indian brand as a guaranteed buyer.'},
+  {m:23,t:'National-scale bets: display, memory & leading-edge fabs',lvl:['p-red','National-scale'],
+   d:'Building OLED panels, DRAM/NAND or ≤7 nm logic each costs ₹50,000–1,50,000 cr and needs a foreign technology partner. These aren\'t for enthusiasts; they are decade-long national programmes.',
+   f:['₹50k–1.5 lakh cr','7–10 years','Semicon 2.0 (₹1,27,500 cr)'],
+   c:[['Tata Electronics','Dholera phase 2 with PSMC; most credible fab operator'],['Adani Group + Tower Semiconductor','Proposed Maharashtra fab (2024)'],['Vedanta','Long-standing display-fab ambition; needs a new partner'],['Reliance','Capital and device demand at scale']],
+   first:'Anchor a foreign partner with long-term supply contracts from Indian brands and the government, as Micron Sanand did.'}
+];
+$('#opps').innerHTML=OPPS.map(o=>`<div class="card opp">
+  <div class="hd"><div><div class="tag">Milestone #${o.m}</div><h3>${o.t}</h3></div><span class="pill ${o.lvl[0]}">${o.lvl[1]}</span></div>
+  <p>${o.d}</p>
+  <div class="facts"><div>Capital<b>${o.f[0]}</b></div><div>Time<b>${o.f[1]}</b></div><div>Funding route<b>${o.f[2]}</b></div></div>
+  <div class="cands"><h4>Likely &amp; capable candidates</h4>${o.c.map(c=>`<div class="cand"><b>${c[0]}</b><span>${c[1]}</span></div>`).join('')}</div>
+  <div class="first"><div><b>First move →</b> ${o.first}</div></div>
+</div>`).join('');
+
+// checklist
+$('#checklist').innerHTML=CHECK.map(([s,t,d])=>{const c={g:['var(--green)','✓'],a:['var(--amber)','~'],r:['var(--red)','✕']}[s];
+  return `<li><span class="ic" style="background:${c[0]}">${c[1]}</span><div><b>${t}</b><div class="small muted">${d}</div></div></li>`}).join('');
+</script>
+</body>
+</html>
