@@ -10,35 +10,38 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='16' y='4' width='32' height='56' rx='7' fill='%23e8772e'/><rect x='20' y='10' width='24' height='40' rx='2' fill='%23fff'/><circle cx='32' cy='30' r='6' fill='none' stroke='%231d3f8f' stroke-width='2'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='16' y='4' width='32' height='56' rx='7' fill='%232b6fd6'/><rect x='20' y='10' width='24' height='40' rx='3' fill='%23fff'/><circle cx='32' cy='32' r='7' fill='%23f0882e'/></svg>">
 <style>
 :root{
-  --bg:#faf7f2; --surface:#ffffff; --surface-2:#f2ede4; --ink:#1b1a17; --ink-2:#4a463f; --ink-3:#7a7468;
-  --line:#e3dccf; --saffron:#e8772e; --saffron-soft:#fbe3d1; --green:#1f8a4c; --green-soft:#d8efe1;
-  --navy:#1d3f8f; --navy-soft:#dfe6f6; --red:#c2412d; --red-soft:#f7dcd6; --amber:#c98a12; --amber-soft:#f8ead0;
-  --track:#ece6db; --shadow:0 1px 2px rgba(30,25,15,.06),0 6px 24px rgba(30,25,15,.06);
+  --bg:#f6fafc; --surface:#ffffff; --surface-2:#eef5f8; --ink:#10283a; --ink-2:#3e5668; --ink-3:#7d909e;
+  --line:#e0eaf0; --saffron:#f0882e; --saffron-soft:#fff0e0; --green:#12a26b; --green-soft:#dcf6ea;
+  --navy:#2b6fd6; --navy-soft:#e3eefc; --red:#e2654f; --red-soft:#fde9e4; --amber:#e3a21a; --amber-soft:#fdf3d8;
+  --track:#e6eef3; --shadow:0 1px 2px rgba(16,40,58,.04),0 8px 28px rgba(16,40,58,.06);
+  --sky:#e4f1ff; --sun:#fff1dc;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#121210; --surface:#1b1a17; --surface-2:#24221e; --ink:#f3efe7; --ink-2:#c9c2b5; --ink-3:#958e81;
-    --line:#34312b; --saffron:#f08a45; --saffron-soft:#3b2717; --green:#3fb874; --green-soft:#16301f;
-    --navy:#7e9ce6; --navy-soft:#1c2540; --red:#ec6a55; --red-soft:#3a1d18; --amber:#e3a83a; --amber-soft:#382b12;
-    --track:#2c2a25; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.25);
+    --bg:#0c1722; --surface:#12212f; --surface-2:#192b3b; --ink:#eef5fa; --ink-2:#b4c5d2; --ink-3:#7f95a6;
+    --line:#22384b; --saffron:#ffa45a; --saffron-soft:#3a2614; --green:#3bd394; --green-soft:#123527;
+    --navy:#72a9ff; --navy-soft:#16294a; --red:#ff806a; --red-soft:#3d1f1a; --amber:#f4c24e; --amber-soft:#3a2e10;
+    --track:#1e3244; --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 28px rgba(0,0,0,.25);
+    --sky:#13294a; --sun:#2e2414;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#121210; --surface:#1b1a17; --surface-2:#24221e; --ink:#f3efe7; --ink-2:#c9c2b5; --ink-3:#958e81;
-  --line:#34312b; --saffron:#f08a45; --saffron-soft:#3b2717; --green:#3fb874; --green-soft:#16301f;
-  --navy:#7e9ce6; --navy-soft:#1c2540; --red:#ec6a55; --red-soft:#3a1d18; --amber:#e3a83a; --amber-soft:#382b12;
-  --track:#2c2a25; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 24px rgba(0,0,0,.25);
+  --bg:#0c1722; --surface:#12212f; --surface-2:#192b3b; --ink:#eef5fa; --ink-2:#b4c5d2; --ink-3:#7f95a6;
+    --line:#22384b; --saffron:#ffa45a; --saffron-soft:#3a2614; --green:#3bd394; --green-soft:#123527;
+    --navy:#72a9ff; --navy-soft:#16294a; --red:#ff806a; --red-soft:#3d1f1a; --amber:#f4c24e; --amber-soft:#3a2e10;
+    --track:#1e3244; --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 28px rgba(0,0,0,.25);
+    --sky:#13294a; --sun:#2e2414;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--navy)}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
-h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:800;letter-spacing:-.01em}
+h1,h2,h3{font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.25rem);font-weight:800;letter-spacing:-.025em}
 h3{font-size:1.15rem;font-weight:600}
 .wrap{max-width:1160px;margin:0 auto;padding:0 16px}
 section{padding:64px 0;border-top:1px solid var(--line)}
@@ -46,7 +49,7 @@ section{padding:64px 0;border-top:1px solid var(--line)}
 .lede{color:var(--ink-2);max-width:760px;font-size:1.05rem;margin:14px 0 0}
 .muted{color:var(--ink-3)}
 .small{font-size:.86rem}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
 .pill{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;white-space:nowrap}
 .p-red{background:var(--red-soft);color:var(--red)} .p-amber{background:var(--amber-soft);color:var(--amber)}
 .p-green{background:var(--green-soft);color:var(--green)} .p-navy{background:var(--navy-soft);color:var(--navy)}
@@ -54,9 +57,9 @@ section{padding:64px 0;border-top:1px solid var(--line)}
 
 /* nav */
 nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
-.brand{font-family:Fraunces,serif;font-weight:800;font-size:1.05rem;text-decoration:none;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:8px}
-.brand i{width:10px;height:18px;border-radius:3px;background:linear-gradient(var(--saffron) 33%,#fff 33% 66%,var(--green) 66%);border:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.05rem;text-decoration:none;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.brand i{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 50% 70%,#ffd36b 0 38%,var(--saffron) 39% 100%);box-shadow:0 0 0 3px var(--saffron-soft)}
 .navlinks{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;flex:1}
 .navlinks::-webkit-scrollbar{display:none}
 .navlinks a{color:var(--ink-2);text-decoration:none;font-size:.88rem;font-weight:500;white-space:nowrap}
@@ -64,25 +67,28 @@ nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
 #themeBtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;flex:none}
 
 /* hero */
-.hero{padding:56px 0 40px;border-top:none}
+.hero{padding:64px 0 48px;border-top:none;background:radial-gradient(900px 420px at 92% -8%,var(--sun),transparent 70%),radial-gradient(800px 420px at -5% 0%,var(--sky),transparent 70%)}
+section:nth-of-type(even){background:color-mix(in srgb,var(--surface-2) 45%,var(--bg))}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px;font-size:.8rem;color:var(--ink-2);margin-bottom:16px;box-shadow:var(--shadow)}
+.hero-badge i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
 .hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
 .hero h1{font-size:clamp(2.2rem,5.4vw,3.9rem);font-weight:800;letter-spacing:-.02em}
-.hero h1 em{font-style:normal;color:var(--saffron)}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--saffron),#f2b23a);-webkit-background-clip:text;background-clip:text;color:transparent}
 .stamp{display:inline-flex;gap:8px;align-items:center;font-size:.82rem;color:var(--ink-3);margin-top:18px}
 .stamp b{color:var(--ink-2)}
 .gauge-card{padding:26px;text-align:center}
-.gauge-card .num{font-family:Fraunces,serif;font-size:3.4rem;font-weight:800;line-height:1}
+.gauge-card .num{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:3.4rem;font-weight:800;line-height:1}
 .gauge-legend{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:.8rem;color:var(--ink-2)}
 .gauge-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
 .stat{padding:18px}
-.stat .v{font-family:Fraunces,serif;font-weight:800;font-size:1.9rem;line-height:1.1}
+.stat .v{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.9rem;line-height:1.1}
 .stat .l{font-size:.85rem;color:var(--ink-2);margin-top:4px}
 .countdown{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .countdown div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-align:center;min-width:72px}
-.countdown b{display:block;font-family:Fraunces,serif;font-size:1.6rem;line-height:1.1}
+.countdown b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.6rem;line-height:1.1}
 .countdown span{font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
-.quote{border-left:4px solid var(--saffron);padding:6px 0 6px 16px;margin:22px 0 0;color:var(--ink-2);font-style:italic}
+.quote{border-left:3px solid var(--saffron);padding:6px 0 6px 16px;margin:22px 0 0;color:var(--ink-2);font-style:italic}
 
 /* stack */
 .stack-grid{display:grid;grid-template-columns:340px 1fr;gap:28px;margin-top:34px;align-items:start}
@@ -93,7 +99,7 @@ nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
 .layer.open{border-color:var(--saffron);box-shadow:0 0 0 3px var(--saffron-soft),var(--shadow)}
 .layer-head{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
 .layer-name{font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.layer-score{font-family:Fraunces,serif;font-weight:800;font-size:1.35rem}
+.layer-score{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.35rem}
 .bar{grid-column:1/-1;height:10px;background:var(--track);border-radius:99px;overflow:hidden;position:relative}
 .bar>i{position:absolute;inset:0 auto 0 0;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
 .layer-sub{grid-column:1/-1;font-size:.86rem;color:var(--ink-2)}
@@ -127,7 +133,7 @@ nav.top .wrap{display:flex;align-items:center;gap:18px;height:56px}
 /* gaps */
 .gaps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
 .gap{padding:18px 18px 16px;position:relative}
-.gap .rank{position:absolute;top:14px;right:16px;font-family:Fraunces,serif;font-weight:800;font-size:1.8rem;color:var(--line)}
+.gap .rank{position:absolute;top:14px;right:16px;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.8rem;color:var(--line)}
 .gap h3{padding-right:40px;margin-bottom:6px}
 .gap p{margin:6px 0;font-size:.92rem;color:var(--ink-2)}
 .gap .stop{font-size:.88rem;background:var(--surface-2);border-radius:8px;padding:8px 10px;margin-top:10px}
@@ -165,7 +171,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* timeline */
 .timeline{position:relative;margin-top:34px;padding-left:28px}
 .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
-.era{font-family:Fraunces,serif;font-weight:800;font-size:1.05rem;margin:28px 0 10px;color:var(--ink-2)}
+.era{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.05rem;margin:28px 0 10px;color:var(--ink-2)}
 .ev{position:relative;margin:0 0 14px;padding:12px 16px}
 .ev::before{content:"";position:absolute;left:-26px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--navy));border:3px solid var(--bg)}
 .ev .yr{font-weight:800;font-variant-numeric:tabular-nums;margin-right:8px}
@@ -182,7 +188,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* roadmap */
 .road{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
 .stage{padding:18px;border-top:5px solid var(--c)}
-.stage .when{font-family:Fraunces,serif;font-weight:800;font-size:1.4rem}
+.stage .when{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.4rem}
 .stage ul{padding-left:18px;margin:10px 0 0;font-size:.88rem;color:var(--ink-2)}
 .stage li{margin:4px 0}
 .check{list-style:none;padding:0;margin:16px 0 0}
@@ -198,7 +204,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .pseg.pend{background:#fff;border-color:var(--line)}
 .pline-scale{display:flex;justify-content:space-between;font-size:.76rem;color:var(--ink-3);margin-top:8px}
 .pline-sum{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-size:.92rem;align-items:center}
-.pline-sum b{font-family:Fraunces,serif;font-size:1.5rem;margin-right:6px}
+.pline-sum b{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.5rem;margin-right:6px}
 .pline-sum span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-2px;background:var(--c);border:1.5px solid var(--b,var(--c))}
 .mcols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
 .mcol{padding:16px 18px}
@@ -299,7 +305,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
 <header class="hero" id="top"><div class="wrap">
   <div class="hero-grid">
     <div>
-      <div class="kicker">Project Sprint · India deep-tech tracker</div>
+      <div class="hero-badge"><i></i>Project Sprint · tracking India's deep-tech progress</div>
       <h1>How far is India from a <em>100% indigenous</em> AI phone?</h1>
       <p class="lede">A smartphone is a stack of a dozen technologies — chip, modem, memory, display, camera, battery, board, body, factory, operating system, AI models and a brand. India is world-class at some, absent from others. This tracker scores each layer, names the companies and the money behind them, and lists exactly what still blocks a phone that is Indian all the way down.</p>
       <blockquote class="quote">“This is 23 October 2026. Please note it: 23 October 2028. You will have Indian-designed, Indian-manufactured, Indian-branded mobile phones.”<br><span class="small muted" style="font-style:normal">— Ashwini Vaishnaw, Union Minister for Electronics &amp; IT, New Delhi</span></blockquote>
@@ -311,6 +317,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
       <svg id="gauge" viewBox="0 0 300 180" width="100%" role="img" aria-label="Gauge"></svg>
       <div class="num" id="gaugeNum">0%</div>
       <div class="small muted">by bill-of-materials value, Indian-owned technology</div>
+      <div class="small" style="margin-top:10px;color:var(--green);font-weight:600">↗ ~20–25% on track for 2028 · 50–60% within reach by 2035</div>
       <div class="gauge-legend">
         <span style="--c:var(--green)">Indian-owned</span>
         <span style="--c:var(--amber)">Made in India, foreign IP</span>
@@ -322,7 +329,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
     <div class="card stat"><div class="v" style="color:var(--green)">#2</div><div class="l">India's rank among the world's phone manufacturers</div></div>
     <div class="card stat"><div class="v" style="color:var(--amber)">25–28%</div><div class="l">Domestic value addition in phones made in India (official est.)</div></div>
     <div class="card stat"><div class="v" style="color:var(--saffron)">7%</div><div class="l">Indian brands' share of India's market, Q3 2026 (2% a year earlier)</div></div>
-    <div class="card stat"><div class="v" style="color:var(--red)">0</div><div class="l">Indian-designed smartphone processors or cellular modems in mass production</div></div>
+    <div class="card stat"><div class="v" style="color:var(--navy)">Next</div><div class="l">frontier: an Indian smartphone processor and modem; several Indian chip teams are building towards it</div></div>
   </div>
 </div></header>
 
@@ -341,7 +348,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
   <h2>Layer by layer: where India stands</h2>
   <p class="lede">Each bar is how much of that layer is Indian-owned today — design IP, fabrication and control — not merely assembled here. Tap any layer for the companies, the money, the blocker and the realistic stop-gap.</p>
   <div class="legend-row">
-    <span style="--c:var(--red)">0–20 · Absent / dependent</span>
+    <span style="--c:var(--red)">0–20 · Early stage</span>
     <span style="--c:var(--amber)">21–50 · Emerging</span>
     <span style="--c:var(--green)">51–100 · Capable</span>
   </div>
@@ -693,7 +700,7 @@ const CHECK = [
 // ---------- helpers ----------
 const $ = s=>document.querySelector(s);
 const colorFor = v => v<=20?'var(--red)':v<=50?'var(--amber)':'var(--green)';
-const pillFor = v => v<=20?['p-red','Dependent']:v<=50?['p-amber','Emerging']:['p-green','Capable'];
+const pillFor = v => v<=20?['p-red','Early stage']:v<=50?['p-amber','Emerging']:['p-green','Capable'];
 const fmt = n => n.toLocaleString('en-IN');
 const tip = $('#tip');
 function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(e.clientX+14,innerWidth-270);tip.style.left=x+'px';tip.style.top=(e.clientY+14)+'px'}
@@ -796,7 +803,7 @@ function openLayer(id,scroll){
 
 // BoM
 (function(){
-  const pal=['#1d3f8f','#3b5fb8','#6a3fa0','#b0457a','#c2412d','#c98a12','#7a8b2e','#1f8a4c','#2a9d8f','#5a6772','#e8772e'];
+  const pal=['#2b6fd6','#5b93e6','#7d6fe0','#d77aa8','#e2654f','#f0a92e','#9cbf3f','#12a26b','#20b3ad','#6f8799','#f0882e'];
   const cost=$('#bomCost'),own=$('#bomOwn'),key=$('#bomKey');
   cost.innerHTML=bomLayers.map((l,i)=>`<div class="bom-seg" data-i="${i}" style="flex:${l.weight};background:${pal[i]}"><span>${l.weight>=9?l.name.split(' ')[0]:''}</span></div>`).join('');
   const imp=100-owned-madeHere;
@@ -947,7 +954,7 @@ const MCATS = {
   osat:['Chip packaging (OSAT/ATMP)','var(--amber)'],
   asm:['Phone factories','var(--saffron)'],
   rnd:['AI & chip-design hubs','var(--green)'],
-  comp:['Batteries & components','#8a5cc2'],
+  comp:['Batteries & components','#7d6fe0'],
   plan:['Proposed / abandoned','var(--ink-3)']
 };
 // [name, cat, lat, lon, place, state, ₹ crore or 0, status, note]
