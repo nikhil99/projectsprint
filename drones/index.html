@@ -1,0 +1,1697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swadeshi Drone Tracker</title>
+<meta name="description" content="How far is India from a 100% indigenous drone? A layer-by-layer tracker of motors, batteries, flight controllers, navigation, datalinks, payloads, engines, software, companies, investments, history and the gaps that remain.">
+<meta property="og:title" content="Swadeshi Drone Tracker: How Indian can an Indian drone be?">
+<meta property="og:description" content="Layer-by-layer readiness, companies, investments, past attempts and stop-gaps on India's road to an indigenous drone.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><g stroke='%232b6fd6' stroke-width='5'><line x1='14' y1='14' x2='50' y2='50'/><line x1='50' y1='14' x2='14' y2='50'/></g><g fill='%232b6fd6'><circle cx='12' cy='12' r='9'/><circle cx='52' cy='12' r='9'/><circle cx='12' cy='52' r='9'/><circle cx='52' cy='52' r='9'/></g><circle cx='32' cy='32' r='9' fill='%23f0882e'/></svg>">
+<style>
+:root{
+  --bg:#f6fafc; --surface:#ffffff; --surface-2:#eef5f8; --ink:#10283a; --ink-2:#3e5668; --ink-3:#7d909e;
+  --line:#e0eaf0; --saffron:#f0882e; --saffron-soft:#fff0e0; --green:#12a26b; --green-soft:#dcf6ea;
+  --navy:#2b6fd6; --navy-soft:#e3eefc; --red:#e2654f; --red-soft:#fde9e4; --amber:#e3a21a; --amber-soft:#fdf3d8;
+  --track:#e6eef3; --shadow:0 1px 2px rgba(16,40,58,.04),0 8px 28px rgba(16,40,58,.06);
+  --sky:#e4f1ff; --sun:#fff1dc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1722; --surface:#12212f; --surface-2:#192b3b; --ink:#eef5fa; --ink-2:#b4c5d2; --ink-3:#7f95a6;
+    --line:#22384b; --saffron:#ffa45a; --saffron-soft:#3a2614; --green:#3bd394; --green-soft:#123527;
+    --navy:#72a9ff; --navy-soft:#16294a; --red:#ff806a; --red-soft:#3d1f1a; --amber:#f4c24e; --amber-soft:#3a2e10;
+    --track:#1e3244; --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 28px rgba(0,0,0,.25);
+    --sky:#13294a; --sun:#2e2414;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1722; --surface:#12212f; --surface-2:#192b3b; --ink:#eef5fa; --ink-2:#b4c5d2; --ink-3:#7f95a6;
+    --line:#22384b; --saffron:#ffa45a; --saffron-soft:#3a2614; --green:#3bd394; --green-soft:#123527;
+    --navy:#72a9ff; --navy-soft:#16294a; --red:#ff806a; --red-soft:#3d1f1a; --amber:#f4c24e; --amber-soft:#3a2e10;
+    --track:#1e3244; --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 28px rgba(0,0,0,.25);
+    --sky:#13294a; --sun:#2e2414;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+h1,h2,h3{font-family:'Plus Jakarta Sans',Inter,system-ui,sans-serif;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.25rem);font-weight:800;letter-spacing:-.025em}
+h3{font-size:1.15rem;font-weight:600}
+.wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+section{padding:64px 0;border-top:1px solid var(--line)}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);margin-bottom:10px}
+.lede{color:var(--ink-2);max-width:760px;font-size:1.05rem;margin:14px 0 0}
+.muted{color:var(--ink-3)}
+.small{font-size:.86rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.p-red{background:var(--red-soft);color:var(--red)} .p-amber{background:var(--amber-soft);color:var(--amber)}
+.p-green{background:var(--green-soft);color:var(--green)} .p-navy{background:var(--navy-soft);color:var(--navy)}
+.p-saff{background:var(--saffron-soft);color:var(--saffron)}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:18px;height:58px}
+.brand{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.05rem;text-decoration:none;color:var(--ink);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.brand i{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 50% 70%,#ffd36b 0 38%,var(--saffron) 39% 100%);box-shadow:0 0 0 3px var(--saffron-soft)}
+.navlinks{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;flex:1}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{color:var(--ink-2);text-decoration:none;font-size:.88rem;font-weight:500;white-space:nowrap}
+.navlinks a:hover{color:var(--saffron)}
+#themeBtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;flex:none}
+
+/* hero */
+.hero{padding:64px 0 48px;border-top:none;background:radial-gradient(900px 420px at 92% -8%,var(--sun),transparent 70%),radial-gradient(800px 420px at -5% 0%,var(--sky),transparent 70%)}
+section:nth-of-type(even){background:color-mix(in srgb,var(--surface-2) 45%,var(--bg))}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px;font-size:.8rem;color:var(--ink-2);margin-bottom:16px;box-shadow:var(--shadow)}
+.hero-badge i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.4vw,3.9rem);font-weight:800;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--saffron),#f2b23a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stamp{display:inline-flex;gap:8px;align-items:center;font-size:.82rem;color:var(--ink-3);margin-top:18px}
+.stamp b{color:var(--ink-2)}
+.gauge-card{padding:26px;text-align:center}
+.gauge-card .num{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:3.4rem;font-weight:800;line-height:1}
+.gauge-legend{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:.8rem;color:var(--ink-2)}
+.gauge-legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.stat{padding:18px}
+.stat .v{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.9rem;line-height:1.1}
+.stat .l{font-size:.85rem;color:var(--ink-2);margin-top:4px}
+.countdown{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.countdown div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-align:center;min-width:72px}
+.countdown b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.6rem;line-height:1.1}
+.countdown span{font-size:.72rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+.quote{border-left:3px solid var(--saffron);padding:6px 0 6px 16px;margin:22px 0 0;color:var(--ink-2);font-style:italic}
+
+/* stack */
+.stack-grid{display:grid;grid-template-columns:340px 1fr;gap:28px;margin-top:34px;align-items:start}
+.phone-svg{position:sticky;top:76px}
+.layer-list{display:flex;flex-direction:column;gap:10px}
+.layer{padding:14px 16px;cursor:pointer;transition:border-color .15s,transform .15s}
+.layer:hover{border-color:var(--saffron)}
+.layer.open{border-color:var(--saffron);box-shadow:0 0 0 3px var(--saffron-soft),var(--shadow)}
+.layer-head{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
+.layer-name{font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.layer-score{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.35rem}
+.bar{grid-column:1/-1;height:10px;background:var(--track);border-radius:99px;overflow:hidden;position:relative}
+.bar>i{position:absolute;inset:0 auto 0 0;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.layer-sub{grid-column:1/-1;font-size:.86rem;color:var(--ink-2)}
+.layer-body{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:.93rem}
+.layer.open .layer-body{display:block}
+.lb-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lb-grid h4{margin:0 0 6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.lb-grid ul{margin:0;padding-left:18px}
+.lb-grid li{margin:3px 0}
+.gap-box{background:var(--red-soft);border-radius:10px;padding:10px 12px;margin-top:12px}
+.gap-box b{color:var(--red)}
+.fix-box{background:var(--green-soft);border-radius:10px;padding:10px 12px;margin-top:8px}
+.fix-box b{color:var(--green)}
+.legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-2);margin-top:18px}
+.legend-row span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px;background:var(--c)}
+
+/* bom */
+.bom{margin-top:30px;padding:24px}
+.bom-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;margin:14px 0}
+.bom-row .lbl{font-weight:600;font-size:.9rem}
+.bom-bar{display:flex;height:44px;border-radius:10px;overflow:hidden;background:var(--track)}
+.bom-seg{position:relative;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;border-right:2px solid var(--surface);overflow:hidden;cursor:default;min-width:0}
+.bom-seg span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.bom-seg .fill{position:absolute;left:0;bottom:0;height:100%;background:rgba(255,255,255,.0)}
+.bom-key{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px;font-size:.82rem;color:var(--ink-2)}
+.bom-key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;background:var(--c)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;padding:8px 10px;border-radius:8px;max-width:260px;z-index:50;opacity:0;transition:opacity .1s}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.note{padding:18px}
+
+/* gaps */
+.gaps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.gap{padding:18px 18px 16px;position:relative}
+.gap .rank{position:absolute;top:14px;right:16px;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.8rem;color:var(--line)}
+.gap h3{padding-right:40px;margin-bottom:6px}
+.gap p{margin:6px 0;font-size:.92rem;color:var(--ink-2)}
+.gap .stop{font-size:.88rem;background:var(--surface-2);border-radius:8px;padding:8px 10px;margin-top:10px}
+.gap .stop b{color:var(--green)}
+.sev{display:flex;gap:3px;margin-bottom:8px}
+.sev i{width:18px;height:6px;border-radius:3px;background:var(--track)}
+.sev i.on{background:var(--red)}
+
+/* money */
+.money-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+.chart{padding:22px}
+.chart h3{margin-bottom:4px}
+.hbar{display:grid;grid-template-columns:205px 1fr 80px;gap:10px;align-items:center;margin:9px 0;font-size:.86rem}
+.hbar .t{height:16px;background:var(--track);border-radius:4px;overflow:hidden}
+.hbar .t i{display:block;height:100%;border-radius:4px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.hbar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.hbar .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:700}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.table-wrap{overflow-x:auto;margin-top:20px}
+
+/* players */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.filters button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:6px 12px;border-radius:999px;font:inherit;font-size:.84rem;cursor:pointer}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.players{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.player{padding:14px 16px}
+.player .top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.player h3{font-family:Inter,sans-serif;font-size:.98rem;font-weight:700}
+.player p{margin:6px 0 0;font-size:.86rem;color:var(--ink-2)}
+.player .meta{font-size:.78rem;color:var(--ink-3);margin-top:8px}
+
+/* timeline */
+.timeline{position:relative;margin-top:34px;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.era{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.05rem;margin:28px 0 10px;color:var(--ink-2)}
+.ev{position:relative;margin:0 0 14px;padding:12px 16px}
+.ev::before{content:"";position:absolute;left:-26px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--navy));border:3px solid var(--bg)}
+.ev .yr{font-weight:800;font-variant-numeric:tabular-nums;margin-right:8px}
+.ev p{margin:4px 0 0;font-size:.9rem;color:var(--ink-2)}
+
+/* attempts */
+.attempts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.attempt{padding:18px}
+.attempt .hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.attempt p{font-size:.9rem;color:var(--ink-2);margin:8px 0 0}
+.attempt .lesson{margin-top:10px;font-size:.86rem;border-top:1px dashed var(--line);padding-top:8px}
+.attempt .lesson b{color:var(--saffron)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.stage{padding:18px;border-top:5px solid var(--c)}
+.stage .when{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.4rem}
+.stage ul{padding-left:18px;margin:10px 0 0;font-size:.88rem;color:var(--ink-2)}
+.stage li{margin:4px 0}
+.check{list-style:none;padding:0;margin:16px 0 0}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.check .ic{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:800;color:#fff}
+
+/* progress line */
+.pline{display:flex;gap:4px;margin-top:28px;height:34px}
+.pseg{flex:1;border-radius:6px;border:1.5px solid var(--green);cursor:pointer;position:relative;transition:transform .15s}
+.pseg:hover,.pseg.hl{transform:translateY(-3px)}
+.pseg.done{background:var(--green)}
+.pseg.prog{background:repeating-linear-gradient(-45deg,var(--green) 0 5px,var(--green-soft) 5px 10px)}
+.pseg.pend{background:#fff;border-color:var(--line)}
+.pline-scale{display:flex;justify-content:space-between;font-size:.76rem;color:var(--ink-3);margin-top:8px}
+.pline-sum{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-size:.92rem;align-items:center}
+.pline-sum b{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.5rem;margin-right:6px}
+.pline-sum span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-2px;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.mcols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.mcol{padding:16px 18px}
+.mcol h3{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.mcol ol{margin:0;padding-left:0;list-style:none;font-size:.88rem}
+.mcol li{display:flex;gap:10px;padding:6px 4px;border-bottom:1px solid var(--line)}
+.mcol li:last-child{border-bottom:none}
+.mcol li.hl{background:var(--surface-2);border-radius:6px}
+.mcol .no{flex:none;width:24px;height:22px;border-radius:5px;display:grid;place-items:center;font-size:.72rem;font-weight:800}
+.mcol .yr{color:var(--ink-3);font-size:.78rem}
+
+/* opportunities */
+.opps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}
+.opp{padding:20px;display:flex;flex-direction:column}
+.opp .hd{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.opp .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.opp p{font-size:.9rem;color:var(--ink-2);margin:8px 0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.facts div{background:var(--surface-2);border-radius:8px;padding:8px 10px;font-size:.78rem;color:var(--ink-3)}
+.facts b{display:block;color:var(--ink);font-size:.9rem}
+.cands h4{margin:10px 0 6px;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.cand{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-top:1px dashed var(--line);font-size:.87rem}
+.cand b{flex:none;width:170px}
+.cand span{color:var(--ink-2)}
+.first{margin-top:auto;padding-top:12px}
+.first div{background:var(--green-soft);border-radius:8px;padding:9px 12px;font-size:.86rem}
+.first b{color:var(--green)}
+.diy{margin-top:20px;padding:22px}
+.diy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px}
+.diy-grid div{font-size:.87rem;color:var(--ink-2)}
+.diy-grid b{display:block;color:var(--ink);margin-bottom:4px}
+@media (max-width:980px){.mcols,.diy-grid{grid-template-columns:1fr 1fr}.opps{grid-template-columns:1fr}}
+@media (max-width:640px){.mcols,.diy-grid,.facts{grid-template-columns:1fr}.pline{gap:2px;height:28px}.pseg{border-radius:3px}.cand{flex-direction:column;gap:2px}.cand b{width:auto}}
+
+/* component tree */
+.tree-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.tree-tools button{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:6px 12px;border-radius:999px;font:inherit;font-size:.84rem;cursor:pointer}
+.tree-tools button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tree-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-left:auto}
+.tree-legend span{display:inline-flex;align-items:center;gap:6px}
+.tree-legend b{display:inline-block;width:14px;height:12px;border-radius:4px;border:1.5px solid}
+.tree-card{margin-top:14px;padding:14px;overflow-x:auto}
+#tree{display:block}
+#tree .lnk{fill:none;stroke:var(--line);stroke-width:1.6}
+#tree .lnk.hot{stroke:var(--saffron);stroke-width:2;stroke-dasharray:5 4}
+#tree .nd{cursor:pointer}
+#tree .nd text{font:600 12px Inter,system-ui,sans-serif;fill:var(--ink)}
+#tree .nd .sub{font:500 10.5px Inter,system-ui,sans-serif;fill:var(--ink-3)}
+#tree .nd:hover rect.box{filter:drop-shadow(0 2px 6px rgba(16,40,58,.12))}
+#tree .tog{font:700 12px Inter,sans-serif;fill:var(--ink-3)}
+.tree-hint{font-size:.8rem;color:var(--ink-3);margin:8px 4px 0}
+
+/* company size */
+.size-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.size-tools .grp{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.size-tools button{border:none;background:none;color:var(--ink-2);padding:6px 13px;font:inherit;font-size:.84rem;cursor:pointer}
+.size-tools button.on{background:var(--ink);color:var(--bg)}
+.size-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:12px}
+.size-legend span{display:inline-flex;align-items:center;gap:6px}
+.size-legend i{width:12px;height:12px;border-radius:50%;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.size-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.size-kpis div{padding:14px 16px;font-size:.84rem;color:var(--ink-2)}
+.size-kpis b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.6rem;line-height:1.15;color:var(--ink)}
+.size-card{margin-top:14px;padding:10px 8px;overflow-x:auto}
+#sizeChart{display:block}
+#sizeChart .bub{cursor:pointer}
+#sizeChart g.co:hover .bub{stroke-width:2.5}
+#sizeChart .nm{font:600 10.5px Inter,system-ui,sans-serif;fill:var(--ink)}
+#sizeChart .vl{font:500 9.5px Inter,system-ui,sans-serif;fill:var(--ink-3)}
+#sizeChart .rl{font:700 12.5px 'Plus Jakarta Sans',Inter,sans-serif;fill:var(--ink)}
+#sizeChart .rs{font:500 10px Inter,sans-serif;fill:var(--ink-3)}
+#sizeChart .grp-h{font:800 10.5px Inter,sans-serif;letter-spacing:.14em;fill:var(--saffron)}
+#sizeChart .side{font:700 10px Inter,sans-serif;letter-spacing:.12em;fill:var(--ink-3)}
+#sizeChart .none{font:600 10.5px Inter,sans-serif;fill:var(--red)}
+.size-detail{margin-top:14px;padding:18px;display:none}
+.size-detail.show{display:block}
+.size-detail .top{display:flex;justify-content:space-between;gap:12px;align-items:start;flex-wrap:wrap}
+.size-detail dl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 0}
+.size-detail dl div{background:var(--surface-2);border-radius:10px;padding:9px 12px}
+.size-detail dt{font-size:.74rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.size-detail dd{margin:2px 0 0;font-weight:600;font-size:.9rem}
+.size-detail p{font-size:.9rem;color:var(--ink-2);margin:12px 0 0}
+.size-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.size-insights div{padding:16px;font-size:.88rem;color:var(--ink-2)}
+.size-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.5rem;color:var(--ink);line-height:1.2}
+@media (max-width:980px){.size-insights{grid-template-columns:1fr}.size-kpis,.size-detail dl{grid-template-columns:1fr 1fr}}
+
+/* phone scorecard */
+.pc-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:20px}
+.pc-legend span{display:inline-flex;align-items:center;gap:6px}
+.pc-legend i{width:16px;height:14px;border-radius:4px;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.pc-card{margin-top:14px;padding:6px;overflow-x:auto}
+.pc{border-collapse:separate;border-spacing:3px;width:100%;min-width:980px;font-size:.8rem}
+.pc th{font-size:.68rem;letter-spacing:.04em;text-transform:none;color:var(--ink-3);font-weight:700;padding:6px 2px;text-align:center;border:none;vertical-align:bottom;line-height:1.2}
+.pc th.grp{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);border-bottom:2px solid var(--saffron-soft)}
+.pc td{border:none;padding:0;vertical-align:middle}
+.pc td.ph{padding:8px 8px;min-width:150px;cursor:pointer;border-radius:10px}
+.pc tr:hover td.ph,.pc tr.sel td.ph{background:var(--surface-2)}
+.pc td.ph b{display:block;font-size:.88rem}
+.pc td.ph span{color:var(--ink-3);font-size:.74rem}
+.cell{height:40px;border-radius:7px;display:grid;place-items:center;font-size:.66rem;font-weight:700;cursor:default;border:1.5px solid transparent;min-width:46px;padding:0 3px;text-align:center;line-height:1.1}
+.cell.I{background:var(--green);color:#fff}
+.cell.P{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.cell.F{background:var(--surface-2);color:var(--ink-3);border-color:var(--line)}
+.cell.U{background:transparent;color:var(--ink-3);border:1.5px dashed var(--ink-3)}
+.cell.N{background:transparent;color:var(--line)}
+.scorebar{min-width:84px;padding:0 6px}
+.scorebar .t{height:9px;background:var(--track);border-radius:99px;overflow:hidden}
+.scorebar .t i{display:block;height:100%;border-radius:99px}
+.scorebar .n{font-weight:800;font-size:.86rem;margin-bottom:3px;font-family:'Plus Jakarta Sans',Inter,sans-serif}
+.pc tr.ref td.ph{font-style:italic}
+.pc tr.sep td{height:10px}
+.pc-detail{margin-top:14px;padding:20px;display:none}
+.pc-detail.show{display:block}
+.pc-detail .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-top:10px}
+.pc-detail ul{margin:6px 0 0;padding-left:18px;font-size:.88rem;color:var(--ink-2)}
+.pc-detail li{margin:3px 0}
+.pc-detail h4{margin:0;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.pc-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.pc-insights div{padding:16px;font-size:.88rem;color:var(--ink-2)}
+.pc-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
+@media (max-width:980px){.pc-insights,.pc-detail .cols{grid-template-columns:1fr}}
+
+/* talent */
+.tal-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+.tal-kpis div{padding:14px 16px;font-size:.82rem;color:var(--ink-2)}
+.tal-kpis b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.55rem;line-height:1.15;color:var(--ink)}
+.tal-h{margin:38px 0 4px;font-size:1.25rem}
+.flow-card{margin-top:14px;padding:12px;overflow-x:auto}
+#flow{display:block}
+#flow .lk{fill:none;stroke-opacity:.28;transition:stroke-opacity .2s}
+#flow .lk.hot{stroke-opacity:.6}
+#flow .nd{cursor:pointer}
+#flow text{font:600 11.5px Inter,system-ui,sans-serif;fill:var(--ink)}
+#flow text.sub{font:500 10px Inter,sans-serif;fill:var(--ink-3)}
+.leaders{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.leader{padding:14px 16px}
+.leader .top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.leader h3{font-family:Inter,sans-serif;font-size:.98rem;font-weight:700}
+.leader .role{font-size:.82rem;color:var(--ink-2);margin-top:2px}
+.leader .from{font-size:.84rem;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--ink-2)}
+.leader .from b{color:var(--ink-3);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:2px}
+.tl-train{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}
+.tl-train>div{padding:14px;border-top:4px solid var(--c)}
+.tl-train .y{font-family:'Plus Jakarta Sans',Inter,sans-serif;font-weight:800;font-size:1.2rem}
+.tl-train ul{margin:6px 0 0;padding-left:16px;font-size:.8rem;color:var(--ink-2)}
+.tl-train li{margin:3px 0}
+.inst-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.inst{padding:16px}
+.inst h3{font-size:1rem;margin-bottom:6px}
+.inst ul{margin:0;padding-left:16px;font-size:.84rem;color:var(--ink-2)}
+.inst li{margin:5px 0}
+.inst li b{color:var(--ink)}
+.tal-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.tal-insights div{padding:16px;font-size:.88rem;color:var(--ink-2)}
+.tal-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
+@media (max-width:980px){.tal-kpis{grid-template-columns:repeat(2,1fr)}.leaders,.inst-grid,.tal-insights{grid-template-columns:1fr 1fr}.tl-train{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.leaders,.inst-grid,.tal-insights,.tl-train{grid-template-columns:1fr}}
+
+/* map */
+.map-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:24px;align-items:start}
+.map-card{padding:12px;position:relative}
+#indiaMap{width:100%;height:auto;display:block}
+#indiaMap .land{fill:var(--surface-2);stroke:var(--ink-3);stroke-width:.8;stroke-linejoin:round}
+#indiaMap .mk{cursor:pointer;stroke:var(--surface);stroke-width:1.5;transition:opacity .2s}
+#indiaMap .mk.plan{fill:var(--surface)!important;stroke-width:2;stroke-dasharray:2 1.5}
+#indiaMap .mk.sel{stroke:var(--ink);stroke-width:2.5}
+#indiaMap .city{font-size:10.5px;font-weight:700;fill:var(--ink-2);paint-order:stroke;stroke:var(--surface-2);stroke-width:3px;pointer-events:none}
+.map-note{font-size:.72rem;color:var(--ink-3);margin:6px 6px 0}
+.map-side{display:flex;flex-direction:column;gap:14px}
+.mfilters{display:flex;flex-wrap:wrap;gap:8px}
+.mfilters button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:6px 11px;border-radius:999px;font:inherit;font-size:.82rem;cursor:pointer}
+.mfilters button i{width:11px;height:11px;border-radius:50%;background:var(--c)}
+.mfilters button.off{opacity:.4}
+.mdetail{padding:18px}
+.mdetail .place{font-size:.8rem;color:var(--ink-3);margin-top:2px}
+.mdetail dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:12px 0 0;font-size:.88rem}
+.mdetail dt{color:var(--ink-3)}
+.mdetail dd{margin:0;font-weight:600}
+.state-bars .hbar{grid-template-columns:110px 1fr 90px}
+.site-list{max-height:330px;overflow:auto;padding:6px 8px}
+.site-list div{display:flex;gap:10px;align-items:center;padding:7px 6px;border-bottom:1px solid var(--line);font-size:.86rem;cursor:pointer;border-radius:6px}
+.site-list div:hover,.site-list div.sel{background:var(--surface-2)}
+.site-list i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--c)}
+.site-list span{color:var(--ink-3);margin-left:auto;font-size:.78rem;white-space:nowrap}
+@media (max-width:980px){.map-grid{grid-template-columns:1fr}}
+
+/* sources */
+.sources{columns:2;column-gap:32px;margin-top:24px;font-size:.86rem;padding-left:18px}
+.sources li{break-inside:avoid;margin:0 0 8px}
+footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-3)}
+
+@media (max-width:980px){
+  .hero-grid,.stack-grid,.money-grid,.split2{grid-template-columns:1fr}
+  .phone-svg{position:static;max-width:320px;margin:0 auto}
+  .players{grid-template-columns:repeat(2,1fr)}
+  .road{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  section{padding:48px 0}
+  .gaps,.attempts,.players,.road,.lb-grid{grid-template-columns:1fr}
+  .bom-row{grid-template-columns:1fr;gap:6px}
+  .hbar{grid-template-columns:110px 1fr 70px;font-size:.8rem}
+  .sources{columns:1}
+  .gauge-card .num{font-size:2.8rem}
+  #bomCost .bom-seg span{display:none}
+  #bomOwn .bom-seg span{font-size:.62rem}
+}
+@media (max-width:640px){.stats{grid-template-columns:1fr}.opp,.opp .hd>div{min-width:0}.opp h3{overflow-wrap:anywhere}}
+.sprint-bar{background:var(--ink);color:var(--bg);font-size:.8rem}
+.sprint-bar .wrap{display:flex;gap:16px;align-items:center;height:34px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.sprint-bar .wrap::-webkit-scrollbar{display:none}
+.sprint-bar a{color:inherit;opacity:.72;text-decoration:none;font-weight:500}
+.sprint-bar a:hover{opacity:1}
+.sprint-bar a.on{opacity:1;font-weight:700;color:var(--saffron)}
+.sprint-bar .home{opacity:1;font-weight:800;letter-spacing:.02em}
+</style>
+</head>
+<body>
+<div class="sprint-bar"><div class="wrap"><a class="home" href="../">Project Sprint</a><a href="../ai-phone/">AI phone</a><a href="../drones/" class="on" aria-current="page">Drones</a><a href="../underwater-drones/">Underwater drones</a><a href="../construction-machines/">Construction machines</a><a href="../robot-arms/">Robot arms</a></div></div>
+
+<nav class="top"><div class="wrap">
+  <a class="brand" href="#top"><i></i>Swadeshi Drone</a>
+  <div class="navlinks">
+    <a href="#progress">Progress</a><a href="#stack">The stack</a><a href="#tree-sec">Tree</a><a href="#value">Value</a><a href="#phones">Drones</a><a href="#gaps">Stop-gaps</a><a href="#next">Up for grabs</a><a href="#money">Investment</a>
+    <a href="#map">Map</a><a href="#players">Companies</a><a href="#size">Size</a><a href="#talent">Talent</a><a href="#history">History</a><a href="#attempts">Past attempts</a><a href="#roadmap">Roadmap</a><a href="#sources">Sources</a>
+  </div>
+  <button id="themeBtn" aria-label="Toggle theme">◐</button>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge"><i></i>Project Sprint · tracking India's deep-tech progress</div>
+      <h1>How far is India from a <em>100% indigenous</em> drone?</h1>
+      <p class="lede">A drone is a stack of a dozen technologies: airframe, motors, battery, flight controller, navigation, radio link, camera, engine, autopilot software and AI. India now assembles thousands of drones and has fought with them, but the parts inside are often imported, mostly from China. This tracker scores each layer, names the companies and the money behind them, and lists what still blocks a drone that is Indian all the way down.</p>
+      <blockquote class="quote">India must work in mission mode to “emerge as a global hub of indigenous drone manufacturing”.<br><span class="small muted" style="font-style:normal">— Rajnath Singh, Defence Minister, March 2026. The government's stated goal since 2021: a global drone hub by 2030.</span></blockquote>
+      <div class="countdown" id="countdown" aria-label="Countdown to the end of 2030"></div>
+      <div class="stamp">Data as of <b>27 Oct 2026</b> · readiness scores are editorial estimates, see <a href="#method">method</a></div>
+    </div>
+    <div class="card gauge-card">
+      <div class="kicker" style="margin-bottom:4px">Indigenous share of an Indian tactical drone</div>
+      <svg id="gauge" viewBox="0 0 300 180" width="100%" role="img" aria-label="Gauge"></svg>
+      <div class="num" id="gaugeNum">0%</div>
+      <div class="small muted">by bill-of-materials value, Indian-owned technology</div>
+      <div class="small" style="margin-top:10px;color:var(--green);font-weight:600">↗ ~45–50% reachable by 2030 if magnets, motors and payloads localise</div>
+      <div class="gauge-legend">
+        <span style="--c:var(--green)">Indian-owned</span>
+        <span style="--c:var(--amber)">Made in India, foreign IP or parts</span>
+        <span style="--c:var(--track)">Imported</span>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="card stat"><div class="v" style="color:var(--green)">38,575</div><div class="l">drones registered with DGCA (Feb 2026), plus 39,890 certified remote pilots</div></div>
+    <div class="card stat"><div class="v" style="color:var(--amber)">39%</div><div class="l">of flight controllers in India's small drones are Chinese-made (manufacturers' data, Parliament, Apr 2025)</div></div>
+    <div class="card stat"><div class="v" style="color:var(--saffron)">₹40,000 cr</div><div class="l">emergency defence purchases cleared after Operation Sindoor; a large share for drones and loitering munitions</div></div>
+    <div class="card stat"><div class="v" style="color:var(--navy)">Next</div><div class="l">frontier: Indian magnets, motors, cells, thermal cameras and flight-controller chips</div></div>
+  </div>
+</div></header>
+
+<section id="progress"><div class="wrap">
+  <div class="kicker">00 · Progress line</div>
+  <h2>25 milestones to a fully Indian drone</h2>
+  <p class="lede">Every block is one milestone, in rough order of difficulty, from easiest on the left to hardest on the right. <b style="color:var(--green)">Green</b> is done, <b>striped</b> is under way, <b>white</b> is not yet started. Hover or tap a block to see it.</p>
+  <div class="pline" id="pline" role="img" aria-label="Milestone progress bar"></div>
+  <div class="pline-scale"><span>← Easier · rules, airframes, assembly</span><span>Harder · chips, sensors, engines →</span></div>
+  <div class="pline-sum" id="plineSum"></div>
+  <div class="mcols" id="mcols"></div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+  <div class="kicker">01 · The stack</div>
+  <h2>Layer by layer: where India stands</h2>
+  <p class="lede">Each bar is how much of that layer is Indian-owned today: design IP, manufacturing and control of supply, not just assembly here. Tap any layer for the companies, the money, the blocker and the realistic stop-gap.</p>
+  <div class="legend-row">
+    <span style="--c:var(--red)">0–20 · Early stage</span>
+    <span style="--c:var(--amber)">21–50 · Emerging</span>
+    <span style="--c:var(--green)">51–100 · Capable</span>
+  </div>
+  <div class="stack-grid">
+    <div class="phone-svg card" style="padding:18px"><svg id="phone" viewBox="0 0 300 560" width="100%" role="img" aria-label="Exploded drone diagram"></svg>
+      <p class="small muted" style="text-align:center;margin:6px 0 0">Exploded view. Colour shows readiness. Click a part.</p></div>
+    <div class="layer-list" id="layers"></div>
+  </div>
+</div></section>
+
+<section id="tree-sec"><div class="wrap">
+  <div class="kicker">01b · Component tree</div>
+  <h2>How a drone breaks down, and the next node on each branch</h2>
+  <p class="lede">The drone splits into five domains, then components, then the parts that have to be built. Colour shows where India is today. <b style="color:var(--saffron)">NEXT</b> marks the next node to unlock on each branch. Click a node to expand or collapse it, and hover for details.</p>
+  <div class="tree-tools">
+    <button data-mode="next" class="on">Show paths to NEXT</button><button data-mode="all">Expand all</button><button data-mode="top">Collapse</button>
+    <div class="tree-legend">
+      <span><b style="background:var(--green);border-color:var(--green)"></b>Done</span>
+      <span><b style="background:var(--green-soft);border-color:var(--green)"></b>In progress</span>
+      <span><b style="background:var(--surface);border-color:var(--line)"></b>Not started</span>
+      <span><b style="background:var(--saffron-soft);border-color:var(--saffron)"></b>NEXT node</span>
+    </div>
+  </div>
+  <div class="card tree-card"><svg id="tree" role="img" aria-label="Hierarchical breakdown of a drone"></svg></div>
+  <p class="tree-hint">Tip: on a phone, swipe sideways inside the diagram.</p>
+</div></section>
+
+<section id="value"><div class="wrap">
+  <div class="kicker">02 · Where the money in a drone goes</div>
+  <h2>Assembled in India ≠ Indian</h2>
+  <p class="lede">An indicative bill of materials for a ₹10–15 lakh tactical surveillance drone, the class the Army is buying in thousands. The top bar is what each part costs. The bottom bar shows how much of that value is Indian-owned, made in India with foreign parts or IP, or imported. The camera payload and propulsion alone are nearly half the drone, and both still lean on imports.</p>
+  <div class="card bom">
+    <div class="bom-row"><div class="lbl">Cost share by part</div><div class="bom-bar" id="bomCost"></div></div>
+    <div class="bom-row"><div class="lbl">Who owns that value</div><div class="bom-bar" id="bomOwn"></div></div>
+    <div class="bom-key" id="bomKey"></div>
+  </div>
+  <div class="split2">
+    <div class="card note"><h3>Why industry says “70% indigenous”</h3><p class="small" style="color:var(--ink-2)">The Drone Federation of India says the top 10% of makers, who hold about 80% of the market, are about 70% indigenous. Most smaller firms import more than half their parts. Those figures count work done in India, such as boards assembled and airframes moulded here, even when the chips, magnets and cells inside are imported. Our ~<b id="ownedTxt">29</b>% counts only value from Indian-owned design and production down to the part. Both are correct; they answer different questions.</p></div>
+    <div class="card note"><h3>What the rules actually require</h3><p class="small" style="color:var(--ink-2)">Since February 2022 India bans imports of complete drones, but parts can be imported freely. Since November 2023, military drones must have at least <b>50% indigenous content</b> by value, and Chinese sub-components are barred. No Indian body has been mandated to certify this, and in 2025 the Army cancelled orders for 400 logistics drones after Chinese parts were found inside.</p></div>
+  </div>
+</div></section>
+
+<section id="phones"><div class="wrap">
+  <div class="kicker">02b · Real drones, scored</div>
+  <h2>How Indian are the “Indian” drones? Nagastra, SWITCH, Tapas and others, part by part</h2>
+  <p class="lede">Drones marketed as Indian, rated part by part, alongside imported drones for comparison. Two scores: <b>hardware</b>, weighted by how much each part costs, and <b>software &amp; control</b>, meaning who owns the autopilot, ground control, autonomy and data security. Click a drone for the details.</p>
+  <div class="pc-legend">
+    <span><i style="--c:var(--green)"></i>Indian</span>
+    <span><i style="--c:var(--green-soft);--b:var(--green)"></i>Partly Indian (Indian design on imported parts, or licence-built here)</span>
+    <span><i style="--c:var(--surface-2);--b:var(--line)"></i>Foreign</span>
+    <span><i style="--c:transparent;--b:var(--ink-3);border-style:dashed"></i>Not disclosed (scored as foreign)</span>
+  </div>
+  <div class="card pc-card"><table class="pc" id="pcTable"></table></div>
+  <div class="card pc-detail" id="pcDetail"></div>
+  <div class="pc-insights">
+    <div class="card"><b>Indian design, imported guts</b>The best Indian drones own their airframe, autopilot software and ground station. Their chips, magnets, battery cells and thermal sensors are usually imported, which is why hardware scores sit around 40–60%.</div>
+    <div class="card"><b>“Made in India” can mean licence-built</b>Drishti-10 is built in Hyderabad and Adani says it has over 70% indigenous content, but the design, avionics and software are Elbit's Hermes 900. Indian assembly does not mean Indian control.</div>
+    <div class="card"><b>The big drones are the least Indian</b>India's largest drones are Israeli Herons, licence-built Hermes and US MQ-9Bs on order. The indigenous MALE drone, Tapas-BH-201, still flies on an imported Austrian engine and has missed its altitude and endurance goals.</div>
+  </div>
+  <p class="small muted" style="margin-top:12px">Ratings are our assessment from public reporting (company statements, DRDO, Business Standard, Swarajya, Outlook Business, The Week, Wikipedia). Most makers do not disclose their part suppliers; where a part isn't disclosed it is scored as foreign. Hardware weights follow the bill of materials above.</p>
+</div></section>
+
+<section id="gaps"><div class="wrap">
+  <div class="kicker">03 · Stop-gaps</div>
+  <h2>What is blocking a fully Indian drone right now</h2>
+  <p class="lede">Ranked by how hard each gap is to close. Severity bars reflect capital needed, time to close and how concentrated the global supply is. Each comes with the realistic interim workaround.</p>
+  <div class="gaps" id="gapList"></div>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <div class="kicker">03b · Up for grabs</div>
+  <h2>The next pending stages anyone ambitious could take up</h2>
+  <p class="lede">These are the next white or striped blocks on the progress line, ordered by what is closest to reach. For each we list what it takes, which schemes already fund it, and who looks capable of doing it. <b>The candidates are our suggestions based on existing capability, not announced plans.</b></p>
+  <div class="opps" id="opps"></div>
+  <div class="card diy">
+    <h3>Not a conglomerate? Ways a startup, college or individual can help</h3>
+    <div class="diy-grid">
+      <div><b>Build open avionics</b>Contribute NavIC support and Indian hardware targets to open autopilots (ArduPilot, PX4), and publish test results so buyers can trust Indian boards.</div>
+      <div><b>Make one part, well</b>Motors, ESCs, propellers, gimbals and connectors are small-capital businesses. One reliable Indian part beats one more assembled drone.</div>
+      <div><b>Become a certified pilot</b>244 DGCA-approved schools train remote pilots. Agri spraying, survey and inspection need operators far more than new airframes.</div>
+      <div><b>Buy and specify Indian</b>Buyers who ask for a parts declaration, as the Army now does, are what push makers to replace Chinese components.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="money"><div class="wrap">
+  <div class="kicker">04 · Investment</div>
+  <h2>The money: government schemes and big orders</h2>
+  <p class="lede">The civil drone incentive was tiny: ₹120 crore of PLI over three years. Defence demand is what changed the industry, especially after Operation Sindoor in May 2025. Most of the money buys finished drones; very little yet goes to the parts where the dependence is greatest. The component mission and PLI 2.0 are still proposals.</p>
+  <div class="money-grid">
+    <div class="card chart"><h3>Government schemes (₹ crore outlay)</h3><p class="small muted">Approved outlays unless marked “proposed”. Disbursement is lower and phased.</p><div id="schemeChart"></div></div>
+    <div class="card chart"><h3>Major drone orders and programmes (₹ crore)</h3><p class="small muted">Signed contracts and open programmes. Blue = foreign supplier, amber = Indian.</p><div id="ismChart"></div></div>
+  </div>
+  <div class="table-wrap card" style="padding:6px 8px">
+    <table>
+      <thead><tr><th>Order or programme</th><th>Supplier</th><th>Type</th><th>Status</th><th style="text-align:right">₹ crore</th></tr></thead>
+      <tbody id="ismTable"></tbody>
+    </table>
+  </div>
+</div></section>
+
+<section id="map"><div class="wrap">
+  <div class="kicker">04b · On the map</div>
+  <h2>Where it is being built</h2>
+  <p class="lede">Drone makers, military drone and munition plants, component and avionics firms, DRDO and PSU labs, and training and test sites across India. Bengaluru's cluster is shown zoomed in. Click any site for details.</p>
+  <div class="map-grid">
+    <div class="card map-card">
+      <svg id="indiaMap" viewBox="0 0 554 622" role="img" aria-label="Map of India with drone industry locations"></svg>
+      <p class="map-note">Outline: Survey of India official boundary (via DataMeet). Positions are approximate to the town.</p>
+    </div>
+    <div class="map-side">
+      <div class="mfilters" id="mfilters"></div>
+      <div class="card mdetail" id="mdetail"></div>
+      <div class="card site-list" id="siteList"></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="size"><div class="wrap">
+  <div class="kicker">05b · Company size</div>
+  <h2>How big is each company, at every stage of the drone chain</h2>
+  <p class="lede">Thirteen sub-stages, from flight-controller chips to drone delivery. On each row, <b style="color:var(--green)">Indian companies are on the left</b> and <b style="color:var(--navy)">global leaders on the right</b>, with bubbles sized by approximate annual revenue. The figure at the left of each row is the gap between the biggest global and biggest Indian company. Click any bubble for details.</p>
+  <div class="size-kpis" id="sizeKpis"></div>
+  <div class="size-tools">
+    <div class="grp" id="scaleBtns"><button data-v="log" class="on">Readable</button><button data-v="lin">True scale</button><button data-v="ppp">PPP-adjusted</button></div>
+    <div class="grp" id="grpBtns"><button data-v="all" class="on">All stages</button><button data-v="AVIONICS">Avionics</button><button data-v="COMPONENTS">Components</button><button data-v="PLATFORMS">Platforms</button><button data-v="SOFTWARE & SERVICES">Software &amp; services</button></div>
+  </div>
+  <div class="size-legend">
+    <span><i style="--c:var(--green)"></i>Indian private</span>
+    <span><i style="--c:#20b3ad"></i>Indian government / PSU</span>
+    <span><i style="--c:var(--navy)"></i>Foreign</span>
+    <span><i style="--c:transparent;--b:var(--ink-3);border-style:dashed"></i>Revenue not public (size band)</span>
+  </div>
+  <p class="small" id="scaleNote" style="margin:12px 0 0;color:var(--ink-2)"></p>
+  <div class="card size-card"><svg id="sizeChart" role="img" aria-label="Company size by sub-stage of the drone value chain, Indian versus global"></svg></div>
+  <div class="card size-detail" id="sizeDetail"></div>
+  <div class="size-insights" id="sizeInsights"></div>
+  <p class="small muted" style="margin-top:12px">Approximate revenue for FY2025–26 or calendar 2024/25, whole company (not only the drone business), from public filings and press reports; foreign figures converted at ~₹84/US$. PPP factors use approximate 2024 price levels: India 0.25, US 1.0, Switzerland 1.15, Israel 0.85, Austria 0.85, Australia 0.93, China 0.50, Türkiye 0.38. Where figures aren't public, a size band is shown instead of a number. Private-company bands (DJI, T-Motor, NewSpace and others) are our estimates. Indicative only; verify before citing.</p>
+</div></section>
+
+<section id="talent"><div class="wrap">
+  <div class="kicker">05c · Talent</div>
+  <h2>Who builds it: where the people come from, and who is training the next wave</h2>
+  <p class="lede">The 2021 Drone Rules created India's first large-scale drone workforce: certified remote pilots trained at DGCA-approved schools. Engineering talent came earlier, from DRDO's aeronautics labs, IIT aerospace departments and the hobbyist community. Since Operation Sindoor the Army has become the biggest trainer of all.</p>
+  <div class="tal-kpis">
+    <div class="card"><b>39,890</b>remote pilot certificates issued by DGCA (Feb 2026)</div>
+    <div class="card"><b>244</b>DGCA-approved remote pilot training organisations</div>
+    <div class="card"><b>1 lakh</b>soldiers the Army aims to train in drone operations</div>
+    <div class="card"><b>385</b>infantry battalions each getting an Ashni drone platoon (10 drones)</div>
+    <div class="card"><b>1,094</b>drones given to women's self-help groups, 500+ under Namo Drone Didi (Feb 2026)</div>
+  </div>
+
+  <h3 class="tal-h">Where today's workforce and leaders come from</h3>
+  <p class="small muted" style="margin:0">Indicative flows, our assessment, not measured data. Hover a source or destination to highlight its flows.</p>
+  <div class="card flow-card"><svg id="flow" role="img" aria-label="Talent flows from sources to drone industry segments"></svg></div>
+
+  <h3 class="tal-h">Leaders and their backgrounds</h3>
+  <div class="leaders" id="leaders"></div>
+
+  <div class="tal-insights">
+    <div class="card"><b>Students built the first Indian drone company</b>ideaForge began as an IIT Bombay student project in the 2000s and grew into India's largest drone maker. Many component startups also come from campus and hobbyist teams.</div>
+    <div class="card"><b>Military know-how comes from veterans and DRDO</b>DRDO's Aeronautical Development Establishment has built drones since the 1980s, and ex-service officers lead several defence-drone startups, including NewSpace Research.</div>
+    <div class="card"><b>The pilots are ahead of the parts</b>India trains tens of thousands of pilots, but very few engineers in motor design, RF, thermal sensors or battery chemistry. That is where the import gap is.</div>
+  </div>
+
+  <h3 class="tal-h">Training milestones since the 2021 Drone Rules</h3>
+  <div class="tl-train" id="tlTrain"></div>
+
+  <h3 class="tal-h">Where training happens, by type</h3>
+  <div class="inst-grid">
+    <div class="card inst"><h3>Pilot schools</h3><ul>
+      <li><b>244 RPTOs</b> approved by DGCA, run by drone makers, flying clubs, universities and state agencies</li>
+      <li>Certification moved from Digital Sky to the <b>eGCA</b> portal</li>
+      <li>Short courses (about a week) for small and medium drones</li></ul></div>
+    <div class="card inst"><h3>Engineering &amp; research</h3><ul>
+      <li><b>IIT Bombay</b>: origin of ideaForge</li>
+      <li><b>IIT Kanpur</b>: UAV research; incubated EndureAir</li>
+      <li><b>IIT Madras</b>: aerospace research and drone startups</li>
+      <li><b>MIT Chennai (Anna University)</b>: student drone team behind Dhaksha</li></ul></div>
+    <div class="card inst"><h3>Armed forces</h3><ul>
+      <li><b>Ashni platoons</b> in every infantry battalion; Bhairav and Divyastra units</li>
+      <li>Target: 30,000 drones and 1 lakh trained personnel</li>
+      <li>DRDO test ranges such as <b>Chitradurga (Challakere)</b></li></ul></div>
+    <div class="card inst"><h3>Farms &amp; villages</h3><ul>
+      <li><b>Namo Drone Didi</b>: ₹1,261 cr to give drones to 15,000 women's SHGs, with pilot training</li>
+      <li>Agriculture universities and KVKs demonstrating spray drones</li>
+      <li class="muted">No consolidated list of drone courses exists; DGCA's eGCA portal lists approved RPTOs</li></ul></div>
+  </div>
+  <p class="small muted" style="margin-top:12px">Figures are from government statements and reported Army plans; several are targets, not outcomes. Leader roles are as last reported.</p>
+</div></section>
+
+<section id="players"><div class="wrap">
+  <div class="kicker">05 · Companies</div>
+  <h2>Who is building which layer</h2>
+  <p class="lede">Indian-owned firms, government labs, and the foreign firms India still buys from. Ownership matters: a licence-built Israeli drone made in Hyderabad keeps its design and software in Israel.</p>
+  <div class="filters" id="filters"></div>
+  <div class="players" id="playerList"></div>
+</div></section>
+
+<section id="history"><div class="wrap">
+  <div class="kicker">06 · History</div>
+  <h2>Forty years of drones: 1985 → 2030</h2>
+  <p class="lede">India started building drones in the 1980s, then bought Israeli ones for two decades. Civilian drones were effectively banned from 2014 to 2021. Since then, liberal rules, an import ban and war have built an industry, but not yet its supply chain.</p>
+  <div class="timeline" id="timeline"></div>
+</div></section>
+
+<section id="attempts"><div class="wrap">
+  <div class="kicker">07 · Past attempts</div>
+  <h2>What was tried, what happened, what it taught</h2>
+  <div class="attempts" id="attemptList"></div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <div class="kicker">08 · Roadmap</div>
+  <h2>How far, realistically?</h2>
+  <p class="lede">Our assessment of when each level of “indigenous” becomes realistic, given current projects, funding and global supply chains.</p>
+  <div class="road">
+    <div class="card stage" style="--c:var(--green)"><div class="pill p-green">Level 1</div><div class="when">Today–2027</div><h3>Indian-designed, no Chinese parts</h3><ul><li>Indian airframe, autopilot software, ground station and assembly</li><li>Chinese parts replaced with Taiwanese, US, European or Indian ones</li><li>Indian motors and ESCs in tactical drones</li><li>Imported chips, magnets, cells and thermal sensors</li></ul><p class="small"><b>~30–35% Indian-owned value.</b> Largely achieved by the top makers.</p></div>
+    <div class="card stage" style="--c:var(--amber)"><div class="pill p-amber">Level 2</div><div class="when">2027–2030</div><h3>Indian propulsion, payloads and links</h3><ul><li>Indian rare-earth magnets in motors (magnet scheme, from ~2028)</li><li>Indian EO/IR payloads and gimbals in volume</li><li>NavIC navigation and EW-resistant Indian datalinks as standard</li><li>Indian 180 hp engine flying on a MALE drone</li></ul><p class="small"><b>~45–50% Indian-owned value.</b> Plausible if the component mission is approved.</p></div>
+    <div class="card stage" style="--c:var(--saffron)"><div class="pill p-saff">Level 3</div><div class="when">2030–35</div><h3>Indian silicon and cells</h3><ul><li>Indian flight-control chip (RISC-V MCU or SoC), made at Tata Dholera</li><li>Indian drone-grade battery cells</li><li>Indian thermal sensor (microbolometer)</li><li>Indigenous MALE and loyal-wingman drones in service</li></ul><p class="small"><b>~65–75% Indian-owned value.</b> Needs the semiconductor and cell programmes to deliver.</p></div>
+    <div class="card stage" style="--c:var(--red)"><div class="pill p-red">Level 4</div><div class="when">2035+</div><h3>100% indigenous</h3><ul><li>Indian image sensors, IMU MEMS and RF chips</li><li>Indian turbofan engines for UCAVs</li><li>Full rare-earth mining-to-magnet chain</li></ul><p class="small"><b>Few countries do this alone.</b> A drone that is “Indian-controlled, no single-country dependence” is the realistic target.</p></div>
+  </div>
+  <div class="card" style="padding:22px;margin-top:20px">
+    <h3>2030 “global drone hub” checklist</h3>
+    <ul class="check" id="checklist"></ul>
+  </div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <div class="kicker">09 · Method &amp; sources</div>
+  <h2 id="method">How we scored this</h2>
+  <p class="lede">Each layer is scored 0–100 for Indian ownership of design IP, manufacturing capability and supply control, based on the public record as of 27 October 2026. The headline figure weights each layer by its indicative share of a tactical surveillance drone's bill of materials. Scores and BoM shares are editorial estimates meant to compare layers, not official statistics. Corrections welcome.</p>
+  <ol class="sources">
+    <li>PIB — India's Drone Ecosystem: 38,575 registered drones, 39,890 RPCs, 244 RPTOs, Namo Drone Didi (Feb 2026). <a href="https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=157407&amp;ModuleId=3&amp;reg=3&amp;lang=1">pib.gov.in</a></li>
+    <li>IndraStra — “India Has Found Drone Buyers at Home. An Export Industry Is a Harder Build” (Sep 2026): PLI disbursal, 39% Chinese flight controllers, Drone Shakti and PLI 2.0 status, magnet scheme, orders, exports. <a href="https://www.indrastra.com/2026/09/india-has-found-drone-buyers-at-home.html">link</a></li>
+    <li>Takshashila Institution — Accelerating Tactical Drone Procurement for India (Jul 2026): ₹40,000 cr emergency procurement, Ashni platoons, Army training targets, Draft DAP 2026. <a href="https://takshashila.org.in/content/publications/20260722-accelerating-tactical-drone-procurement-for.html">link</a></li>
+    <li>The Defense Post — India receives hundreds of kamikaze drones under fast-track order (Apr 2026). <a href="https://thedefensepost.com/2026/04/10/india-kamikaze-drones-fast-track/">link</a></li>
+    <li>Business Standard — Army orders 450 Nagastra-1R loitering munitions (Jun 2025). <a href="https://www.business-standard.com/external-affairs-defence-security/news/indian-army-places-order-of-450-nagastra-1r-loitering-munitions-from-sdal-125062300380_1.html">link</a>; ANI — Solar delivers Nagastra-2 (Oct 2026). <a href="https://aninews.in/news/national/general-news/solar-delivers-indigenous-nagastra-2-anti-tank-loiter-munitions-to-indian-army20261023093357/">link</a></li>
+    <li>ideaForge FY26 results and order book (Apr–May 2026). <a href="https://www.aviation-defence-universe.com/ideaforge-reports-its-strongest-quarterly-performance-in-q4-with-inr-141-cr-revenue-and-inr-60-cr-pat-with-the-highest-ever-annual-order-bookings-of-inr-530-cr-in-fy26-signalling-a-strong-fy27-outl/">Aviation Defence Universe</a>, <a href="https://trendlyne.com/latest-news/only-news/1506759/IDEAFORGE/ideaforge-technology-ltd/">Trendlyne</a></li>
+    <li>Garuda Aerospace FY25 and FY26 financials. <a href="https://entrackr.com/fintrackr/garuda-aerospace-posts-rs-175-cr-profit-in-fy25-revenue-at-rs-118-cr-9673541">Entrackr</a>, <a href="https://unlistedzone.com/garuda-aerospace-fy26-annual-report-analysis">UnlistedZone</a></li>
+    <li>Outlook Business — India's Drone Dream Still Flies on Foreign Parts (May 2025). <a href="https://www.outlookbusiness.com/start-up/indias-drone-dream-still-flies-on-foreign-parts">link</a></li>
+    <li>Swarajya — Inside India's quiet drone revolution: the fight for self-reliant subsystems (Agam Robotics, Vector Technics and others). <a href="https://swarajyamag.com/reports/inside-indias-quiet-drone-revolution-the-fight-for-self-reliant-subsystems">link</a></li>
+    <li>The Week — Zen Technologies says it has fixed the Chinese problem in military drones (Jul 2026). <a href="https://www.theweek.in/news/defence/2026/07/09/the-hidden-weakness-in-indias-military-drones-zen-technologies-says-it-has-fixed-the-chinese-problem.html">link</a></li>
+    <li>Digit — DFI President Smit Shah on India's drone supply chain (2026). <a href="https://www.digit.in/features/general/dont-build-around-one-processor-dfi-president-smit-shah-indias-drone-supply-chain.html/amp/">link</a></li>
+    <li>Drone Shakti mission proposal: <a href="https://www.deccanherald.com/india/national-mission-to-push-for-local-manufacturing-of-drone-components-on-the-cards-3849756">Deccan Herald</a>; <a href="https://economy-inn.com/2026/03/indias-ambitious-%E2%82%B91800-crore-push-to-forge-drone-sovereignty-and-global-leadership/">₹1,800 cr report (Mar 2026)</a>; <a href="https://www.outlookbusiness.com/budget/budget-2026-may-bring-10000-cr-boost-for-drone-manufacturing">pre-Budget ₹10,000 cr report</a></li>
+    <li>Draft Civil Drone (Promotion and Regulation) Bill, 2025. <a href="https://www.mondaq.com/india/constitutional-administrative-law/1799264/the-draft-civil-drone-promotion-regulation-bill-2025-what-it-means-for-operators-and-businesses-in-india">Mondaq</a></li>
+    <li>PLI for drones: <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=1844623">PIB</a>; 23 beneficiaries: <a href="https://www.endureair.com/govt-list-beneficiaries-under-pli-scheme-drones/">list</a></li>
+    <li>Tapas-BH-201 engine and status: <a href="https://en.wikipedia.org/wiki/TAPAS-BH-201">Wikipedia</a>; Jayem 180 hp engine at AeroDef India 2026: <a href="https://idrw.org/?p=404153">IDRW</a></li>
+    <li>Drishti-10 (Hermes 900): <a href="https://www.wikipedia.org/wiki/Drishti-10">Wikipedia</a>, <a href="https://swarajyamag.com/amp/story/defence/navys-drishti-drone-make-in-india-pr-is-fine-as-long-as-we-know-the-truth-chase-incremental-indigenisation">Swarajya</a></li>
+    <li>MQ-9B: 31 drones, ~$3.5 bn, deliveries Jan 2029–Sep 2030. <a href="https://idrw.org/indian-armed-forces-to-get-first-mq-9b-armed-drones-only-in-2029/">IDRW</a></li>
+    <li>HAL CATS Warrior first-flight timing. <a href="https://en.wikipedia.org/wiki/HAL_CATS_Warrior">Wikipedia</a></li>
+    <li>Raphe mPhibr $100 mn round (Jun 2025). <a href="https://www.barandbench.com/law-firms/dealstreet/veritas-legal-advises-raphe-mphibr-on-100-million-fundraise-2">Bar &amp; Bench</a>; NewSpace Research Series C talks (2026). <a href="https://newzchain.com/newspace-research-seeks-35-40m-series-c-from-360-one-avendus/">Newzchain</a></li>
+    <li>NavIC receivers and Indian flight controllers: <a href="https://www.hcrobo.com/gps-navic/">HC Robotics</a>, <a href="https://www.agamrobotics.com/">Agam Robotics</a>, <a href="https://odisha.plus/2026/07/odisha-startup-jaywing-technologies-indigenous-drone-flight-controller/">Jaywing</a>, <a href="https://www.indiandefensenews.in/2026/01/delhis-airober-unveils-indigenous-drone.html">Airober</a></li>
+    <li>Historical: DGCA civil drone ban (Oct 2014); Drone Regulations 1.0 and Digital Sky (Dec 2018); Drone Rules 2021 (25 Aug 2021); DGFT import ban (9 Feb 2022); Namo Drone Didi Cabinet approval (Nov 2023, ₹1,261 cr); ideaForge IPO (Jul 2023). Earlier DRDO history (Lakshya, Nishant, Rustom) is from public DRDO records and our own background knowledge.</li>
+  </ol>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Swadeshi Drone Tracker</b> · A Project Sprint research page · companion to the <a href="../">all Project Sprint trackers</a></p>
+  <p>Independent analysis. Figures in ₹ crore unless noted; 1 lakh crore = ₹1 trillion ≈ US$11–12 bn. Readiness scores are editorial judgements. Last updated 27 Oct 2026.</p>
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+// ---------- data ----------
+const LAYERS = [
+  {id:'payload', name:'Camera & sensor payload (EO/IR)', score:15, weight:28, made:30,
+   sub:'The eyes. Day cameras, thermal (infrared) cameras and gimbals are the most expensive part of a surveillance drone.',
+   india:['Tonbo Imaging (Bengaluru): thermal and night-vision cameras for defence, exported','BEL and DRDO (IRDE Dehradun): EO/IR payloads for military drones','MotionMatics and others: Indian gimbals','ideaForge and Garuda integrate payloads; image sensors and thermal cores are bought abroad'],
+   money:['Defence orders (emergency procurement, iDEX)','Proposed Drone Shakti mission covers advanced sensors'],
+   gap:'No Indian image sensor or thermal sensor (microbolometer) in volume. An IIT Madras professor told Outlook Business perhaps one or two firms make cameras for ISRO, but none commercially.',
+   fix:'Indian gimbal, optics and image processing around imported sensor cores now. Pursue a microbolometer line with a foreign partner, sized for defence demand.'},
+  {id:'prop', name:'Motors, ESCs & propellers', score:25, weight:18, made:55,
+   sub:'Brushless motors, speed controllers and propellers. Vector Technics says propulsion is nearly 40% of a small drone\'s cost.',
+   india:['Vector Technics (Hyderabad, now with Zen Technologies): BLDC motors, ESCs, full propulsion; claims 3 lakh units a year (Jul 2026)','Optiemus Unmanned: own ESCs and power boards','Raphe mPhibr: in-house motors and components','Propellers and airframe parts from several small Indian makers'],
+   money:['PLI for drone components (2021, ₹120 cr shared with drones)','Rare-earth magnet scheme (₹7,280 cr; bids opened Aug 2026)','Proposed Drone Shakti mission: motors and propellers named'],
+   gap:'Motors are still mostly imported from China. Even Indian motors use rare-earth magnets, where China controls about 90% of processing and has restricted exports.',
+   fix:'Indian-wound motors with non-Chinese magnets (Japan, Vietnam) now; Indian magnets from the magnet scheme from about 2028.'},
+  {id:'link', name:'Datalink & radio', score:25, weight:12, made:45,
+   sub:'The radio that carries video and control. Military drones need links that resist jamming.',
+   india:['Astra Microwave, BEL and DRDO (DEAL): defence datalinks','ideaForge and NewSpace: in-house EW-resilient links for Army drones','Many civil drones use cheap 2.4/5.8 GHz modules that are easy to jam'],
+   money:['Defence orders; iDEX challenges'],
+   gap:'RF chips and most mesh-radio modules are imported (Silvus, Doodle Labs, Chinese modules).',
+   fix:'Indian radio design on imported RF chips, with Indian encryption; buy from non-Chinese vendors meanwhile.'},
+  {id:'fc', name:'Flight controller & chips', score:15, weight:10, made:60,
+   sub:'The brain board. Runs the autopilot on a microcontroller, with motion sensors and power chips.',
+   india:['Agam Robotics (Bengaluru), Zuppa (Chennai), Jaywing (Bhubaneswar), Airober (Delhi): Indian-designed boards','ideaForge and DRDO: own autopilots','Darkmatter and others: Indian FPV flight controllers'],
+   money:['Proposed Drone Shakti mission names flight controllers','DLI scheme (chip design) could fund a drone MCU'],
+   gap:'Boards are designed and assembled in India, but the chips are not: most use STMicroelectronics STM32 microcontrollers. 39% of flight controllers in small drones are Chinese.',
+   fix:'Design to swap between processors (as DFI advises); later an Indian RISC-V flight-control chip made at Tata Dholera.'},
+  {id:'frame', name:'Airframe & composites', score:70, weight:9, made:90,
+   sub:'Body, arms, wings and landing gear in carbon fibre, glass fibre and plastics.',
+   india:['Most Indian makers mould their own airframes','SVMFG, NitPro Composites and others supply airframes','Tata Advanced Systems, Adani and HAL for large airframes'],
+   money:['PLI 2021; MSME support'],
+   gap:'Carbon-fibre cloth and resins are largely imported.',
+   fix:'Already strong; extend to Indian carbon fibre as it scales.'},
+  {id:'bat', name:'Batteries', score:10, weight:8, made:50,
+   sub:'Lithium-polymer and lithium-ion cells packed for high power. Flight time depends on them.',
+   india:['Packs assembled in India by drone makers and pack specialists','Indian EV cell makers (Ola, Amara Raja, Exide) focus on EV cells, not drone cells'],
+   money:['ACC battery PLI (₹18,100 cr) is aimed at EV and grid cells','Proposed Drone Shakti mission names LiPo batteries'],
+   gap:'Cells are imported, mostly from China. Drones use too few cells for big Indian cell makers to bother.',
+   fix:'Pool defence and agri demand into one order; license a high-power pouch-cell line.'},
+  {id:'asm', name:'Assembly, integration & test', score:85, weight:8, made:100,
+   sub:'Putting it together, tuning, testing and DGCA type certification.',
+   india:['ideaForge, Garuda, IoTechWorld, Marut, Dhaksha, IG Drones, Raphe mPhibr and hundreds of others','Quality Council of India drone certification scheme','Import of complete drones banned since Feb 2022'],
+   money:['PLI 2021 (₹98 cr disbursed by Apr 2025)'],
+   gap:'Plenty of assemblers; many small ones rebadge Chinese kits.',
+   fix:'Make parts declarations and testing of indigenous content mandatory for government buyers.'},
+  {id:'nav', name:'Navigation (GNSS, NavIC, IMU)', score:20, weight:5, made:40,
+   sub:'Satellite positioning, compass and motion sensors. Jamming of GPS is a key wartime threat.',
+   india:['NavIC: India\'s own satellite navigation system','HC Robotics, Teravolt, Elena Geo Systems, Accord: NavIC-capable receivers','Zuppa, NewSpace: GPS-independent navigation'],
+   money:['ISRO NavIC programme'],
+   gap:'Receiver chips and MEMS motion sensors are imported; NavIC coverage is regional and its satellite fleet has had clock failures.',
+   fix:'Require multi-constellation receivers with NavIC; invest in vision-based navigation for jammed areas.'},
+  {id:'sw', name:'Autopilot software & ground control', score:45, weight:2, made:100,
+   sub:'Flight software and the ground control station. Most small drones run open-source ArduPilot or PX4.',
+   india:['ideaForge, DRDO, Zuppa: own autopilot stacks','AeroGCS and others: Indian ground control software','Many makers customise open-source autopilots'],
+   money:['No dedicated funding'],
+   gap:'Open-source is free but foreign-led; security audits of firmware are rare.',
+   fix:'Audited Indian forks of open autopilots, maintained as a shared national base.'},
+  {id:'engine', name:'Engines (large drones)', score:5, weight:0, made:0,
+   sub:'Piston and turbine engines for medium and large drones. Not part of a small drone\'s bill of materials.',
+   india:['Tapas-BH-201 flies on an imported Austro (Austria) engine','Jayem Automotives showed a 180 hp Indian UAV engine at AeroDef India 2026','GTRE (DRDO): Kaveri dry engine derivative for Ghatak'],
+   money:['Draft DAP 2026 calls drone engines a “project of national importance”'],
+   gap:'No Indian engine flies on an Indian drone in service.',
+   fix:'Fund the first Indian MALE engine to certification, with Tapas as launch customer.'},
+  {id:'ai', name:'AI, autonomy & anti-jamming', score:35, weight:0, made:100,
+   sub:'Target recognition, swarms and flying where GPS and radios are jammed.',
+   india:['NewSpace Research: swarms and autonomy','Zuppa, InsideFPV, ideaForge: GPS-denied and EW-resilient flight','DRDO and iDEX swarm projects'],
+   money:['iDEX; defence R&D'],
+   gap:'Edge-AI chips to run it on board are imported (Nvidia Jetson and similar).',
+   fix:'Indian edge-AI chips (Netrasemi-class) as they mature; Indian software meanwhile.'},
+  {id:'brand', name:'Platforms, brands & market', score:60, weight:0, made:0,
+   sub:'Who designs and sells the finished drone. Not part of the bill of materials, but where control sits.',
+   india:['ideaForge (largest; ₹226 cr FY26, 69% defence)','Garuda Aerospace (₹206 cr FY26), IoTechWorld, Marut, Dhaksha in agri','Solar, Tata Advanced Systems, NIBE in loitering munitions','DJI imports banned since 2022'],
+   money:['Defence emergency procurement (₹40,000 cr after Sindoor)','Namo Drone Didi (₹1,261 cr)'],
+   gap:'Large drones are imported or licence-built; exports are small; civil demand is seasonal.',
+   fix:'Multi-year Army orders (supply, service, upgrade), and an export push for agri and tactical drones.'}
+];
+const GAPS = [
+  {t:'Rare-earth magnets for motors', sev:5, d:'Every brushless motor needs rare-earth magnets, and China controls about 90% of processing. China has restricted exports of drone parts since 2023, with delays of up to two months.', s:'Non-Chinese magnets (Japan, Vietnam) now. The ₹7,280 cr magnet scheme opened bids in Aug 2026; Indian magnets unlikely in drones before 2028.'},
+  {t:'Flight-controller and edge-AI chips', sev:5, d:'Indian boards are designed and assembled here, but run imported microcontrollers, sensors and AI modules. An Indian startup put it plainly: chip-making is beyond what a startup can consider.', s:'Design boards that can swap processors; use non-Chinese chips (ST, TI, NXP). Later an Indian RISC-V MCU from Tata Dholera.'},
+  {t:'Thermal and image sensors', sev:4, d:'The camera payload is the costliest part of a surveillance drone. Thermal cores and image sensors come from the US, France, Israel and China.', s:'Indian payloads (Tonbo, BEL) around imported cores; a defence-anchored microbolometer line.'},
+  {t:'Drone-grade battery cells', sev:4, d:'High-power LiPo cells are imported, mostly from China. Drone volumes are too small for Indian EV cell makers.', s:'Aggregate defence and agri demand; extend ACC PLI to small high-power cells.'},
+  {t:'Engines for large drones', sev:4, d:'The indigenous MALE drone flies on an Austrian engine. Herons and Hermes use Rotax. No Indian engine is in service.', s:'Jayem\'s 180 hp engine and GTRE work; Draft DAP 2026 makes domestic engines mandatory for the forces.'},
+  {t:'Jam-proof links and navigation', sev:3, d:'Cheap radios and GPS are easily jammed, as Ukraine and Operation Sindoor showed. RF chips and mesh radios are imported.', s:'NavIC plus vision navigation; Indian encrypted datalinks on imported RF chips.'},
+  {t:'No certification of “indigenous”', sev:3, d:'Military drones must be 50% indigenous, but no body has been mandated to verify it. Chinese parts were found in Army drones in 2025.', s:'Mandatory parts declarations, random teardown audits, and a trusted-supplier list.'},
+  {t:'Tiny civil incentives', sev:3, d:'The drone PLI was ₹120 cr over three years. The ₹1,600–1,800 cr component mission and PLI 2.0 are still awaiting approval.', s:'Approve the component mission, aimed at parts rather than assembly.'},
+  {t:'Large-drone dependence on imports', sev:3, d:'Herons, licence-built Hermes and 31 MQ-9Bs on order. Tapas has missed its altitude and endurance goals.', s:'IAF\'s 87-drone MALE programme (₹30,000 cr) with Indian firms bidding; insist on Indian IP, not just assembly.'},
+  {t:'Exports and scale', sev:2, d:'India is not among the world\'s top drone exporters; Türkiye\'s Baykar alone exported $2.2 bn in 2025.', s:'Export financing and faster licences for friendly countries; agri drones as the first export product.'}
+];
+// [name, ₹ crore, colour, proposed?]
+const SCHEMES = [
+  ['Emergency procurement after Sindoor (all defence)',40000,'var(--navy)'],
+  ['Rare-earth magnet scheme',7280,'var(--amber)'],
+  ['Mission Drone Shakti (proposed)',1800,'var(--ink-3)'],
+  ['PLI 2.0 for drones (proposed)',1500,'var(--ink-3)'],
+  ['Namo Drone Didi',1261,'var(--green)'],
+  ['PLI for drones & components (2021)',120,'var(--saffron)']
+];
+// [order, supplier, type, status, ₹ crore, foreign?]
+const ISM = [
+  ['IAF MALE drones (87)','HAL, Tata, L&T, Solar, Raphe and others bidding','MALE','Bidding (2026)',30000,0],
+  ['MQ-9B Predator (31)','General Atomics, USA','MALE/HALE','Signed Oct 2024; delivery 2029–30',29400,1],
+  ['Artillery loitering munitions (840)','Tata Advanced Systems, NIBE','Loitering munition','Signed 14 Aug 2026',1577,0],
+  ['Army logistics drones (400)','Three Indian vendors','Logistics','Cancelled Feb 2025 (Chinese parts)',230,0],
+  ['Nagastra-1R (450)','Solar Defence & Aerospace','Loitering munition','Ordered Jun 2025',158,0],
+  ['Hybrid mini-drones','ideaForge','ISR','Emergency procurement, 2025',137,0]
+];
+const PLAYERS = [
+  ['ideaForge','civ','Indian','India\'s largest drone maker; SWITCH and Netra; listed 2023. FY26 revenue ₹226 cr, 69% from defence; ₹530 cr orders booked.','Navi Mumbai'],
+  ['Garuda Aerospace','civ','Indian','Agri, survey and defence drones; FY26 revenue ~₹206 cr; IPO pending.','Chennai'],
+  ['IoTechWorld Avigation','civ','Indian','Agri spray drones; among the largest Kisan-drone sellers.','Gurugram'],
+  ['Dhaksha Unmanned Systems','civ','Indian','Agri and defence drones; began as an Anna University (MIT) team; Coromandel-backed.','Chennai'],
+  ['Marut Drones','civ','Indian','Agri, plantation and seed-ball drones.','Hyderabad'],
+  ['Skye Air','svc','Indian','Drone delivery network for parcels and medicines.','Gurugram'],
+  ['Solar Industries (SDAL)','def','Indian','Nagastra-1R and Nagastra-2 loitering munitions.','Nagpur'],
+  ['Tata Advanced Systems','def','Indian','Loitering munitions (₹1,577 cr contract with NIBE, Aug 2026); large UAV programmes.','Hyderabad'],
+  ['NewSpace Research','def','Indian','Swarms, autonomy and high-altitude drones; founded by an ex-IAF pilot.','Bengaluru'],
+  ['Raphe mPhibr','def','Indian','Military drones with in-house components; raised $100 mn (2025).','Noida'],
+  ['Adani Defence & Aerospace','def','JV','Licence-builds Elbit\'s Hermes 900 as Drishti-10; claims 70%+ indigenous content.','Hyderabad'],
+  ['InsideFPV','def','Indian','Kamikaze FPV drones; fast-track Army order (Apr 2026).','India'],
+  ['DRDO (ADE)','gov','Govt','Lakshya, Nishant, Rustom, Tapas-BH-201, Archer-NG, Ghatak.','Bengaluru'],
+  ['HAL','gov','Govt','CATS Warrior loyal-wingman drone; first flight targeted 2026–27.','Bengaluru'],
+  ['BEL','gov','Govt','EO/IR payloads, datalinks, counter-drone systems.','Bengaluru'],
+  ['Zen Technologies','cud','Indian','Counter-drone systems; owns Vector Technics (motors).','Hyderabad'],
+  ['Vector Technics','comp','Indian','Indian BLDC motors, ESCs and propulsion; ~300 motors/day (2025).','Hyderabad'],
+  ['Agam Robotics','comp','Indian','Indian autopilot boards and sensors; chips imported.','Bengaluru'],
+  ['Zuppa Geo Navigation','comp','Indian','Indigenous autopilots and GPS-independent navigation.','Chennai'],
+  ['HC Robotics / Elena / Teravolt','comp','Indian','NavIC-capable GNSS receivers for drones.','Bengaluru'],
+  ['Tonbo Imaging','comp','Indian','Thermal and night-vision cameras.','Bengaluru'],
+  ['Jayem Automotives','comp','Indian','180 hp MALE UAV engine (shown 2026).','Coimbatore'],
+  ['Elbit / IAI','fgn','Foreign','Hermes and Heron: the backbone of India\'s large-drone fleet.','Israel'],
+  ['General Atomics','fgn','Foreign','MQ-9B: 31 on order, deliveries 2029–30.','USA'],
+  ['DJI','fgn','Foreign','World\'s largest drone maker; imports banned in India since 2022, grey market persists.','China']
+];
+const CATS = {all:'All',civ:'Civil drones',def:'Military drones',gov:'DRDO & PSUs',comp:'Components',cud:'Counter-drone',svc:'Services',fgn:'Foreign'};
+const TIMELINE = [
+  ['The first try',[
+    ['1985','DRDO\'s Aeronautical Development Establishment flies the Lakshya target drone, later inducted by all three services.','var(--green)'],
+    ['1995','Nishant battlefield surveillance drone first flies; only a handful are ever inducted.','var(--amber)'],
+    ['1999','Kargil exposes the surveillance gap. India turns to Israeli Searcher and Heron drones.','var(--red)']]],
+  ['The import era',[
+    ['2000s','Herons and Searchers become the backbone of Indian military drones.','var(--amber)'],
+    ['2007','ideaForge founded by IIT Bombay alumni.','var(--navy)'],
+    ['2009','DRDO\'s Rustom-1 first flies.','var(--navy)'],
+    ['2010','ideaForge and DRDO\'s Netra mini-drone launched; later used by forces and police.','var(--green)'],
+    ['Oct 2014','DGCA effectively bans civilian drone flying; the civil industry stalls for seven years.','var(--red)'],
+    ['2016','Rustom-II (Tapas) first flies.','var(--navy)']]],
+  ['The reset',[
+    ['Dec 2018','Drone Regulations 1.0 and the Digital Sky platform.','var(--amber)'],
+    ['Aug 2021','Drone Rules 2021: forms cut from 25 to 5, fees from 72 to 4. PLI (₹120 cr) follows in September.','var(--saffron)'],
+    ['Feb 2022','Import of complete drones banned. Budget launches “Drone Shakti” and Kisan drones.','var(--saffron)'],
+    ['2023','ideaForge IPO (Jul). Military drones must be 50% indigenous (Nov). Namo Drone Didi approved, ₹1,261 cr (Nov).','var(--navy)'],
+    ['2024','Drishti-10 (licence-built Hermes 900) to Navy and Army. Nagastra-1 deliveries. 31 MQ-9Bs ordered (Oct).','var(--navy)']]],
+  ['2025–26 — drones go to war',[
+    ['Feb 2025','Army cancels 400 logistics drones over Chinese parts.','var(--red)'],
+    ['May 2025','Operation Sindoor: hundreds of drones used on both sides. ₹40,000 cr emergency purchases follow.','var(--saffron)'],
+    ['Jun 2025','Nagastra-1R (450) and ideaForge orders. Raphe mPhibr raises $100 mn.','var(--green)'],
+    ['Sep 2025','GST on drones cut to 5%. Draft Civil Drone Bill to replace the 2021 Rules.','var(--amber)'],
+    ['Jan–Mar 2026','Drone Shakti component mission proposed. Draft DAP 2026 makes drone engines a national priority.','var(--amber)'],
+    ['Apr 2026','Fast-track order for hundreds of Indian kamikaze drones.','var(--green)'],
+    ['Aug 2026','₹1,577 cr loitering-munition contracts. Rare-earth magnet scheme opens bids.','var(--saffron)'],
+    ['Oct 2026','Solar delivers Nagastra-2 anti-tank loitering munitions.','var(--green)']]],
+  ['Ahead',[
+    ['FY27','Drone Shakti mission and PLI 2.0, if approved.','var(--ink-3)'],
+    ['2026–27','HAL CATS Warrior first flight targeted.','var(--ink-3)'],
+    ['~2028','First Indian rare-earth magnets in volume.','var(--ink-3)'],
+    ['2029–30','MQ-9B deliveries. Target: India a global drone hub by 2030.','var(--saffron)']]]
+];
+const ATTEMPTS = [
+  ['Lakshya target drone','1985–','Delivered','p-green','DRDO\'s jet-powered target drone, inducted by all three services and produced by HAL.','A clear requirement and a steady buyer let an Indian drone reach production.'],
+  ['Nishant','1995–2010s','Faded','p-red','Battlefield surveillance drone; small numbers inducted, accidents and recovery problems, no follow-on orders.','A drone that the user doesn\'t trust doesn\'t get a second order.'],
+  ['Israeli imports','1999–','Dependence','p-amber','After Kargil, India bought Searchers and Herons quickly. They worked, and became the default for 25 years.','Quick imports solve today\'s need and delay tomorrow\'s capability.'],
+  ['Rustom-II / Tapas-BH-201','2016–','Downgraded','p-amber','India\'s MALE drone; missed altitude and endurance goals, dropped from “Mission Mode” in Jan 2024, with a limited order of 10. Flies on an Austrian engine.','Without an Indian engine, an Indian MALE drone is only partly Indian.'],
+  ['Civil drone ban','2014–2021','Lost years','p-red','Seven years of near-ban on civil flying meant Chinese drones won the world market while Indian startups waited.','Regulation can kill an industry faster than competition.'],
+  ['Drone Rules 2021 + import ban','2021–','Worked','p-green','Liberal rules and a ban on finished imports created hundreds of Indian makers and tens of thousands of pilots.','Policy can create demand fast; it did not create a parts supply chain.'],
+  ['Drone PLI (₹120 cr)','2021–24','Small','p-amber','23 beneficiaries, ₹98 cr disbursed by Apr 2025; turnover grew, but parts stayed imported.','Reward value added in parts, not just finished drones.'],
+  ['Army logistics drones','2024–25','Cancelled','p-red','Orders for 400 drones (₹230 cr) scrapped in Feb 2025 after Chinese components were found.','“Indian” on the label must be checked inside the box.'],
+  ['Drishti-10 (Hermes 900)','2024–','Licence-built','p-amber','Built in Hyderabad with 70%+ claimed indigenous content, but design and software are Elbit\'s.','Licence production builds factories, not design capability.'],
+  ['Nagastra loitering munitions','2024–','Delivered','p-green','Solar\'s Nagastra-1 delivered from 2024; 450 Nagastra-1R ordered in 2025; anti-tank Nagastra-2 delivered Oct 2026.','Simple, cheap, Indian-designed munitions can go from trial to service quickly.'],
+  ['Namo Drone Didi','2023–','Behind target','p-amber','Target 15,000 drones for women\'s SHGs; about 1,094 delivered to SHGs (500+ under the scheme) by Feb 2026.','Distribution and training take longer than buying drones.'],
+  ['Operation Sindoor','May 2025','Combat test','p-green','Indian drones and counter-drone systems were used in combat; it triggered the largest wave of drone orders yet.','War is the fastest procurement reform.']
+];
+const CHECK = [
+  ['g','Liberal civil drone rules','Drone Rules 2021; Civil Drone Bill in draft.'],
+  ['g','Indian airframes and assembly','Hundreds of makers; import of complete drones banned.'],
+  ['g','Combat-proven Indian drones','Loitering munitions and ISR drones used in Operation Sindoor.'],
+  ['a','Indian motors and propulsion at scale','Vector Technics and others; magnets still imported.'],
+  ['a','Components mission funded','₹1,600–1,800 cr proposed; not yet approved.'],
+  ['a','Indigenous MALE drone in service','Tapas limited order; IAF 87-drone programme bidding.'],
+  ['a','Exports at scale','Small today; Türkiye shows what is possible.'],
+  ['r','Indian chips, cells and thermal sensors','Not before the 2030s.'],
+  ['r','Indian engines in service','Prototype shown in 2026; none flying in service.']
+];
+
+const MILESTONES = [
+  ['d','Liberal civil drone rules','Drone Rules 2021; forms 25 → 5','2021'],
+  ['d','Ban on imported complete drones','DGFT notification, 9 Feb 2022','2022'],
+  ['d','Indian airframe & composite manufacturing','Most makers mould their own','2015+'],
+  ['d','Drone assembly & integration at scale','ideaForge, Garuda, IoTechWorld and hundreds more','2021–'],
+  ['d','Indian agri spray drones in volume','Kisan drones; Namo Drone Didi','2022–'],
+  ['d','Indian small ISR drones in military service','ideaForge SWITCH, Netra','2010–'],
+  ['d','Pilot training system','39,890 pilots, 244 schools','2021–26'],
+  ['d','Indian loitering munitions in service','Nagastra-1, 1R, 2 (Solar)','2024–26'],
+  ['d','Combat-proven in a real conflict','Operation Sindoor','May 2025'],
+  ['p','Indian flight controllers','Indian design and assembly; chips imported','2023–'],
+  ['p','Indian motors & ESCs at scale','Vector Technics: ~300/day; 3 lakh/yr capacity claimed','2020–'],
+  ['p','NavIC navigation in drones','HC Robotics, Teravolt, Elena receivers','2023–'],
+  ['p','EW-resilient, GPS-denied drones','ideaForge, Zuppa, InsideFPV','2025–'],
+  ['p','Verified 50% indigenous content in military drones','Rule since Nov 2023; no certifier','2023–'],
+  ['p','Component mission & PLI 2.0','₹1,600–1,800 cr and ₹1,500 cr proposed','FY27?'],
+  ['p','Indigenous MALE drone in service','Tapas limited order; IAF 87-drone bid','2024–'],
+  ['p','Indian rare-earth magnets','₹7,280 cr scheme; bids Aug 2026','~2028'],
+  ['p','Indian EO/IR payloads at scale','Tonbo, BEL; sensor cores imported','—'],
+  ['n','Drone exports at scale','Small today','—'],
+  ['n','Indian drone-grade battery cells','Packs here; cells imported','—'],
+  ['n','Indian engine flying on a service drone','Jayem 180 hp shown 2026','—'],
+  ['n','Indian loyal-wingman / UCAV flying','CATS Warrior, Ghatak','2026–27'],
+  ['n','Indian flight-control & edge-AI chip','RISC-V MCU, made at Tata Dholera','—'],
+  ['n','Indian thermal sensor (microbolometer)','No Indian maker','—'],
+  ['n','Indian image sensors, MEMS IMUs & RF chips','No Indian maker','—']
+];
+const OPPS = [
+  {m:11,t:'Make Indian motors the default',lvl:['p-green','Closest'],
+   d:'Motors, ESCs and propellers are nearly 40% of a small drone\'s cost and mostly Chinese today. They need modest capital, and the Army now rejects Chinese parts. Volume is there: 30,000 Army drones and thousands of agri drones.',
+   f:['₹50–300 cr','1–2 years','PLI 2.0 / Drone Shakti (proposed)'],
+   c:[['Vector Technics (Zen)','Already the largest Indian motor maker; claims 3 lakh units a year'],['Raphe mPhibr','Builds components in-house; $100 mn raised'],['EV motor makers','Motor-winding and magnet know-how from two-wheelers'],['Optiemus Unmanned','Makes ESCs and power boards in-house']],
+   first:'A shared, tested catalogue of Indian motors and ESCs that any drone maker can buy, with Army qualification.'},
+  {m:18,t:'Build Indian camera and thermal payloads',lvl:['p-green','Near-term'],
+   d:'The payload is the most expensive part of a surveillance drone. Gimbals, optics, housings and image processing can all be Indian now, even if the sensor core is imported for a few more years.',
+   f:['₹100–500 cr','2–3 years','iDEX · defence orders'],
+   c:[['Tonbo Imaging','Thermal cameras for defence; exports'],['BEL + DRDO IRDE','Military EO/IR payloads'],['ideaForge','In-house payload integration'],['MotionMatics','Indian gimbals']],
+   first:'A standard Indian EO/IR payload for small drones, bought in bulk across Army, BSF and police.'},
+  {m:13,t:'Jam-proof Indian links and navigation',lvl:['p-green','Near-term'],
+   d:'Cheap radios and GPS fail under jamming. Encrypted mesh radios, NavIC receivers and vision-based navigation are mostly design and software, an Indian strength.',
+   f:['₹100–400 cr','2–3 years','iDEX · Defence R&D'],
+   c:[['Zuppa','GPS-independent navigation'],['Astra Microwave','Defence RF and datalinks'],['NewSpace Research','Autonomy and swarms'],['HC Robotics / Elena / Accord','NavIC receivers']],
+   first:'Make NavIC-capable, multi-constellation navigation mandatory in government drone tenders.'},
+  {m:20,t:'Make drone-grade battery cells',lvl:['p-amber','Mid-term'],
+   d:'High-power lithium-polymer cells are imported. Demand from defence, agri and delivery is now large enough for one dedicated line if buyers pool orders.',
+   f:['₹500–1,500 cr','3–4 years','ACC PLI (extension needed)'],
+   c:[['Ola Electric','Own cell R&D and gigafactory'],['Amara Raja / Exide Energy','Lithium-ion lines under construction'],['Tata AGRATAS','Group also makes drones (Tata Advanced Systems)'],['Log9 Materials','Battery chemistry R&D']],
+   first:'A JV with a non-Chinese high-power cell maker, anchored by a multi-year defence order.'},
+  {m:21,t:'Put an Indian engine in an Indian drone',lvl:['p-amber','Mid-term'],
+   d:'Tapas, Archer-NG and the IAF\'s MALE drones need a 100–200 hp heavy-fuel engine. Draft DAP 2026 makes domestic drone engines mandatory for the forces.',
+   f:['₹300–1,000 cr','3–5 years','DAP 2026 “national importance”'],
+   c:[['Jayem Automotives','180 hp MALE engine shown at AeroDef India 2026'],['HAL','Aero-engine experience'],['GTRE (DRDO)','Kaveri derivative for Ghatak'],['Indian auto engine makers','High-volume piston engine know-how']],
+   first:'Flight-test Jayem\'s engine on Tapas-BH-201 and certify it.'},
+  {m:17,t:'Indian rare-earth magnets',lvl:['p-amber','In progress, needs speed'],
+   d:'The single biggest chokepoint. The ₹7,280 cr magnet scheme opened technical bids in August 2026, with a two-year gestation period.',
+   f:['₹7,280 cr scheme','2–4 years','Magnet scheme (bids Aug 2026)'],
+   c:[['IREL (India)','Government rare-earth producer; samarium-cobalt magnet plant'],['Sona Comstar / EV motor makers','Large captive demand'],['Midwest Advanced Materials','Rare-earth processing ambitions'],['Japanese partners','Neodymium magnet technology']],
+   first:'Award the scheme fast and reserve output for defence motors.'},
+  {m:23,t:'An Indian flight-control chip',lvl:['p-red','Hard'],
+   d:'Indian boards still run STM32 or similar chips. An Indian RISC-V microcontroller with motion-sensor and safety features would close the deepest layer of the brain.',
+   f:['₹200–800 cr','4–6 years','DLI · Semicon 2.0'],
+   c:[['Mindgrove Technologies','Shakti RISC-V microcontrollers'],['Netrasemi','Edge-AI SoC with NPU'],['C-DAC (VEGA)','RISC-V processors'],['Tata Electronics','Dholera fab can make it']],
+   first:'Port ArduPilot/PX4 to an Indian RISC-V chip and fly it.'},
+  {m:24,t:'National-scale bets: thermal sensors and image sensors',lvl:['p-red','National-scale'],
+   d:'Microbolometers and image sensors need specialised fabs and years of process work. They serve drones, night-vision, cars and phones.',
+   f:['₹2,000–10,000 cr','5–8 years','Semicon 2.0'],
+   c:[['BEL','Defence electronics and optronics'],['Tonbo Imaging','Largest Indian thermal-camera buyer'],['DRDO SSPL / IRDE','Sensor research'],['Foreign partner','Licensed process technology']],
+   first:'A defence-anchored microbolometer line with a technology partner, as Micron did for memory.'}
+];
+
+// ---------- component tree ----------
+const T = {n:'Indian drone', sub:'~29% Indian-owned today', s:'p', c:[
+  {n:'Avionics', sub:'~27% of drone cost', s:'p', c:[
+    {n:'Flight controller', s:'p', c:[
+      {n:'Board design & assembly', sub:'Agam, Zuppa, ideaForge', s:'d', t:'Indian boards exist and are in use.'},
+      {n:'Swap-ready board (non-Chinese chips)', s:'x', t:'NEXT: design boards that accept ST, TI, NXP or Indian processors, so no single country is a chokepoint.'},
+      {n:'Indian RISC-V flight-control chip', s:'n', t:'Mindgrove, Netrasemi, C-DAC VEGA could build it; Tata Dholera could make it.'}]},
+    {n:'Navigation', s:'p', c:[
+      {n:'NavIC receivers', sub:'HC Robotics, Elena, Teravolt', s:'d', t:'Available; receiver chips imported.'},
+      {n:'GPS-denied (vision) navigation', s:'x', t:'NEXT: Zuppa, NewSpace, ideaForge. Mostly software.'},
+      {n:'MEMS motion sensors (IMU)', s:'n', t:'Imported (Bosch, TDK, ST).'}]},
+    {n:'Datalink', s:'p', c:[
+      {n:'Defence datalinks', sub:'BEL, Astra, DRDO', s:'p', t:'Exist for larger drones.'},
+      {n:'Encrypted mesh radio for small drones', s:'x', t:'NEXT: Indian design on imported RF chips. Candidates: Astra Microwave, BEL, ideaForge.'},
+      {n:'RF chips', s:'n', t:'Imported.'}]}]},
+  {n:'Propulsion & power', sub:'~26% of drone cost', s:'p', c:[
+    {n:'Motors & ESCs', s:'p', c:[
+      {n:'Indian BLDC motors', sub:'Vector Technics', s:'p', t:'In production; scaling.'},
+      {n:'Qualified Indian motor catalogue', s:'x', t:'NEXT: Army-qualified Indian motors and ESCs for any maker.'},
+      {n:'Rare-earth magnets', sub:'₹7,280 cr scheme', s:'p', t:'Bids opened Aug 2026; volume ~2028.'}]},
+    {n:'Batteries', s:'p', c:[
+      {n:'Pack assembly', s:'d', t:'Done in India.'},
+      {n:'High-power LiPo cells', s:'x', t:'NEXT (mid-term): pooled demand + a JV line.'}]},
+    {n:'Engines (large drones)', s:'n', c:[
+      {n:'180 hp piston engine', sub:'Jayem (prototype)', s:'x', t:'NEXT: flight-test on Tapas-BH-201.'},
+      {n:'Turbofan for UCAV', s:'n', t:'Kaveri derivative for Ghatak (GTRE).'}]}]},
+  {n:'Payload', sub:'~28% of drone cost', s:'p', c:[
+    {n:'Gimbals & optics', sub:'MotionMatics, Tonbo', s:'d', t:'Indian makers exist.'},
+    {n:'Indian EO/IR payload at scale', s:'x', t:'NEXT: a standard payload bought in bulk. Candidates: Tonbo, BEL, ideaForge.'},
+    {n:'Thermal sensor (microbolometer)', s:'n', t:'No Indian maker.'},
+    {n:'Image sensor', s:'n', t:'Sony, Samsung, OmniVision.'}]},
+  {n:'Airframe & build', sub:'~17% of drone cost', s:'d', c:[
+    {n:'Composite airframes', s:'d', t:'Indian strength.'},
+    {n:'Assembly & test', sub:'hundreds of makers', s:'d', t:'Import of complete drones banned since 2022.'},
+    {n:'Indigenous-content certification', s:'p', t:'Rule exists; no certifying body.'}]},
+  {n:'Software & AI', s:'p', c:[
+    {n:'Autopilot software', sub:'ideaForge, DRDO, open-source forks', s:'p', t:'Mostly ArduPilot/PX4 customised.'},
+    {n:'Ground control software', sub:'AeroGCS and others', s:'d', t:'Indian options exist.'},
+    {n:'Swarms & autonomy', sub:'NewSpace', s:'p', t:'Demonstrated; scaling.'},
+    {n:'Audited national autopilot base', s:'x', t:'NEXT: a security-audited Indian fork shared across makers.'}]}
+]};
+
+// ---------- company size ----------
+// own: I = Indian private, G = Indian govt/PSU, F = foreign
+// [name, own, ₹ crore revenue, exact?, pre-revenue?, HQ, role, India footprint]
+const SROWS = [
+  {g:'AVIONICS', n:'Flight controllers & chips', sub:'boards, microcontrollers', lay:'fc', co:[
+    ['STMicroelectronics','F',111500,1,0,'Geneva, Switzerland','STM32 microcontrollers inside most drone flight controllers, including many Indian ones.','Design centres in Noida and Bengaluru.'],
+    ['CUAV / Holybro','F',500,0,0,'Shenzhen, China','Ready-made Pixhawk-class flight controllers.','Sold widely through resellers.'],
+    ['Zuppa','I',50,0,0,'Chennai','Indigenous autopilots and GPS-independent navigation.','Supplies defence and civil makers.'],
+    ['Agam Robotics','I',5,0,0,'Bengaluru','Indian autopilot boards; chips imported.','20–50 boards a day (2025).'],
+    ['Jaywing / Airober','I',2,0,0,'Bhubaneswar / Delhi','New Indian flight controllers (2026).','Early stage.']]},
+  {g:'AVIONICS', n:'Navigation', sub:'GNSS, NavIC, IMU', lay:'nav', co:[
+    ['Trimble','F',30900,1,0,'Colorado, US','Positioning and GNSS systems.','—'],
+    ['u-blox','F',2700,0,0,'Thalwil, Switzerland','GNSS receiver chips used in most drones.','—'],
+    ['Accord Software','I',100,0,0,'Bengaluru','GNSS and NavIC receivers.','—'],
+    ['HC Robotics','I',20,0,0,'Bengaluru','NavIC + GNSS drone modules.','—'],
+    ['Elena Geo Systems','I',20,0,0,'Bengaluru','NavIC multi-GNSS receivers.','—']]},
+  {g:'AVIONICS', n:'Datalinks & radios', sub:'video and control links', lay:'link', co:[
+    ['Silvus Technologies','F',4000,0,0,'Los Angeles, US','Military mesh radios (bought by Motorola Solutions, 2025).','—'],
+    ['Doodle Labs','F',500,0,0,'Singapore','Mesh radios for small drones.','—'],
+    ['Astra Microwave','I',1050,0,0,'Hyderabad','Defence RF subsystems and datalinks.','—']]},
+  {g:'COMPONENTS', n:'Motors & propulsion', sub:'motors, ESCs, propellers', lay:'prop', co:[
+    ['T-Motor','F',1500,0,0,'Nanchang, China','Leading drone-motor maker.','Widely imported.'],
+    ['Vector Technics','I',30,0,0,'Hyderabad','Indian BLDC motors, ESCs, propulsion.','Claims 3 lakh units/yr capacity (Jul 2026).']]},
+  {g:'COMPONENTS', n:'Rare-earth magnets', sub:'inside every motor', lay:'prop', co:[
+    ['JL Mag','F',7900,0,0,'Ganzhou, China','One of the largest neodymium magnet makers.','—'],
+    ['IREL (India)','G',1500,0,0,'Mumbai','Government rare-earth producer; small samarium-cobalt magnet plant.','Magnet scheme bids Aug 2026.']]},
+  {g:'COMPONENTS', n:'Battery cells', sub:'high-power LiPo', lay:'bat', co:[
+    ['Grepow','F',3000,0,0,'Shenzhen, China','Drone LiPo cells.','Widely imported.'],
+    ['Amprius','F',600,0,0,'California, US','High-energy drone cells.','—']]},
+  {g:'COMPONENTS', n:'Cameras & EO/IR', sub:'payloads and sensors', lay:'payload', co:[
+    ['Teledyne (FLIR)','F',47600,1,0,'California, US','Thermal cameras and cores in drones worldwide.','—'],
+    ['Paras Defence','I',365,0,0,'Navi Mumbai','Optics, drones and counter-drone systems.','—'],
+    ['Tonbo Imaging','I',300,0,0,'Bengaluru','Thermal and night-vision cameras.','Sensor cores imported.']]},
+  {g:'COMPONENTS', n:'Engines', sub:'for MALE drones', lay:'engine', co:[
+    ['Rotax (BRP)','F',60000,0,0,'Valcourt, Canada','Rotax 914 powers Herons and Hermes (group revenue).','—'],
+    ['Austro Engine','F',800,0,0,'Wiener Neustadt, Austria','Heavy-fuel engine on Tapas-BH-201.','Imported.'],
+    ['Jayem Automotives','I',100,0,0,'Coimbatore','180 hp MALE engine shown 2026.','Not yet flying.']]},
+  {g:'PLATFORMS', n:'Small drones', sub:'civil and tactical', lay:'brand', co:[
+    ['DJI','F',34000,0,0,'Shenzhen, China','World\'s largest drone maker.','Imports banned in India since 2022.'],
+    ['Skydio','F',1500,0,0,'California, US','US tactical and enterprise drones.','—'],
+    ['ideaForge','I',226,1,0,'Navi Mumbai','Largest Indian drone maker; 69% defence revenue (FY26).','Listed 2023.'],
+    ['Garuda Aerospace','I',206,1,0,'Chennai','Agri, survey and defence drones.','IPO pending.'],
+    ['IoTechWorld','I',100,0,0,'Gurugram','Agri spray drones.','—']]},
+  {g:'PLATFORMS', n:'Large military drones', sub:'MALE, UCAV', lay:'engine', co:[
+    ['Elbit Systems','F',57000,1,0,'Haifa, Israel','Hermes 900, licence-built in India as Drishti-10.','Adani JV in Hyderabad.'],
+    ['IAI','F',48700,1,0,'Lod, Israel','Herons used by all three Indian services.','—'],
+    ['General Atomics','F',30000,0,0,'San Diego, US','MQ-9B: 31 ordered by India.','Deliveries 2029–30.'],
+    ['Baykar','F',19000,0,0,'Istanbul, Türkiye','TB2 and Akinci; $2.2 bn exports in 2025.','—'],
+    ['HAL','G',30900,1,0,'Bengaluru','CATS Warrior loyal wingman (first flight 2026–27).','PSU; whole-company revenue.'],
+    ['Adani Defence','I',1000,0,0,'Hyderabad','Licence-builds Drishti-10.','—'],
+    ['Raphe mPhibr','I',100,0,0,'Noida','Military drones; bidding for MALE.','$100 mn raised (2025).']]},
+  {g:'PLATFORMS', n:'Loitering munitions', sub:'kamikaze and strike drones', lay:'brand', co:[
+    ['AeroVironment','F',6900,1,0,'Virginia, US','Switchblade loitering munitions.','—'],
+    ['Solar Industries','I',7500,1,0,'Nagpur','Nagastra-1R and Nagastra-2 (group revenue, mostly explosives).','—'],
+    ['Tata Advanced Systems','I',3500,0,0,'Hyderabad','Artillery loitering munitions (Aug 2026).','—'],
+    ['NIBE','I',300,0,0,'Pune','Loitering munitions (Aug 2026).','—'],
+    ['InsideFPV','I',10,0,0,'India','Kamikaze FPV drones.','Fast-track Army order (Apr 2026).']]},
+  {g:'PLATFORMS', n:'Counter-drone', sub:'detect, jam, destroy', co:[
+    ['DroneShield','F',1200,0,0,'Sydney, Australia','Counter-drone detection and jamming.','—'],
+    ['BEL','G',23000,1,0,'Bengaluru','Counter-drone systems with DRDO; radars, EO/IR.','PSU; whole-company revenue.'],
+    ['Zen Technologies','I',688,1,0,'Hyderabad','Counter-drone systems; owns Vector Technics.','FY26 revenue fell 29%.']]},
+  {g:'SOFTWARE & SERVICES', n:'Autonomy & services', sub:'swarms, delivery, software', lay:'ai', co:[
+    ['Zipline','F',1700,0,0,'California, US','Medical drone delivery at national scale.','—'],
+    ['Auterion','F',500,0,0,'Virginia, US','Drone OS and autonomy for militaries.','—'],
+    ['NewSpace Research','I',200,0,0,'Bengaluru','Swarms, autonomy, high-altitude drones.','Series C under discussion (2026).'],
+    ['Skye Air','I',30,0,0,'Gurugram','Drone delivery network.','—']]}
+];
+
+// ---------- drone scorecard ----------
+// I = Indian, P = partly Indian, F = foreign, U = not disclosed (scored foreign), N = not applicable
+const PC_COLS = [
+  ['hw','frame','Airframe',9],['hw','prop','Propulsion',18],['hw','bat','Battery',8],['hw','fc','Flight controller',10],['hw','nav','Navigation',5],
+  ['hw','link','Datalink',12],['hw','payload','Payload',28],['hw','asm','Assembly',10],
+  ['sw','fw','Autopilot',30],['sw','gcs','Ground control',20],['sw','ai','Autonomy',20],['sw','sec','Security & data',30],
+  ['own','brand','Brand / owner',0]
+];
+const PHONES = [
+  {n:'ideaForge SWITCH', sub:'ideaForge · Army ISR · 2021–', r:{frame:'I',prop:'U',bat:'F',fc:'P',nav:'P',link:'P',payload:'P',asm:'I',fw:'I',gcs:'I',ai:'P',sec:'P',brand:'I'},
+   lab:{fc:'Own autopilot',brand:'ideaForge'},
+   about:'A fixed-wing VTOL surveillance drone used by the Army along the borders. ideaForge designs its own autopilot, ground station and airframe. It has said it still relies on imported batteries, motors and sensors.',
+   ind:['Airframe, autopilot software and ground station designed in India','Assembled and tested in Navi Mumbai','EW-resilient versions delivered in 2026'],
+   fgn:['Battery cells, image and thermal sensors imported','Microcontrollers and RF chips imported','Motor supplier not disclosed']},
+  {n:'Nagastra-1R', sub:'Solar Defence & Aerospace · loitering munition · 2025–', r:{frame:'I',prop:'U',bat:'F',fc:'P',nav:'P',link:'P',payload:'U',asm:'I',fw:'P',gcs:'I',ai:'P',sec:'P',brand:'I'},
+   lab:{brand:'Solar'},
+   about:'A man-portable loitering munition from Nagpur, with a recoverable design. The Army ordered about 450 in June 2025; an anti-tank Nagastra-2 was delivered in October 2026. Solar claims high indigenous content, but the part suppliers are not public.',
+   ind:['Indian design, warhead and assembly','Indian ground control','Combat-ready loitering capability'],
+   fgn:['Camera, motor and chip suppliers not disclosed','Battery cells almost certainly imported']},
+  {n:'Tapas-BH-201', sub:'DRDO ADE · MALE · 2016–', r:{frame:'I',prop:'F',bat:'N',fc:'I',nav:'P',link:'P',payload:'P',asm:'I',fw:'I',gcs:'I',ai:'N',sec:'I',brand:'I'},
+   lab:{prop:'Austro engine',brand:'DRDO'},
+   about:'India\'s indigenous medium-altitude long-endurance drone (Rustom-II). It missed its altitude and endurance targets and was dropped from “Mission Mode” in January 2024, with a limited order of 10.',
+   ind:['DRDO design, flight control and software','Built with HAL and BEL','Indian datalink and ground station'],
+   fgn:['Austrian Austro AE300 engine','Some sensors and avionics chips imported']},
+  {n:'Garuda Kisan drone', sub:'Garuda Aerospace · agri spraying', r:{frame:'I',prop:'U',bat:'F',fc:'U',nav:'U',link:'U',payload:'P',asm:'I',fw:'U',gcs:'P',ai:'N',sec:'U',brand:'I'},
+   lab:{payload:'Spray system',brand:'Garuda'},
+   about:'A typical Indian agri spray drone, sold to farmers and self-help groups. Indian design and assembly; many core parts in this class are imported, and most makers do not disclose suppliers.',
+   ind:['Indian airframe, spray system and assembly','DGCA type-certified'],
+   fgn:['Motors, cells and flight-controller chips usually imported','Autopilot often based on open-source software']},
+  {n:'InsideFPV kamikaze', sub:'InsideFPV · FPV strike · 2026', r:{frame:'I',prop:'U',bat:'F',fc:'P',nav:'N',link:'U',payload:'U',asm:'I',fw:'U',gcs:'N',ai:'P',sec:'U',brand:'I'},
+   about:'Hundreds ordered by the Army in April 2026 under a fast-track window. The company says they work in GPS-denied environments from -35 to 50 °C.',
+   ind:['Indian design and assembly','GPS-denied operation (company claim)'],
+   fgn:['Most component suppliers not disclosed','Battery cells imported']},
+  {n:'Drishti-10 Starliner', sub:'Adani–Elbit · Hermes 900 · 2024–', r:{frame:'P',prop:'F',bat:'F',fc:'F',nav:'F',link:'F',payload:'F',asm:'P',fw:'F',gcs:'F',ai:'N',sec:'F',brand:'P'},
+   lab:{brand:'Adani / Elbit'},
+   about:'Elbit\'s Hermes 900, licence-built in Hyderabad. Adani claims over 70% indigenous content, which counts work done in India; the design, avionics and software are Israeli.',
+   ind:['Airframe and assembly in Hyderabad','Indian company owns the factory'],
+   fgn:['Elbit design, flight software and avionics','Rotax engine','Israeli payloads and datalinks']},
+  {sep:1},
+  {n:'DJI Agras', sub:'DJI, China · import banned 2022', ref:1, r:{frame:'F',prop:'F',bat:'F',fc:'F',nav:'F',link:'F',payload:'F',asm:'F',fw:'F',gcs:'F',ai:'F',sec:'F',brand:'F'},
+   about:'For comparison: the world\'s best-selling agri drone. Banned as a finished import since 2022, but still found through the grey market.',
+   ind:['—'],fgn:['Everything']},
+  {n:'MQ-9B SkyGuardian', sub:'General Atomics, USA · 2029–30', ref:1, r:{frame:'F',prop:'F',bat:'N',fc:'F',nav:'F',link:'F',payload:'F',asm:'F',fw:'F',gcs:'F',ai:'F',sec:'F',brand:'F'},
+   about:'For comparison: 31 ordered in October 2024 for about $3.5 bn. Includes maintenance work in India, but everything else is American.',
+   ind:['Future maintenance and repair in India'],fgn:['Everything else']},
+  {sep:1},
+  {n:'2030 target drone', sub:'Realistic goal', ref:1, r:{frame:'I',prop:'P',bat:'F',fc:'P',nav:'P',link:'P',payload:'P',asm:'I',fw:'I',gcs:'I',ai:'I',sec:'I',brand:'I'},
+   lab:{prop:'Indian magnets?',fc:'Indian board',payload:'Imported core'},
+   about:'What a realistic Indian tactical drone could look like by 2030, based on projects already under way.',
+   ind:['Indian motors, with Indian magnets if the magnet scheme delivers','NavIC navigation and Indian datalinks on imported chips','Indian payload around an imported sensor core','Audited Indian software and autonomy'],
+   fgn:['Battery cells, chips, RF parts and sensor cores still imported']},
+  {n:'Fully indigenous (vision)', sub:'2035+', ref:1, r:{frame:'I',prop:'I',bat:'I',fc:'I',nav:'I',link:'I',payload:'I',asm:'I',fw:'I',gcs:'I',ai:'I',sec:'I',brand:'I'},
+   about:'The end state: every layer Indian-owned.', ind:['Everything'], fgn:['—']}
+];
+
+// ---------- talent ----------
+const FLOW_SRC = [
+  ['drdo','DRDO & aerospace PSUs','ADE, HAL, BEL, NAL'],
+  ['iit','IITs & engineering colleges','IIT Bombay, Kanpur, Madras; MIT Chennai'],
+  ['mil','Armed-forces veterans','ex-IAF pilots, Army aviation'],
+  ['isr','Foreign partners','Elbit, IAI licence production'],
+  ['hob','Hobbyist & FPV community','RC clubs, drone racing'],
+  ['auto','Auto & electronics industry','EV motors, EMS, batteries'],
+  ['ret','Returnees','global aerospace and robotics'],
+  ['rpto','Drone schools (RPTOs)','244 DGCA-approved']
+];
+const FLOW_DST = [
+  ['civ','Civil drone makers'],
+  ['def','Defence drone makers'],
+  ['comp','Components & avionics'],
+  ['svc','Agri, survey & delivery operators'],
+  ['army','Armed-forces drone units'],
+  ['govm','Government & regulators']
+];
+const FLOWS = [['drdo','def',4],['drdo','govm',2],['drdo','comp',1],['iit','civ',4],['iit','comp',3],['iit','def',2],
+  ['mil','def',3],['mil','army',2],['isr','def',2],['hob','comp',3],['hob','civ',2],['hob','def',2],
+  ['auto','comp',3],['auto','civ',1],['ret','def',2],['ret','comp',1],['rpto','svc',6],['rpto','army',2],['rpto','civ',1]];
+const LEADERS = [
+  ['Ankit Mehta','Co-founder & CEO, ideaForge','Academia → startup','p-green','IIT Bombay; built drones as a student team before founding ideaForge in 2007.'],
+  ['Agnishwar Jayaprakash','Founder & CEO, Garuda Aerospace','Domestic builder','p-saff','Built a Chennai agri and survey drone startup into a PLI beneficiary heading for an IPO.'],
+  ['Sameer Joshi','Founder & CEO, NewSpace Research','Armed forces','p-amber','Former IAF fighter pilot; founded NewSpace for swarms and high-altitude drones.'],
+  ['Sai Pattabiram','Founder & CEO, Zuppa','Domestic builder','p-saff','Built indigenous autopilots in Chennai to keep control of the tech stack.'],
+  ['Vivek Mishra','Co-founder & CEO, Raphe mPhibr','Domestic builder','p-saff','Co-founded the Noida military-drone maker with Vikash Mishra and Nitin Katiyar.'],
+  ['Prudhvi Raj Pakalapati','Co-founder, Vector Technics','Hobbyist → industry','p-green','Started building motors in 2020; Vector Technics is now part of Zen Technologies.'],
+  ['Ashok Atluri','Chairman & MD, Zen Technologies','Domestic builder','p-saff','Founded Zen in the 1990s for training simulators; moved into counter-drone systems.'],
+  ['Satyanarayan Nuwal','Chairman, Solar Industries','Domestic builder','p-saff','Built an industrial-explosives business in Nagpur that now makes Nagastra loitering munitions.'],
+  ['Smit Shah','President, Drone Federation of India','Industry body','p-navy','Leads the industry federation; says top Indian drone firms are 70–75% indigenous.'],
+  ['Prof. Ajay K. Sood','Principal Scientific Adviser','Academia → policy','p-green','IISc physicist; announced the Drone Shakti component mission plan in January 2026.']
+];
+const TRAIN_TL = [
+  ['2021','var(--navy)',['Drone Rules create the Remote Pilot Certificate and RPTO system','No DGCA permit needed for most small-drone flying']],
+  ['2022','var(--navy)',['Budget “Drone Shakti”: drone skilling and Kisan drones','Drone certification scheme (QCI)']],
+  ['2023','var(--saffron)',['Namo Drone Didi: women in SHGs trained as drone pilots','Agri universities run drone-spraying demonstrations']],
+  ['2024','var(--saffron)',['RPTO numbers grow past 100','Army expands drone training after watching Ukraine']],
+  ['2025','var(--green)',['Operation Sindoor (May)','Ashni drone platoons in every infantry battalion']],
+  ['2026','var(--green)',['39,890 pilots; 244 RPTOs; certification on eGCA','Army target: 1 lakh drone-trained personnel']]
+];
+
+// ---------- map ----------
+const MCATS = {
+  civ:['Civil drone makers','var(--saffron)'],
+  def:['Military drones & munitions','var(--navy)'],
+  comp:['Components & avionics','#7d6fe0'],
+  gov:['DRDO & PSU labs','var(--green)'],
+  svc:['Services & delivery','var(--amber)'],
+  edu:['Training, research & test','#20b3ad']
+};
+// [name, cat, lat, lon, place, state, ₹ crore or 0, status, note]
+const SITES = [
+  ['ideaForge','civ',19.10,73.02,'Navi Mumbai','Maharashtra',0,'Operating; listed 2023','India\'s largest drone maker: SWITCH, Netra, Q-series. FY26 revenue ₹226 cr, 69% defence.'],
+  ['Garuda Aerospace','civ',13.04,80.24,'Chennai','Tamil Nadu',0,'Operating; IPO pending','Agri, survey and defence drones; FY26 revenue ~₹206 cr.'],
+  ['Dhaksha Unmanned Systems','civ',12.93,80.12,'Chennai','Tamil Nadu',0,'Operating','Agri and defence drones; began as an Anna University (MIT) student team.'],
+  ['IoTechWorld Avigation','civ',28.46,77.03,'Gurugram','Haryana',0,'Operating','Agri spray drones.'],
+  ['Marut Drones','civ',17.40,78.48,'Hyderabad','Telangana',0,'Operating','Agri and plantation drones.'],
+  ['IG Drones','civ',20.30,85.82,'Bhubaneswar','Odisha',0,'Operating','Survey and defence drones; says ~80% of parts made in-house.'],
+  ['Solar Industries / SDAL','def',21.15,79.09,'Nagpur','Maharashtra',0,'Delivering','Nagastra-1R and Nagastra-2 loitering munitions.'],
+  ['NIBE','def',18.52,73.86,'Pune','Maharashtra',0,'Contract Aug 2026','Loitering munitions for Army artillery, with Tata Advanced Systems.'],
+  ['Tata Advanced Systems','def',17.22,78.58,'Adibatla, Hyderabad','Telangana',0,'Operating','Loitering munitions (₹1,577 cr with NIBE); aerostructures.'],
+  ['Adani–Elbit UAV complex','def',17.24,78.55,'Adibatla, Hyderabad','Telangana',0,'Operating','Licence-builds Hermes 900 as Drishti-10.'],
+  ['Raphe mPhibr','def',28.57,77.32,'Noida','Uttar Pradesh',0,'Operating','Military drones with in-house components; $100 mn raised in 2025.'],
+  ['NewSpace Research','def',12.97,77.65,'Bengaluru','Karnataka',0,'Operating','Swarms, autonomy and high-altitude drones.'],
+  ['Paras Defence','def',19.20,73.19,'Ambernath','Maharashtra',0,'Operating','Optics, drones and counter-drone systems.'],
+  ['Zen Technologies + Vector Technics','comp',17.45,78.36,'Hyderabad','Telangana',0,'Operating','Counter-drone systems; Indian motors and propulsion (claimed 3 lakh units/yr).'],
+  ['Astra Microwave','comp',17.50,78.40,'Hyderabad','Telangana',0,'Operating','Defence RF subsystems and datalinks.'],
+  ['Agam Robotics','comp',12.93,77.62,'Bengaluru','Karnataka',0,'Operating','Indian autopilot boards and sensors.'],
+  ['Tonbo Imaging','comp',13.02,77.55,'Bengaluru','Karnataka',0,'Operating','Thermal and night-vision cameras.'],
+  ['NavIC receiver makers','comp',13.04,77.60,'Bengaluru','Karnataka',0,'Operating','HC Robotics, Elena Geo Systems, Accord: NavIC-capable receivers.'],
+  ['Zuppa Geo Navigation','comp',12.95,80.20,'Chennai','Tamil Nadu',0,'Operating','Indigenous autopilots and GPS-independent navigation.'],
+  ['Jayem Automotives','comp',11.02,76.96,'Coimbatore','Tamil Nadu',0,'Prototype (2026)','180 hp MALE UAV engine shown at AeroDef India 2026.'],
+  ['Optiemus Unmanned Systems','comp',28.53,77.39,'Noida','Uttar Pradesh',0,'Operating','Makes ~75% of components in-house, including ESCs and flight controllers.'],
+  ['Jaywing Technologies','comp',20.27,85.84,'Bhubaneswar','Odisha',0,'Early stage','Indian flight controller with on-board computing (2026).'],
+  ['IREL magnet plant','comp',17.69,83.22,'Visakhapatnam','Andhra Pradesh',0,'Operating (small)','Government samarium-cobalt magnet plant; the ₹7,280 cr magnet scheme aims much larger.'],
+  ['DRDO ADE','gov',12.96,77.67,'Bengaluru','Karnataka',0,'Operating','Lakshya, Nishant, Rustom, Tapas-BH-201, Archer-NG.'],
+  ['HAL','gov',12.95,77.68,'Bengaluru','Karnataka',0,'CATS Warrior in development','Loyal-wingman drone; first flight targeted 2026–27.'],
+  ['BEL','gov',13.04,77.54,'Bengaluru','Karnataka',0,'Operating','EO/IR payloads, datalinks and counter-drone systems.'],
+  ['Aeronautical Test Range','edu',14.23,76.40,'Challakere, Chitradurga','Karnataka',0,'Operating','DRDO drone test range; Tapas and Archer flight trials.'],
+  ['IIT Bombay','edu',19.13,72.92,'Mumbai','Maharashtra',0,'Research','Where ideaForge began.'],
+  ['IIT Kanpur','edu',26.51,80.23,'Kanpur','Uttar Pradesh',0,'Research','UAV research; incubated EndureAir.'],
+  ['IIT Madras','edu',12.99,80.23,'Chennai','Tamil Nadu',0,'Research','Aerospace research and drone startups.'],
+  ['Skye Air','svc',28.44,77.06,'Gurugram','Haryana',0,'Operating','Drone delivery network.']
+];
+
+// ---------- helpers & rendering ----------
+// ---------- helpers ----------
+const $ = s=>document.querySelector(s);
+const colorFor = v => v<=20?'var(--red)':v<=50?'var(--amber)':'var(--green)';
+const pillFor = v => v<=20?['p-red','Early stage']:v<=50?['p-amber','Emerging']:['p-green','Capable'];
+const fmt = n => n.toLocaleString('en-IN');
+const tip = $('#tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(e.clientX+14,innerWidth-270);tip.style.left=x+'px';tip.style.top=(e.clientY+14)+'px'}
+function hideTip(){tip.style.opacity=0}
+
+// theme
+(function(){
+  const root=document.documentElement;let t=null;try{t=localStorage.getItem('theme')}catch(e){}
+  if(t)root.dataset.theme=t;
+  $('#themeBtn').onclick=()=>{const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}};
+})();
+
+// countdown
+function tick(){
+  const ms=new Date('2031-01-01T00:00:00+05:30')-new Date();
+  const d=Math.max(0,Math.floor(ms/864e5)),h=Math.max(0,Math.floor(ms/36e5)%24),m=Math.max(0,Math.floor(ms/6e4)%60);
+  $('#countdown').innerHTML=`<div><b>${fmt(d)}</b><span>days</span></div><div><b>${h}</b><span>hours</span></div><div><b>${m}</b><span>min</span></div><div style="text-align:left;border:none;background:none;padding:8px 0"><span style="text-transform:none;letter-spacing:0;font-size:.85rem;color:var(--ink-2)">to the end of 2030,<br>the global-hub target</span></div>`;
+}
+tick();setInterval(tick,30000);
+
+// headline numbers
+const bomLayers = LAYERS.filter(l=>l.weight>0);
+const totW = bomLayers.reduce((a,l)=>a+l.weight,0);
+const owned = bomLayers.reduce((a,l)=>a+l.weight*l.score/100,0)/totW*100;
+const madeHere = bomLayers.reduce((a,l)=>a+l.weight*Math.max(0,l.made-l.score)/100,0)/totW*100;
+$('#ownedTxt').textContent = Math.round(owned);
+
+// gauge
+(function(){
+  const svg=$('#gauge'),cx=150,cy=150,r=115,sw=26;
+  const pt=(f)=>{const a=Math.PI*(1-f);return [cx+r*Math.cos(a),cy-r*Math.sin(a)]};
+  const arc=(f0,f1,c)=>{const [x0,y0]=pt(f0),[x1,y1]=pt(f1);return `<path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${c}" stroke-width="${sw}" fill="none" stroke-linecap="butt"/>`};
+  const o=owned/100,m=madeHere/100;
+  svg.innerHTML = arc(0,1,'var(--track)')+`<g id="gArcs"></g>`+
+    [0,25,50,75,100].map(v=>{const [x,y]=pt(v/100);const [x2,y2]=[cx+(r+22)*Math.cos(Math.PI*(1-v/100)),cy-(r+22)*Math.sin(Math.PI*(1-v/100))];return `<text x="${x2}" y="${y2+4}" font-size="10" text-anchor="middle" fill="var(--ink-3)">${v}</text>`}).join('');
+  let f=0;const g=$('#gArcs');
+  function step(){f=Math.min(1,f+0.03);const e=1-Math.pow(1-f,3);
+    g.innerHTML=arc(0,Math.max(0.001,o*e),'var(--green)')+arc(o*e,Math.max(o*e+0.001,(o+m)*e),'var(--amber)');
+    $('#gaugeNum').textContent=Math.round(owned*e)+'%';if(f<1)requestAnimationFrame(step)}
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){step();ob.disconnect()}}).observe(svg);
+})();
+
+// layers list
+(function(){
+  const box=$('#layers');
+  box.innerHTML = LAYERS.map(l=>{const [pc,pt]=pillFor(l.score);return `
+  <div class="card layer" id="L-${l.id}" data-id="${l.id}">
+    <div class="layer-head">
+      <div class="layer-name">${l.name} <span class="pill ${pc}">${pt}</span>${l.weight?`<span class="small muted">~${l.weight}% of drone cost</span>`:''}</div>
+      <div class="layer-score" style="color:${colorFor(l.score)}">${l.score}</div>
+      <div class="bar"><i data-w="${l.score}" style="background:${colorFor(l.score)}"></i></div>
+      <div class="layer-sub">${l.sub}</div>
+    </div>
+    <div class="layer-body">
+      <div class="lb-grid">
+        <div><h4>Indian capability &amp; players</h4><ul>${l.india.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div><h4>Money behind it</h4><ul>${l.money.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      </div>
+      <div class="gap-box"><b>The gap:</b> ${l.gap}</div>
+      <div class="fix-box"><b>Stop-gap:</b> ${l.fix}</div>
+    </div>
+  </div>`}).join('');
+  box.addEventListener('click',e=>{const c=e.target.closest('.layer');if(c)openLayer(c.dataset.id,false)});
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){box.querySelectorAll('.bar>i').forEach(i=>i.style.width=i.dataset.w+'%');ob.disconnect()}}).observe(box);
+})();
+function openLayer(id,scroll){
+  const el=$('#L-'+id),was=el.classList.contains('open');
+  document.querySelectorAll('.layer.open').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('#phone [data-id]').forEach(p=>p.style.opacity=1);
+  if(!was){el.classList.add('open');
+    document.querySelectorAll('#phone [data-id]').forEach(p=>p.style.opacity=p.dataset.id===id?1:.35);
+    if(scroll)el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+
+// exploded drone
+(function(){
+  const L=Object.fromEntries(LAYERS.map(l=>[l.id,l]));
+  const parts=[ // [id,label,y,h,inset]
+    ['ai','AI & autonomy',8,26,30],['sw','Autopilot',44,26,30],
+    ['link','Datalink',84,26,50],['payload','Camera payload',120,42,36],
+    ['fc','Flight control',172,30,60],['nav','Navigation',212,24,64],['prop','Motors & props',246,38,0],
+    ['bat','Battery',294,38,30],['frame','Airframe',342,40,0],['engine','Engine',392,28,44],
+    ['asm','Assembly & test',430,26,30],['brand','Platform & brand',466,26,30]];
+  let s='';
+  parts.forEach(([id,lab,y,h,ins])=>{const l=L[id],c=colorFor(l.score);const x=4+ins*0.8,w=172-ins*1.6;
+    const soft = id==='ai'||id==='sw'||id==='brand'||id==='asm';
+    s+=`<g data-id="${id}" style="cursor:pointer;transition:opacity .2s">
+      <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${soft?13:6}" fill="${c}" fill-opacity="${soft?.16:.85}" stroke="${c}" stroke-width="${soft?1.5:0}" ${soft?'stroke-dasharray="4 3"':''}/>
+      <text x="${x+w/2}" y="${y+h/2+4}" font-size="12" font-weight="700" text-anchor="middle" fill="${soft?c:'#fff'}" style="pointer-events:none">${l.score}</text>
+      <line x1="${x+w+3}" y1="${y+h/2}" x2="186" y2="${y+h/2}" stroke="var(--line)" stroke-dasharray="2 2"/>
+      <text x="190" y="${y+h/2+4}" font-size="11.5" fill="var(--ink-2)" style="pointer-events:none">${lab}</text>
+    </g>`});
+  const svg=$('#phone');svg.innerHTML=s;svg.setAttribute('viewBox','0 0 290 500');
+  svg.querySelectorAll('[data-id]').forEach(g=>{
+    g.addEventListener('click',()=>openLayer(g.dataset.id,true));
+    g.addEventListener('mousemove',e=>{const l=L[g.dataset.id];showTip(e,`<b>${l.name}</b><br>Readiness ${l.score}/100`)});
+    g.addEventListener('mouseleave',hideTip)});
+})();
+
+// BoM
+(function(){
+  const pal=['#2b6fd6','#5b93e6','#7d6fe0','#d77aa8','#e2654f','#f0a92e','#9cbf3f','#12a26b','#20b3ad','#6f8799','#f0882e'];
+  const cost=$('#bomCost'),own=$('#bomOwn'),key=$('#bomKey');
+  cost.innerHTML=bomLayers.map((l,i)=>`<div class="bom-seg" data-i="${i}" style="flex:${l.weight};background:${pal[i]}"><span>${l.weight>=9?l.name.split(' ')[0]:''}</span></div>`).join('');
+  const imp=100-owned-madeHere;
+  own.innerHTML=[[owned,'var(--green)','Indian-owned','own','#fff'],[madeHere,'var(--amber)','Made in India, foreign IP','made','#fff'],[imp,'var(--track)','Imported','imp','var(--ink-2)']]
+    .map(([v,c,l,k,tc])=>`<div class="bom-seg" data-k="${k}" style="flex:${v};background:${c};color:${tc}"><span>${l} ${Math.round(v)}%</span></div>`).join('');
+  key.innerHTML=bomLayers.map((l,i)=>`<span style="--c:${pal[i]}">${l.name} · ${l.weight}%</span>`).join('')+
+    `<span style="--c:var(--green)"><b>Indian-owned ${Math.round(owned)}%</b></span><span style="--c:var(--amber)"><b>Made here, foreign IP ${Math.round(madeHere)}%</b></span><span style="--c:var(--track)"><b>Imported ${Math.round(100-owned-madeHere)}%</b></span>`;
+  [cost,own].forEach(b=>b.querySelectorAll('.bom-seg').forEach(s=>{
+    s.addEventListener('mousemove',e=>{if(s.dataset.k){showTip(e,{own:'Value from Indian-owned design &amp; production',made:'Built in India, but technology owned abroad',imp:'Imported parts'}[s.dataset.k]);return}
+      const l=bomLayers[s.dataset.i];showTip(e,`<b>${l.name}</b><br>${l.weight}% of drone cost<br>Readiness ${l.score}/100`)});
+    s.addEventListener('mouseleave',hideTip)}));
+})();
+
+// gaps
+$('#gapList').innerHTML=GAPS.map((g,i)=>`<div class="card gap"><div class="rank">${String(i+1).padStart(2,'0')}</div>
+  <div class="sev" title="Severity ${g.sev}/5">${[1,2,3,4,5].map(n=>`<i class="${n<=g.sev?'on':''}"></i>`).join('')}</div>
+  <h3>${g.t}</h3><p>${g.d}</p><div class="stop"><b>Stop-gap →</b> ${g.s}</div></div>`).join('');
+
+// money charts
+function hbars(el,rows,max){
+  el.innerHTML=rows.map(r=>`<div class="hbar"><div class="n" title="${r[0]}">${r[0]}</div><div class="t"><i data-w="${r[1]/max*100}" style="background:${r[2]}"></i></div><div class="v">₹${fmt(r[1])}</div></div>`).join('');
+  new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){el.querySelectorAll('i').forEach(i=>i.style.width=i.dataset.w+'%');ob.disconnect()}}).observe(el);
+}
+hbars($('#schemeChart'),SCHEMES,40000);
+hbars($('#ismChart'),ISM.map(r=>[r[0],r[4],r[5]?'var(--navy)':'var(--amber)']),30000);
+$('#ismTable').innerHTML=ISM.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="num">${fmt(r[4])}</td></tr>`).join('')+
+  `<tr><td colspan="5" class="muted">Also: ₹40,000 cr emergency procurement after Operation Sindoor (all defence, ₹300 cr cap per contract); a reported ₹20,000 cr+ fast-track drone purchase (Jun 2026, not confirmed); iDEX has led to 45 procurement contracts worth ~₹2,326 cr since 2018.</td></tr>`;
+
+// players
+(function(){
+  let cur='all';
+  $('#filters').innerHTML=Object.entries(CATS).map(([k,v])=>`<button data-k="${k}" class="${k==='all'?'on':''}">${v}</button>`).join('');
+  function render(){$('#playerList').innerHTML=PLAYERS.filter(p=>cur==='all'||p[1]===cur).map(p=>`
+    <div class="card player"><div class="top"><h3>${p[0]}</h3><span class="pill ${p[2]==='Indian'?'p-green':p[2]==='JV'?'p-amber':p[2]==='Govt'?'p-saff':'p-navy'}">${p[2]}</span></div>
+    <p>${p[3]}</p><div class="meta">${CATS[p[1]]} · ${p[4]}</div></div>`).join('')}
+  $('#filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.k;
+    document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));render()});
+  render();
+})();
+
+// timeline
+$('#timeline').innerHTML=TIMELINE.map(([era,evs])=>`<div class="era">${era}</div>`+evs.map(([y,t,c])=>`<div class="card ev" style="--c:${c}"><span class="yr">${y}</span><p>${t}</p></div>`).join('')).join('');
+
+// attempts
+$('#attemptList').innerHTML=ATTEMPTS.map(a=>`<div class="card attempt"><div class="hd"><h3>${a[0]}</h3><span class="pill ${a[3]}">${a[2]}</span></div>
+  <div class="small muted">${a[1]}</div><p>${a[4]}</p><div class="lesson"><b>Lesson:</b> ${a[5]}</div></div>`).join('');
+
+(function(){
+  const cls={d:'done',p:'prog',n:'pend'};
+  const pl=$('#pline');
+  pl.innerHTML=MILESTONES.map((m,i)=>`<div class="pseg ${cls[m[0]]}" data-i="${i}" tabindex="0" aria-label="${i+1}. ${m[1]}"></div>`).join('');
+  const c={d:0,p:0,n:0};MILESTONES.forEach(m=>c[m[0]]++);
+  $('#plineSum').innerHTML=`<span style="--c:var(--green)"><b>${c.d}</b>done</span><span style="--c:var(--green-soft);--b:var(--green)"><b>${c.p}</b>in progress</span><span style="--c:#fff;--b:var(--line)"><b>${c.n}</b>not started</span><span class="muted small">${Math.round(c.d/MILESTONES.length*100)}% of milestones complete; most of what's done is rules, airframes and assembly</span>`;
+  const col=(k,title,pc,pt)=>`<div class="card mcol"><h3><span class="pill ${pc}">${pt}</span>${title}</h3><ol>${MILESTONES.map((m,i)=>m[0]!==k?'':
+    `<li data-i="${i}"><span class="no" style="${k==='d'?'background:var(--green);color:#fff':k==='p'?'background:var(--green-soft);color:var(--green)':'background:#fff;color:var(--ink-3);border:1px solid var(--line)'}">${i+1}</span><div><b>${m[1]}</b><div class="small muted">${m[2]}${m[3]!=='—'?' · <span class="yr">'+m[3]+'</span>':''}</div></div></li>`).join('')}</ol></div>`;
+  $('#mcols').innerHTML=col('d','Done','p-green','✓')+col('p','In progress','p-amber','◐')+col('n','Not started','p-red','○');
+  const hl=i=>{document.querySelectorAll('.pseg,.mcol li').forEach(x=>x.classList.toggle('hl',x.dataset.i==String(i)))};
+  pl.querySelectorAll('.pseg').forEach(s=>{
+    s.addEventListener('mousemove',e=>{const m=MILESTONES[s.dataset.i];showTip(e,`<b>${+s.dataset.i+1}. ${m[1]}</b><br>${m[2]}<br><i>${{d:'Done',p:'In progress',n:'Not started'}[m[0]]}</i>`);hl(s.dataset.i)});
+    s.addEventListener('mouseleave',()=>{hideTip();hl(-1)});
+    s.addEventListener('click',()=>{const li=document.querySelector(`.mcol li[data-i="${s.dataset.i}"]`);hl(s.dataset.i);li.scrollIntoView({behavior:'smooth',block:'center'})})});
+  document.querySelectorAll('.mcol li').forEach(li=>{li.addEventListener('mouseenter',()=>hl(li.dataset.i));li.addEventListener('mouseleave',()=>hl(-1))});
+})();
+$('#opps').innerHTML=OPPS.map(o=>`<div class="card opp">
+  <div class="hd"><div><div class="tag">Milestone #${o.m}</div><h3>${o.t}</h3></div><span class="pill ${o.lvl[0]}">${o.lvl[1]}</span></div>
+  <p>${o.d}</p>
+  <div class="facts"><div>Capital<b>${o.f[0]}</b></div><div>Time<b>${o.f[1]}</b></div><div>Funding route<b>${o.f[2]}</b></div></div>
+  <div class="cands"><h4>Likely &amp; capable candidates</h4>${o.c.map(c=>`<div class="cand"><b>${c[0]}</b><span>${c[1]}</span></div>`).join('')}</div>
+  <div class="first"><div><b>First move →</b> ${o.first}</div></div>
+</div>`).join('');
+(function(){
+  const svg=$('#tree'), ROW=30, COLX=[0,170,360,610], PADY=10;
+  let uid=0; (function tag(n,d,par){n.id=uid++;n.d=d;n.par=par;(n.c||[]).forEach(c=>tag(c,d+1,n))})(T,0,null);
+  const hasNext=n=>n.s==='x'||(n.c||[]).some(hasNext);
+  function setMode(m){(function walk(n){n.open = m==='all' ? !!n.c : m==='top' ? n.d===0 : (n.d===0 || (!!n.c && hasNext(n)));(n.c||[]).forEach(walk)})(T);draw()}
+  const W=t=>Math.max(60,t.length*6.6+24), NW=n=>Math.max(W(n.n),n.sub?n.sub.length*5.6+24:0)+(n.c?6:0);
+  const style={d:['var(--green)','var(--green)','#fff'],p:['var(--green-soft)','var(--green)','var(--ink)'],n:['var(--surface)','var(--line)','var(--ink)'],x:['var(--saffron-soft)','var(--saffron)','var(--ink)']};
+  function draw(){
+    let row=0;const nodes=[],links=[];
+    (function lay(n){const kids=n.open?(n.c||[]):[];
+      if(!kids.length){n.y=row++*ROW}else{kids.forEach(lay);n.y=(kids[0].y+kids[kids.length-1].y)/2}
+      n.x=COLX[n.d];nodes.push(n);kids.forEach(k=>links.push([n,k]))})(T);
+    const H=row*ROW+PADY*2, Wd=Math.max(...nodes.map(n=>n.x+NW(n)+(n.s==='x'?56:12)));
+    svg.setAttribute('viewBox',`0 ${-PADY-14} ${Wd} ${H+4}`);svg.setAttribute('width',Wd);svg.setAttribute('height',H+4);
+    const hot=k=>hasNext(k);
+    svg.innerHTML=links.map(([a,b])=>{const x1=a.x+NW(a)+8,y1=a.y,x2=b.x,y2=b.y,mx=(x1+x2)/2;
+        return `<path class="lnk ${hot(b)?'hot':''}" d="M${x1} ${y1}C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}"/>`}).join('')+
+      nodes.map(n=>{const [bg,bd,fg]=style[n.s],w=NW(n),h=n.sub?26:22,more=n.c&&!n.open;
+        return `<g class="nd" data-id="${n.id}" transform="translate(${n.x} ${n.y})">
+          <rect class="box" x="0" y="${-h/2}" width="${w}" height="${h}" rx="7" fill="${bg}" stroke="${bd}" stroke-width="1.5"/>
+          <text x="10" y="${n.sub?-1:4}" style="fill:${fg}">${n.n}</text>
+          ${n.sub?`<text class="sub" x="10" y="10" style="${n.s==='d'?'fill:rgba(255,255,255,.85)':''}">${n.sub}</text>`:''}
+          ${n.s==='x'?`<g transform="translate(${w+6} -8)"><rect width="42" height="16" rx="8" fill="var(--saffron)"/><text x="21" y="11.5" text-anchor="middle" style="fill:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em">NEXT</text></g>`:''}
+          ${n.c?`<g transform="translate(${w-1} 0)"><circle r="8" fill="var(--surface)" stroke="${bd}" stroke-width="1.5"/><text class="tog" text-anchor="middle" y="4">${more?'+':'–'}</text></g>`:''}
+        </g>`}).join('');
+    const byId={};nodes.forEach(n=>byId[n.id]=n);
+    svg.querySelectorAll('.nd').forEach(g=>{const n=byId[g.dataset.id];
+      g.addEventListener('click',()=>{if(n.c){n.open=!n.open;draw()}});
+      g.addEventListener('mousemove',e=>{const st={d:'Done',p:'In progress',n:'Not started',x:'NEXT node to unlock'}[n.s];
+        showTip(e,`<b>${n.n}</b>${n.sub?'<br>'+n.sub:''}<br><i>${st}</i>${n.t?'<br><br>'+n.t:''}${n.c&&!n.open?'<br><br>Click to expand':''}`)});
+      g.addEventListener('mouseleave',hideTip)});
+  }
+  document.querySelectorAll('.tree-tools button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tree-tools button').forEach(x=>x.classList.toggle('on',x===b));setMode(b.dataset.mode)});
+  setMode('next');
+})();
+(function(){
+  const svg=$('#sizeChart');let scale='log',grp='all',pinned=null;
+  const OC={I:'var(--green)',G:'#20b3ad',F:'var(--navy)'}, ON={I:'Indian private',G:'Indian government / academic',F:'Foreign'};
+  const band=v=>v<100?'< ₹100 cr':v<1000?'₹100–1,000 cr':v<10000?'₹1k–10k cr':v<100000?'₹10k cr–1 lakh cr':'₹1 lakh cr+';
+  const short=v=>v>=100000?`~₹${(v/100000).toFixed(v>=1000000?0:1)} lakh cr`:v>=1000?`~₹${fmt(Math.round(v/100)*100)} cr`:`~₹${fmt(v)} cr`;
+  // PPP: re-express a foreign company's revenue in what it would buy in India.
+  // factor = India price level / home-country price level (price level = PPP rate ÷ market rate, ~2024).
+  // Rupee revenue (Indian firms, India arms of foreign brands, investments made in India) is unchanged.
+  const PLR={US:1,Switzerland:1.15,Israel:.85,Austria:.85,Canada:.85,Australia:.93,Singapore:.78,China:.50,'Türkiye':.38}, PLR_IN=.246;
+  const home=c=>Object.keys(PLR).find(k=>c[5].endsWith(k));
+  const pppF=c=>(c[1]!=='F'||c[4]||/India/.test(c[0])||!home(c))?1:PLR_IN/PLR[home(c)];
+  const V=c=>scale==='ppp'?c[2]*pppF(c):c[2];
+  const val=c=>c[4]?`₹${fmt(c[2])} cr committed`:(c[3]?short(V(c)):band(V(c)))+(scale==='ppp'&&pppF(c)!==1?' PPP':'');
+  const ALL=SROWS.flatMap(r=>r.co);
+  let MAXV=1;
+  const R=v=>scale==='log'?3+5.4*Math.log10(v+1):Math.max(1.6,Math.sqrt(v/MAXV)*44);
+  const MID=700, W=1110;
+  const gap=r=>{const ind=r.co.filter(c=>c[1]!=='F'&&!c[4]),fr=r.co.filter(c=>c[1]==='F');
+    if(!ind.length)return {t:'No Indian company',none:1};
+    const top=ind.reduce((m,c)=>V(c)>V(m)?c:m),a=Math.max(...fr.map(V)),b=V(top);
+    return a>=b?{t:`Gap ~${a/b>=100?fmt(Math.round(a/b/10)*10):Math.round(a/b)}× vs ${top[0]}`,x:a/b}:{t:`${top[0]} larger*`,x:a/b}};
+
+  const none=SROWS.map(gap).filter(g=>g.none).length;
+  const NOTES={
+    log:'<b>Readable:</b> bubble size grows with the logarithm of revenue at market exchange rates, so every company stays visible. Good for comparing who exists where, but it hides how big the gaps are.',
+    lin:'<b>True scale:</b> bubble area is proportional to revenue at market exchange rates (~₹84/US$). This is the real financial gap: what each company can spend on global chips, equipment and licences.',
+    ppp:'<b>PPP-adjusted:</b> foreign revenue is re-expressed in what it would buy in India (purchasing-power parity, India ≈ ₹21 per international $ vs ₹84 market). US firms shrink ~4×, Israeli ~3.5×, Chinese ~2×, Turkish ~1.5×. This approximates how many engineers, salaries and local costs each company can fund. It flatters capital-heavy stages, though: chips, sensors and machine tools are paid at global prices.'};
+  function texts(){
+    const gaps=SROWS.map(gap), ratios=gaps.filter(g=>g.x).map(g=>g.x).sort((a,b)=>a-b);
+    const med=ratios[Math.floor(ratios.length/2)];
+    $('#sizeKpis').innerHTML=`
+      <div class="card"><b>${SROWS.length}</b>sub-stages of the drone chain</div>
+      <div class="card"><b>${ALL.length}</b>companies compared</div>
+      <div class="card"><b style="color:var(--red)">${none}</b>sub-stages with no Indian company yet</div>
+      <div class="card"><b>~${Math.round(med)}×</b>median gap, biggest global vs biggest Indian${scale==='ppp'?' <span class="pill p-saff">PPP</span>':''}</div>`;
+    $('#scaleNote').innerHTML=NOTES[scale];
+    const get=n=>V(ALL.find(c=>c[0]===n)), x=(a,b)=>Math.round(get(a)/get(b)), tag=scale==='ppp'?' (PPP)':'';
+    $('#sizeInsights').innerHTML=`
+      <div class="card"><b>~${x('DJI','ideaForge')}×${tag}</b>DJI vs ideaForge, India's largest drone maker. DJI's scale is why its parts suppliers dominate the world, India included.</div>
+      <div class="card"><b>${none} of ${SROWS.length}</b>sub-stage${none===1?' has':'s have'} no Indian company at all: drone-grade battery cells. In magnets and large engines India has only a government pilot plant and a prototype.</div>
+      <div class="card"><b>~${x('Teledyne (FLIR)','Tonbo Imaging')}×${tag}</b>Teledyne FLIR vs Tonbo Imaging. The camera payload is the costliest part of a surveillance drone, and the gap there is among the widest.</div>`;
+  }
+
+  function draw(){
+    MAXV=Math.max(...ALL.map(V));texts();
+    const rows=SROWS.filter(r=>grp==='all'||r.g===grp);
+    const out=[];let y=8,lastG=null;
+    out.push(`<text class="side" x="${MID-14}" y="${y+10}" text-anchor="end">◀ INDIAN</text><text class="side" x="${MID+14}" y="${y+10}">GLOBAL ▶</text>`);
+    y+=22;
+    rows.forEach(r=>{
+      if(r.g!==lastG){out.push(`<text class="grp-h" x="4" y="${y+14}">${r.g}</text><line x1="${4}" y1="${y+20}" x2="${W}" y2="${y+20}" stroke="var(--line)"/>`);y+=30;lastG=r.g}
+      const ind=r.co.filter(c=>c[1]!=='F').sort((a,b)=>V(b)-V(a)), fr=r.co.filter(c=>c[1]==='F').sort((a,b)=>V(b)-V(a));
+      const maxR=Math.max(10,...r.co.map(c=>R(V(c))));const cy=y+maxR+4, rowH=maxR*2+38;
+      const g=gap(r);
+      out.push(`<text class="rl" x="4" y="${cy-8}">${r.n}</text><text class="rs" x="4" y="${cy+6}">${r.sub}</text>
+        <text x="4" y="${cy+22}" style="font:700 11px Inter,sans-serif;fill:${g.none?'var(--red)':g.x<1?'var(--green)':'var(--ink-2)'}">${g.t}</text>`);
+      out.push(`<line x1="${MID}" y1="${y-4}" x2="${MID}" y2="${y+rowH-6}" stroke="var(--line)" stroke-width="1.5"/>`);
+      const place=(list,dir)=>{let x=MID+dir*14;list.forEach(c=>{const r0=R(V(c)),lw=Math.max(r0*2,c[0].length*5.9,val(c).length*5.1)+12;
+        const cx=x+dir*lw/2;x+=dir*lw;
+        const col=OC[c[1]], i=ALL.indexOf(c);
+        const st=c[4]?`fill="none" stroke="${col}" stroke-width="2" stroke-dasharray="1.5 3" stroke-linecap="round"`:
+          `fill="${col}" fill-opacity="${c[3]?.88:.2}" stroke="${col}" stroke-width="1.5" ${c[3]?'':'stroke-dasharray="3 2"'}`;
+        out.push(`<g class="co" data-i="${i}"><circle class="bub" cx="${cx}" cy="${cy}" r="${r0}" ${st} ${pinned===i?'style="stroke:var(--ink);stroke-width:3"':''}/>
+          <text class="nm" x="${cx}" y="${cy+r0+13}" text-anchor="middle">${c[0]}</text>
+          <text class="vl" x="${cx}" y="${cy+r0+24}" text-anchor="middle">${val(c)}</text></g>`)});
+        return x};
+      if(ind.length)place(ind,-1);else out.push(`<text class="none" x="${MID-16}" y="${cy+4}" text-anchor="end">No Indian company at scale →  an open opportunity</text>`);
+      place(fr,1);
+      y+=rowH+6;
+    });
+    svg.setAttribute('viewBox',`0 0 ${W} ${y}`);svg.setAttribute('width',W);svg.setAttribute('height',y);
+    svg.innerHTML=out.join('');
+    svg.querySelectorAll('g.co').forEach(g=>{const c=ALL[+g.dataset.i];
+      g.addEventListener('mousemove',e=>showTip(e,`<b>${c[0]}</b> · ${ON[c[1]]}<br>${c[4]?'Pre-revenue · '+val(c):c[3]?short(c[2])+' revenue':'Revenue band: '+band(c[2])}${scale==='ppp'&&pppF(c)!==1?'<br>PPP-adjusted: '+(c[3]?short(V(c)):band(V(c)))+' (×'+pppF(c).toFixed(2)+')':''}<br>${c[6]}<br><i>Click for details</i>`));
+      g.addEventListener('mouseleave',hideTip);
+      g.addEventListener('click',()=>{pinned=pinned===+g.dataset.i?null:+g.dataset.i;draw();detail()})});
+  }
+  function detail(){
+    const el=$('#sizeDetail');if(pinned===null){el.classList.remove('show');return}
+    const c=ALL[pinned],row=SROWS.find(r=>r.co.includes(c)),g=gap(row),L=row.lay&&LAYERS.find(l=>l.id===row.lay);
+    el.innerHTML=`<div class="top"><div><span class="pill" style="background:${OC[c[1]]};color:#fff">${ON[c[1]]}</span><h3 style="margin-top:8px">${c[0]}</h3><div class="small muted">${row.n} · ${c[5]}</div></div>
+      <button onclick="this.closest('.size-detail').classList.remove('show')" style="border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit;font-size:.84rem">Close</button></div>
+      <dl><div><dt>${c[4]?'Committed investment':'Revenue (approx.)'}</dt><dd>${c[4]?'₹'+fmt(c[2])+' cr':c[3]?short(c[2]):band(c[2])}</dd></div>
+      <div><dt>${pppF(c)!==1?'PPP-adjusted (India terms)':'Status'}</dt><dd>${pppF(c)!==1?(c[3]?short(c[2]*pppF(c)):band(c[2]*pppF(c)))+' · ×'+pppF(c).toFixed(2):c[4]?'Under construction':'Operating'}</dd></div>
+      <div><dt>Stage gap</dt><dd>${g.t}</dd></div>
+      <div><dt>India readiness, this layer</dt><dd>${L?L.score+'/100':'—'}</dd></div></dl>
+      <p><b>Role in the drone:</b> ${c[6]}</p><p><b>India footprint:</b> ${c[7]}</p>`;
+    el.classList.add('show');
+  }
+  const wire=(id,fn)=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);draw()});
+  wire('#scaleBtns',v=>scale=v);wire('#grpBtns',v=>grp=v);
+  draw();
+})();
+(function(){
+  const W={I:1,P:.5,F:0,U:0};
+  const score=(ph,grp)=>{let a=0,t=0;PC_COLS.filter(c=>c[0]===grp).forEach(c=>{const v=ph.r[c[1]];if(v==='N')return;const w=grp==='hw'?c[3]:c[3];a+=w*W[v];t+=w});return t?Math.round(a/t*100):null};
+  const txt={I:'Indian',P:'Partly',F:'Foreign',U:'Not public',N:'—'};
+  const sb=(v,col)=>v===null?'<td class="scorebar"><div class="n muted">n/a</div></td>':`<td class="scorebar"><div class="n" style="color:${col}">${v}%</div><div class="t"><i style="width:${v}%;background:${col}"></i></div></td>`;
+  let sel=null;
+  function render(){
+    const hw=PC_COLS.filter(c=>c[0]==='hw'),sw=PC_COLS.filter(c=>c[0]==='sw');
+    let h=`<thead><tr><th></th><th class="grp" colspan="${hw.length}">Hardware</th><th class="grp" colspan="${sw.length}">Software &amp; control</th><th class="grp">Owner</th><th class="grp" colspan="2">Indigenous score</th></tr>
+      <tr><th style="text-align:left;padding-left:10px">Drone</th>${PC_COLS.map(c=>`<th>${c[2]}${c[0]==='hw'?`<br><span style="font-weight:500">${c[3]}%</span>`:''}</th>`).join('')}<th>Hardware<br><span style="font-weight:500">by value</span></th><th>Software<br><span style="font-weight:500">&amp; control</span></th></tr></thead><tbody>`;
+    PHONES.forEach((ph,i)=>{
+      if(ph.sep){h+='<tr class="sep"><td colspan="16"></td></tr>';return}
+      const hs=score(ph,'hw'),ss=score(ph,'sw');
+      h+=`<tr data-i="${i}" class="${ph.ref?'ref':''} ${sel===i?'sel':''}"><td class="ph"><b>${ph.n}</b><span>${ph.sub}</span></td>`+
+        PC_COLS.map(c=>{const v=ph.r[c[1]],lab=(ph.lab||{})[c[1]];return `<td><div class="cell ${v}" data-tip="${ph.n} · ${c[2]}: ${txt[v]}${lab?' ('+lab+')':''}">${lab&&lab.length<16?lab:txt[v]}</div></td>`}).join('')+
+        sb(hs,hs>=50?'var(--green)':hs>=20?'var(--amber)':'var(--red)')+sb(ss,ss>=50?'var(--green)':ss>=20?'var(--amber)':'var(--red)')+'</tr>';
+    });
+    $('#pcTable').innerHTML=h+'</tbody>';
+    $('#pcTable').querySelectorAll('.cell').forEach(c=>{c.addEventListener('mousemove',e=>showTip(e,c.dataset.tip));c.addEventListener('mouseleave',hideTip)});
+    $('#pcTable').querySelectorAll('tr[data-i]').forEach(tr=>tr.querySelector('.ph').addEventListener('click',()=>{const i=+tr.dataset.i;sel=sel===i?null:i;render();detail()}));
+  }
+  function detail(){
+    const el=$('#pcDetail');if(sel===null){el.classList.remove('show');return}
+    const ph=PHONES[sel];
+    el.innerHTML=`<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><h3>${ph.n}</h3><div class="small muted">${ph.sub}</div></div>
+      <div style="display:flex;gap:10px"><span class="pill p-navy">Hardware ${score(ph,'hw')}%</span><span class="pill p-green">Software &amp; control ${score(ph,'sw')}%</span></div></div>
+      <p style="font-size:.92rem;color:var(--ink-2);margin:12px 0 0">${ph.about}</p>
+      <div class="cols"><div><h4>What's Indian</h4><ul>${ph.ind.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>What's foreign or undisclosed</h4><ul>${ph.fgn.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`;
+    el.classList.add('show');
+  }
+  render();
+})();
+(function(){
+  const svg=$("#flow"),W=1080,X0=10,NW=14,X1=W-260,GAP=10,U=9;
+  const tot=(id,k)=>FLOWS.filter(f=>f[k]===id).reduce((a,f)=>a+f[2],0);
+  const lay=(list,k)=>{let y=8;return list.map(n=>{const h=tot(n[0],k)*U;const o={id:n[0],n:n[1],sub:n[2],y,h,off:0};y+=h+GAP+10;return o})};
+  const S=lay(FLOW_SRC,0),D=lay(FLOW_DST,1),H=Math.max(S.at(-1).y+S.at(-1).h,D.at(-1).y+D.at(-1).h)+12;
+  const sm=Object.fromEntries(S.map(o=>[o.id,o])),dm=Object.fromEntries(D.map(o=>[o.id,o]));
+  const pal=['#2b6fd6','#7d6fe0','#20b3ad','#f0882e','#6f8799','#12a26b','#e2654f','#e3a21a'];
+  const col=Object.fromEntries(FLOW_SRC.map((n,i)=>[n[0],pal[i]]));
+  const sx=X0+250;
+  let out='';
+  FLOWS.forEach(([a,b,w],i)=>{const s=sm[a],d=dm[b],t=w*U,y1=s.y+s.off+t/2,y2=d.y+d.off+t/2;s.off+=t;d.off+=t;
+    const mx=(sx+NW+X1)/2;
+    out+=`<path class="lk" data-s="${a}" data-d="${b}" d="M${sx+NW} ${y1}C${mx} ${y1} ${mx} ${y2} ${X1} ${y2}" stroke="${col[a]}" stroke-width="${t}"/>`});
+  S.forEach(o=>{out+=`<g class="nd" data-s="${o.id}"><rect x="${sx}" y="${o.y}" width="${NW}" height="${o.h}" rx="3" fill="${col[o.id]}"/>
+    <text x="${sx-8}" y="${o.y+o.h/2-1}" text-anchor="end">${o.n}</text><text class="sub" x="${sx-8}" y="${o.y+o.h/2+12}" text-anchor="end">${o.sub}</text></g>`});
+  D.forEach(o=>{out+=`<g class="nd" data-d="${o.id}"><rect x="${X1}" y="${o.y}" width="${NW}" height="${o.h}" rx="3" fill="var(--green)"/>
+    <text x="${X1+NW+8}" y="${o.y+o.h/2+4}">${o.n}</text></g>`});
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('width',W);svg.setAttribute('height',H);svg.innerHTML=out;
+  svg.querySelectorAll('.nd').forEach(g=>{
+    g.addEventListener('mouseenter',()=>svg.querySelectorAll('.lk').forEach(l=>l.classList.toggle('hot',(g.dataset.s&&l.dataset.s===g.dataset.s)||(g.dataset.d&&l.dataset.d===g.dataset.d))));
+    g.addEventListener('mouseleave',()=>svg.querySelectorAll('.lk').forEach(l=>l.classList.remove('hot')))});
+})();
+$('#leaders').innerHTML=LEADERS.map(l=>`<div class="card leader"><div class="top"><h3>${l[0]}</h3><span class="pill ${l[3]}">${l[2]}</span></div><div class="role">${l[1]}</div><div class="from"><b>Came from</b>${l[4]}</div></div>`).join('');
+$('#tlTrain').innerHTML=TRAIN_TL.map(([y,c,items])=>`<div class="card" style="--c:${c}"><div class="y">${y}</div><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');
+const MAP_D = "M184.4 42.3L186.5 42.8L186.9 42.3L187.6 42.9L189.9 41.6L191.7 42.8L192.2 40.8L194.0 40.3L195.0 41.3L195.2 40.9L196.2 41.0L196.9 39.2L196.7 38.7L197.8 37.5L200.8 37.4L201.4 36.4L203.2 36.7L205.7 35.0L208.0 34.6L209.1 32.5L212.2 33.7L213.1 33.1L216.7 33.5L218.0 32.2L219.8 32.6L220.1 34.6L220.7 35.0L222.2 34.1L222.2 35.7L223.5 36.4L223.4 37.2L224.7 39.2L226.8 39.5L227.3 40.5L229.3 39.3L230.1 40.0L229.5 40.9L231.1 43.5L233.5 41.8L233.2 40.9L233.9 40.5L236.7 41.4L237.7 42.5L237.7 43.5L235.4 44.9L235.3 47.9L234.8 47.9L233.7 49.6L234.4 52.2L233.6 53.1L233.9 54.2L232.6 54.6L231.9 56.5L231.4 56.8L231.5 57.9L229.6 58.0L229.2 58.5L228.3 58.1L226.2 59.5L226.7 61.3L226.3 62.4L224.6 62.3L223.2 63.0L221.6 62.4L221.1 62.9L222.8 65.9L222.9 67.2L220.7 68.2L220.7 69.5L219.4 70.0L219.6 70.8L219.1 72.0L215.2 71.5L213.5 72.2L211.6 71.3L210.1 71.8L209.6 72.5L212.2 76.9L211.9 78.3L213.4 79.3L211.8 79.9L210.0 79.6L209.6 80.5L210.1 80.9L210.6 84.4L211.0 85.2L212.2 85.6L212.4 86.5L213.7 88.0L214.5 88.4L215.7 87.2L217.3 88.2L219.2 88.2L217.8 92.0L218.4 93.2L219.1 93.2L218.9 93.7L220.4 94.4L220.6 96.0L222.0 96.8L221.8 98.5L220.0 99.9L219.3 101.6L218.2 101.4L217.8 100.7L217.1 101.2L216.8 100.9L216.3 101.7L214.1 102.4L213.6 104.6L212.0 104.4L211.1 105.3L207.7 102.4L207.3 100.7L207.7 99.7L206.9 98.1L205.0 99.1L205.0 99.9L202.8 99.7L202.5 100.3L201.0 100.7L200.6 101.4L202.0 103.2L201.7 104.3L202.7 105.9L202.3 106.5L204.3 108.0L204.9 109.5L205.9 109.7L206.8 111.9L207.7 112.1L206.9 115.2L206.2 115.9L207.1 118.4L208.0 118.4L208.9 119.8L206.6 121.8L208.0 123.1L207.1 124.6L207.6 125.8L209.0 126.1L209.2 125.7L209.9 126.2L210.7 124.7L212.1 125.0L212.1 123.5L213.5 122.9L214.9 124.0L214.9 124.7L216.1 125.3L215.8 125.7L216.3 126.3L215.9 126.8L217.3 127.6L217.5 129.0L219.3 129.8L219.6 131.5L221.0 131.4L221.9 132.9L222.8 133.2L225.6 131.9L227.7 132.6L228.9 134.4L230.3 134.7L232.2 136.4L233.3 135.8L234.0 136.9L234.5 136.8L234.7 137.6L233.7 138.7L234.2 139.1L234.1 140.4L235.9 140.7L236.5 141.6L237.8 141.5L240.1 143.0L241.3 142.6L243.6 144.0L244.9 145.5L249.1 147.1L249.4 147.9L248.5 148.3L247.3 148.5L246.9 147.5L246.0 148.6L246.3 149.4L244.1 151.0L243.9 151.9L242.5 152.9L241.2 152.8L239.2 156.1L238.1 155.9L236.9 157.0L237.9 159.2L237.6 160.1L236.4 160.9L236.6 161.6L235.4 162.5L235.7 162.9L234.6 163.1L236.0 165.7L235.6 167.9L234.7 167.6L235.1 169.2L234.4 169.6L233.5 169.3L232.8 169.9L232.6 171.9L231.2 173.7L231.5 175.5L232.3 175.4L234.1 176.9L234.8 176.9L236.8 179.3L238.4 179.4L239.6 181.0L239.4 178.7L240.6 178.2L241.0 179.0L242.4 179.2L242.8 180.2L244.3 180.7L244.6 181.5L246.1 182.2L246.6 181.9L247.0 182.8L248.2 182.9L247.9 183.2L248.9 183.0L249.2 184.1L252.4 184.8L252.8 186.2L254.4 188.1L254.4 189.3L255.4 189.1L255.4 188.5L256.8 188.8L257.3 190.3L261.4 192.2L264.8 194.9L265.6 194.8L266.4 193.4L268.2 193.5L269.2 194.7L270.8 195.1L275.2 198.4L280.0 197.5L280.9 200.3L280.5 202.0L284.1 202.0L284.5 202.6L286.0 203.0L288.8 202.9L291.2 205.4L292.0 205.1L292.9 203.7L292.5 202.4L296.7 202.6L301.3 205.1L301.6 204.5L300.7 203.5L301.0 203.1L304.2 203.3L305.6 201.7L306.5 201.7L306.5 202.3L307.6 202.6L307.6 203.2L308.4 202.9L309.1 204.3L315.2 205.2L316.5 207.6L315.6 211.1L318.4 212.1L319.0 211.6L320.2 212.6L321.5 212.8L321.6 213.7L323.1 214.2L322.6 214.9L325.7 214.6L325.4 215.8L326.1 216.8L328.3 217.2L333.7 214.5L335.6 215.8L335.7 219.0L337.8 219.8L337.9 220.6L339.6 219.7L339.8 219.0L341.1 218.7L344.6 220.2L345.2 219.7L346.7 219.6L350.6 221.2L351.1 222.1L354.0 223.5L354.7 222.8L355.9 223.2L357.0 222.8L357.8 221.7L359.3 221.4L359.8 220.3L360.3 220.3L360.7 223.0L362.0 223.9L363.8 223.8L363.9 224.5L365.3 225.1L365.8 223.8L367.6 223.2L370.1 224.4L371.0 224.1L371.5 223.3L373.1 223.8L373.6 222.6L374.6 223.3L375.3 222.3L376.1 223.6L377.6 224.8L379.1 223.5L379.2 221.3L380.8 217.2L380.6 214.7L379.6 213.0L379.9 212.3L378.1 211.3L377.2 209.6L378.6 205.3L378.2 204.6L378.8 203.4L378.2 202.1L381.0 196.2L380.6 195.6L381.0 194.9L379.6 193.6L380.0 192.7L381.2 193.2L381.8 192.6L382.0 193.2L383.7 192.3L385.0 192.4L386.5 190.9L387.5 191.3L387.6 190.4L389.1 189.6L389.8 190.5L391.3 190.4L392.8 191.7L392.8 193.4L393.4 193.6L393.8 194.9L393.2 195.7L393.0 198.6L391.5 200.7L392.0 201.5L391.7 202.6L392.2 203.9L394.4 205.5L394.2 206.2L392.2 207.0L391.1 209.2L393.5 209.8L393.5 213.1L394.4 212.1L394.9 212.6L394.8 213.3L395.4 213.6L396.2 213.2L396.7 214.0L397.6 214.2L398.3 215.9L400.7 215.7L402.8 214.8L404.5 215.9L406.1 215.7L407.8 216.5L407.3 217.5L409.7 217.3L410.1 218.0L411.7 218.0L411.7 217.2L415.1 217.4L417.8 216.5L417.7 215.9L418.5 214.8L419.8 215.0L420.8 214.0L421.9 213.9L424.3 215.7L427.4 216.6L433.6 216.3L434.4 215.6L438.8 216.4L440.1 215.2L441.8 216.2L444.1 215.6L445.3 215.9L449.1 213.6L450.7 214.8L452.1 215.1L452.9 214.7L453.3 212.8L451.6 210.4L451.5 208.6L452.4 207.3L451.7 206.8L453.3 206.3L452.2 205.5L451.4 202.4L446.8 202.7L445.7 202.5L445.4 201.9L444.6 202.3L443.1 200.3L443.4 199.8L443.0 199.4L444.2 198.0L444.5 196.8L448.2 196.8L448.7 197.6L449.7 197.7L450.7 196.5L452.1 196.4L455.5 194.2L456.4 194.6L456.9 196.1L458.9 195.3L459.4 196.1L460.3 195.0L464.5 192.4L464.5 190.9L463.1 190.4L463.5 189.0L468.0 188.0L468.5 186.8L472.2 184.7L472.7 182.6L474.1 181.1L476.3 180.0L477.3 178.8L480.9 178.3L481.2 178.9L482.6 178.7L484.0 177.3L486.3 177.2L486.3 176.5L487.4 175.6L488.2 176.1L488.3 175.1L489.0 174.5L490.4 174.2L491.2 173.3L492.6 173.4L494.6 171.5L493.0 170.1L493.3 169.0L494.8 168.9L495.1 168.3L496.1 168.3L496.3 167.7L497.8 167.6L500.6 165.6L501.7 167.4L502.7 167.8L502.7 168.7L504.1 168.4L506.6 169.5L506.2 168.5L508.1 169.2L508.2 170.1L510.2 169.8L511.1 170.6L511.8 169.3L513.9 169.5L514.3 168.1L514.7 169.3L515.5 169.5L515.5 168.2L517.2 168.2L517.4 167.3L519.3 167.9L520.0 167.5L520.2 165.5L521.7 164.9L521.8 165.6L522.4 165.7L524.1 164.5L525.7 164.3L527.3 165.1L528.3 166.7L529.6 167.1L530.2 169.0L528.6 169.8L528.1 171.3L530.8 169.7L531.4 171.2L532.9 172.1L532.9 173.2L534.3 173.2L534.3 174.8L535.5 175.6L535.2 176.3L535.8 176.4L536.6 178.2L534.7 178.3L534.2 180.4L533.4 180.5L533.3 181.5L532.2 181.9L533.4 182.1L533.9 183.4L533.8 181.2L536.0 179.6L537.3 180.2L537.8 179.8L538.7 181.6L540.5 182.3L541.7 184.9L543.1 185.5L544.5 184.6L545.4 184.8L547.5 186.1L548.3 187.4L549.7 187.9L548.8 190.8L549.6 190.7L550.4 191.8L549.8 192.7L550.1 194.2L549.7 194.5L548.6 193.7L547.7 194.0L544.7 197.3L543.7 197.0L542.8 198.7L541.9 198.8L541.1 199.9L541.9 201.8L541.3 202.9L546.1 209.5L545.6 210.2L544.9 209.8L544.4 210.2L542.8 208.9L540.8 208.4L540.4 207.8L541.0 206.8L539.4 205.1L537.7 204.6L535.8 204.7L534.3 206.3L532.8 205.9L528.9 206.4L525.1 208.4L523.7 211.0L522.3 211.7L521.0 211.7L519.6 214.4L518.6 213.9L517.5 215.7L515.9 215.5L514.2 218.0L511.9 219.0L510.6 218.4L509.0 219.7L509.1 220.3L507.4 223.0L508.7 224.4L508.4 230.0L509.7 230.5L508.6 232.3L506.5 234.0L507.2 236.8L505.1 238.7L504.1 240.2L504.4 240.7L503.4 240.8L502.3 242.4L501.7 242.1L500.4 242.7L499.6 244.1L498.5 247.7L501.5 249.5L501.6 251.3L500.7 252.6L501.0 253.3L499.5 255.2L499.0 257.7L497.8 257.9L497.2 260.1L496.3 260.5L495.7 262.4L495.2 262.4L495.4 263.2L494.5 264.1L494.8 264.4L494.3 265.3L493.8 265.4L490.8 275.0L490.2 275.3L489.6 274.2L488.8 274.3L488.2 273.5L486.6 273.0L484.3 273.5L483.3 271.9L480.9 271.8L480.4 272.8L479.8 272.4L478.8 273.2L477.1 270.5L475.9 269.9L475.5 270.4L475.5 272.3L476.7 273.5L476.7 276.9L477.5 278.3L476.6 283.1L476.8 284.3L476.0 284.9L476.6 289.3L474.9 291.9L473.7 291.8L472.9 290.8L471.8 291.1L472.5 293.8L471.9 293.9L471.2 295.9L471.2 298.6L472.0 300.1L471.4 301.5L472.0 302.9L472.9 303.4L473.2 306.7L472.1 307.1L472.2 308.5L471.5 307.9L470.2 308.1L470.5 310.0L469.5 309.9L469.5 312.4L468.6 311.4L467.7 313.2L466.9 310.7L463.9 308.9L463.6 311.8L462.1 312.4L462.1 310.8L461.4 309.4L462.2 309.5L462.3 308.7L460.7 300.8L460.6 297.6L459.8 297.1L459.3 294.1L457.9 293.3L458.3 290.9L457.6 289.9L457.4 287.3L458.5 287.2L457.8 285.5L458.0 284.8L456.9 282.6L456.2 277.6L455.5 277.6L455.0 279.0L454.8 277.9L453.8 277.3L452.5 279.0L451.9 279.1L450.3 277.3L449.8 278.3L450.5 282.4L449.9 282.7L450.0 283.3L448.2 283.9L446.7 286.0L447.6 290.0L448.0 290.2L446.9 290.6L447.0 291.4L445.9 292.2L444.5 292.3L444.0 293.3L443.8 292.6L443.3 292.7L442.6 292.0L442.8 291.2L441.7 288.8L442.0 288.3L440.9 287.6L441.0 286.8L440.3 286.9L440.2 286.3L439.6 287.8L440.3 290.7L439.0 290.0L438.4 285.9L438.0 285.6L438.5 284.8L438.0 285.0L437.2 282.2L436.3 281.6L436.6 281.0L435.6 279.7L435.5 278.6L436.3 279.1L436.5 278.3L435.5 278.2L435.5 277.2L436.7 277.3L437.3 275.3L436.9 273.5L437.7 273.5L438.2 272.0L439.6 272.5L439.9 271.0L439.5 269.8L443.4 270.5L444.4 269.9L444.9 267.3L445.3 268.8L446.7 269.2L446.3 267.1L447.7 267.8L448.3 267.5L448.2 268.2L449.2 269.3L450.0 266.6L449.6 265.3L450.3 264.9L451.0 265.6L450.5 264.3L452.8 264.5L453.6 263.5L454.1 263.6L453.9 261.5L455.2 261.7L455.7 258.4L456.5 257.3L455.3 254.0L456.6 253.7L458.4 255.0L460.2 254.5L460.0 253.0L459.3 253.2L459.7 252.7L458.8 252.7L458.9 251.4L457.3 251.0L457.2 250.4L455.2 250.1L454.9 249.8L455.2 249.6L452.2 248.2L446.5 248.5L446.4 249.2L445.6 248.8L444.4 249.5L443.7 249.1L443.9 248.5L441.3 249.3L437.6 247.9L430.1 248.8L428.6 248.3L427.7 248.9L426.5 248.7L426.4 248.1L422.3 249.1L420.3 248.1L416.4 247.5L413.6 245.9L411.3 246.1L410.9 244.4L412.1 239.7L410.8 235.7L412.1 233.1L411.0 233.1L411.9 232.4L411.2 231.8L410.9 232.2L410.7 231.1L410.4 231.6L410.6 231.2L410.1 231.2L410.4 230.2L409.7 229.8L409.6 228.8L408.4 228.7L408.7 228.5L408.3 227.2L407.5 227.4L407.8 228.7L407.0 228.4L406.7 228.9L406.9 229.6L407.4 229.6L406.8 230.0L407.4 229.9L407.8 230.7L407.0 230.7L406.4 232.6L405.8 232.6L405.8 231.9L403.7 231.8L403.6 231.0L403.1 231.9L402.4 231.8L400.5 230.7L400.7 230.1L400.0 229.5L398.7 229.2L398.4 227.3L397.7 226.4L397.7 225.7L398.1 226.3L398.3 225.6L397.4 225.6L397.4 224.0L395.7 223.7L395.0 222.8L394.1 223.8L394.3 224.8L395.0 224.8L394.9 225.4L395.6 225.0L395.7 226.2L396.2 225.8L396.5 226.5L396.9 226.1L396.8 227.2L395.1 227.2L393.9 226.2L393.3 226.5L393.6 227.3L392.9 227.4L392.0 225.8L389.7 226.7L389.7 226.1L390.5 226.2L389.8 225.6L391.1 225.6L391.1 225.0L390.3 225.3L389.9 224.4L390.3 224.2L388.9 223.3L388.9 222.6L387.7 222.8L386.3 221.2L385.4 221.1L384.8 219.5L383.5 222.4L383.9 223.0L384.2 222.2L386.3 222.8L387.1 224.8L386.2 225.0L385.8 224.5L385.0 225.7L383.8 226.4L383.9 227.6L380.7 229.0L380.3 230.4L380.8 230.5L380.8 231.5L380.0 231.7L379.0 233.7L379.4 235.7L380.2 236.5L382.4 235.8L382.3 236.3L384.8 238.5L385.8 238.7L385.6 240.1L386.6 240.3L387.3 241.8L388.6 241.7L390.3 242.6L390.4 242.0L391.5 242.0L391.4 241.5L392.3 241.5L392.9 242.8L392.4 243.8L392.9 244.7L394.5 245.9L396.0 245.9L396.0 246.7L395.0 246.9L395.1 247.8L394.6 247.8L394.9 248.4L394.4 248.7L392.9 247.7L392.2 248.6L390.5 247.8L388.7 247.9L387.8 248.5L385.5 247.8L385.7 251.3L384.8 253.1L383.7 253.2L383.5 254.6L382.5 254.0L382.1 254.4L381.5 252.8L379.9 253.3L380.6 254.8L378.7 256.6L378.6 257.6L377.6 258.6L380.0 261.8L383.6 264.4L385.6 264.4L387.1 265.1L387.6 266.1L387.9 265.5L390.3 265.7L390.9 266.4L391.1 269.1L390.3 269.6L391.1 270.9L390.8 272.1L391.4 271.9L391.6 272.4L391.0 272.3L390.9 273.8L390.4 273.7L389.7 274.6L388.0 274.8L388.5 275.7L387.6 276.3L388.1 276.8L387.7 279.0L388.3 279.2L388.1 279.9L389.3 279.8L389.4 280.9L391.1 282.4L392.1 282.1L392.1 283.1L391.5 283.0L391.2 284.0L391.5 284.7L390.9 285.0L391.1 285.8L390.2 286.0L390.6 286.9L391.9 287.6L392.3 286.9L394.8 287.9L395.7 287.7L393.4 290.0L393.6 291.9L393.0 291.8L393.4 292.4L393.2 293.1L393.9 293.0L394.1 294.4L394.8 294.4L395.2 295.1L394.2 296.9L395.1 298.1L394.5 299.0L395.1 299.7L394.7 300.8L395.7 302.6L395.3 303.8L395.5 305.5L396.3 306.1L395.7 306.3L397.1 308.1L397.1 309.0L397.6 308.9L396.6 310.0L396.4 311.1L397.2 312.0L397.0 313.3L396.0 313.2L396.2 312.5L395.7 313.0L396.1 314.0L395.6 314.1L396.4 314.7L395.9 315.8L397.6 319.3L396.9 319.8L396.2 318.8L396.3 320.0L395.0 319.7L394.8 318.7L394.3 319.4L393.7 318.8L393.2 316.5L392.7 316.6L393.4 316.9L393.0 319.7L392.3 319.3L392.5 318.3L392.1 318.9L390.7 318.4L390.3 317.1L390.7 315.9L390.3 315.2L390.7 314.9L390.3 314.9L390.8 312.5L391.4 312.6L391.7 311.7L391.3 310.5L390.8 310.9L390.0 310.7L390.9 311.4L390.7 311.9L389.6 311.6L389.2 310.5L388.8 311.6L388.4 311.4L388.8 313.4L388.1 312.5L388.7 313.6L388.2 314.2L387.9 313.9L387.6 315.7L387.2 315.2L387.6 314.5L387.1 315.0L386.6 314.5L386.9 313.0L385.8 314.1L386.5 315.2L385.7 315.8L386.2 316.2L385.7 319.8L385.3 319.9L385.2 317.6L385.4 319.6L384.7 320.2L384.4 318.5L384.8 317.6L384.1 317.4L384.7 317.7L384.2 318.4L383.7 317.6L383.2 317.9L383.1 317.4L382.8 317.9L382.5 317.3L383.1 318.5L382.7 320.0L383.1 320.4L381.9 320.8L381.4 319.7L381.7 318.7L381.1 318.4L381.4 316.8L380.3 312.9L381.5 310.5L381.2 309.0L380.7 308.2L377.8 307.5L377.8 308.0L379.9 308.3L380.9 309.9L378.3 311.7L376.9 314.9L375.9 316.0L375.1 315.7L375.3 316.5L373.8 318.1L366.1 320.6L365.4 320.3L365.9 321.0L362.4 320.9L361.3 321.7L360.7 321.3L361.0 322.0L359.7 322.4L360.1 322.6L357.4 325.2L355.9 327.8L355.8 329.3L358.5 335.6L358.4 336.4L356.9 336.1L356.6 336.5L358.9 336.6L359.1 337.8L357.6 337.8L358.3 338.1L360.3 337.6L356.4 340.1L354.7 341.9L354.1 341.3L354.6 341.9L354.3 342.6L353.8 342.4L354.2 342.5L354.1 343.7L353.6 343.8L355.1 344.5L354.7 345.4L353.0 346.1L353.9 346.1L355.3 345.1L350.2 348.3L350.8 348.2L348.4 352.0L347.6 352.7L347.6 352.2L346.4 352.2L347.4 353.0L332.1 358.1L333.1 358.0L328.5 360.4L323.7 364.4L322.9 364.2L323.6 364.6L320.7 366.8L320.5 366.4L318.4 369.7L317.5 369.7L317.1 370.2L317.5 370.5L318.4 369.7L317.9 370.6L314.0 376.2L310.4 380.7L309.9 380.5L310.2 380.8L309.4 381.4L310.4 380.9L306.3 385.0L305.6 385.0L306.2 385.1L306.1 385.8L302.9 387.7L302.4 387.4L302.7 387.8L297.7 390.2L296.0 391.7L295.6 391.5L295.4 392.7L293.8 394.0L293.7 393.5L292.9 395.8L289.3 400.2L278.0 406.3L272.6 411.2L271.6 413.3L271.6 414.5L272.8 415.2L273.5 415.0L273.6 415.5L273.6 413.1L273.1 412.2L273.8 413.8L273.2 417.3L271.9 417.9L273.2 417.7L273.1 418.2L273.7 417.6L273.3 417.4L273.7 417.7L272.6 420.1L271.7 419.0L271.7 418.2L272.5 420.3L271.7 420.8L272.6 420.8L267.6 423.2L267.7 422.7L266.3 424.1L266.3 423.3L266.0 424.1L261.8 425.8L261.7 424.7L261.6 425.9L261.2 425.4L258.6 425.1L258.7 424.6L258.7 425.0L255.9 425.2L253.5 426.1L252.2 428.5L251.3 432.6L250.9 432.1L251.1 432.7L248.5 435.6L249.1 436.8L248.2 436.5L248.8 436.9L248.1 437.2L247.8 436.8L248.0 437.4L247.4 437.8L246.7 436.9L247.1 437.7L245.4 438.0L245.5 437.0L245.1 437.2L244.6 435.8L244.6 434.9L245.1 436.4L245.0 435.2L242.6 434.2L239.7 434.9L235.0 438.6L234.4 441.2L233.7 442.0L234.1 441.9L233.9 442.6L232.0 445.6L231.0 450.5L231.6 455.8L233.5 460.1L232.7 460.7L233.7 460.4L233.2 465.2L232.7 467.1L232.0 467.0L232.6 467.2L232.4 470.7L234.9 476.4L234.5 479.1L236.1 484.2L236.2 483.2L236.5 486.3L236.2 487.3L235.9 487.1L235.7 490.2L235.0 491.8L234.7 495.9L234.4 495.1L234.4 496.3L234.8 496.4L233.0 502.8L232.6 503.4L232.2 502.9L232.5 503.5L229.6 507.3L230.3 506.9L227.8 511.2L225.7 518.6L226.1 518.0L225.8 522.3L226.1 522.0L227.0 524.7L225.7 524.4L227.2 525.0L227.5 528.1L227.4 535.3L226.9 535.7L227.4 535.5L227.9 546.0L226.3 546.5L226.4 545.9L223.9 545.0L223.8 545.5L223.5 544.7L222.4 545.8L222.0 545.5L222.8 545.1L221.8 545.0L221.7 545.5L220.2 545.0L220.8 545.4L220.3 545.6L221.4 545.7L219.0 545.6L216.8 547.1L216.0 549.2L216.6 551.2L211.6 557.8L209.9 562.3L211.7 565.1L211.0 565.2L215.2 566.4L209.2 567.0L206.6 568.3L205.6 568.2L205.4 569.0L204.0 569.5L202.3 569.5L202.4 569.2L200.1 570.2L198.3 572.0L198.2 571.6L196.5 574.3L196.3 576.9L195.6 576.8L196.3 577.0L196.9 576.2L197.0 576.7L195.3 579.2L195.8 580.1L195.4 580.4L195.9 580.2L195.7 582.1L194.1 584.3L194.6 584.5L189.7 587.2L188.6 588.5L185.6 589.3L185.0 590.5L180.7 589.5L175.1 585.0L168.3 575.5L166.5 574.0L166.5 573.4L167.0 573.7L167.6 573.3L167.0 573.5L167.5 572.6L168.7 572.9L168.8 572.5L168.1 572.4L168.8 572.1L167.9 572.5L167.3 572.1L166.9 573.1L167.0 572.4L166.4 572.8L166.4 573.3L165.0 569.3L165.4 569.7L165.6 568.6L165.2 569.1L164.4 567.0L164.9 569.2L163.1 564.7L160.8 552.8L161.5 553.4L161.2 552.6L161.8 553.1L161.5 551.3L160.7 551.6L161.0 552.5L160.5 552.0L159.6 548.4L160.3 548.1L159.3 548.2L157.1 541.4L157.7 541.1L157.0 541.4L155.0 536.4L155.8 535.8L155.0 536.1L154.8 535.5L154.9 536.3L153.3 529.6L153.7 529.2L154.1 529.5L153.7 529.1L153.3 529.5L152.9 528.9L153.3 528.4L152.9 528.8L152.4 527.6L152.8 527.3L152.4 527.4L151.6 525.4L152.0 524.8L151.6 525.1L150.8 523.2L149.5 522.5L148.1 517.8L147.2 517.3L147.0 516.4L146.5 516.6L146.6 515.9L146.5 516.4L144.6 514.8L143.6 513.1L144.4 513.3L143.9 512.6L143.2 512.1L143.5 513.0L142.3 511.6L141.8 511.9L140.5 507.8L134.9 495.2L135.7 495.2L135.0 495.1L134.6 493.8L134.8 495.0L134.0 490.2L132.5 485.1L132.4 483.1L132.7 483.8L132.9 483.0L132.7 483.3L132.3 482.8L131.9 479.4L132.2 479.9L132.2 479.3L133.0 479.2L132.2 479.0L132.1 478.4L132.0 479.3L131.6 478.7L130.5 473.6L129.1 472.3L128.9 471.5L129.4 471.6L128.9 471.5L127.5 466.5L128.0 467.1L129.2 467.2L128.5 466.5L127.8 466.6L127.5 465.8L127.4 466.3L127.2 463.7L126.7 463.7L126.1 462.0L126.7 461.2L126.5 460.8L126.2 461.6L125.4 461.6L125.0 460.1L126.1 459.9L125.0 460.1L124.6 459.5L125.1 459.2L124.4 457.9L124.9 457.8L124.0 457.1L123.5 457.7L122.8 456.8L122.5 457.2L121.8 456.6L121.4 456.0L121.9 456.0L122.0 455.3L122.7 455.3L122.6 455.7L122.7 454.8L121.8 455.2L121.5 454.2L120.4 453.7L120.6 452.3L118.1 450.3L118.9 448.9L117.8 445.4L117.4 444.7L116.8 444.9L115.7 443.8L117.4 444.1L117.6 443.4L115.8 442.8L116.5 441.9L115.4 442.2L114.8 440.2L115.8 439.0L114.8 439.7L114.0 437.7L114.4 437.4L113.3 437.2L113.7 437.0L113.5 435.8L113.3 436.2L113.0 435.7L112.3 433.6L110.6 433.0L110.6 432.2L110.5 432.7L109.7 430.9L110.0 430.1L109.3 428.1L109.7 427.8L109.2 428.0L108.9 426.8L109.3 426.3L108.8 426.5L108.4 425.3L109.1 424.6L108.0 424.5L109.9 423.7L108.1 424.1L107.8 423.2L108.4 423.0L107.8 423.1L107.1 421.8L107.5 420.8L107.9 422.4L107.9 421.9L109.4 422.0L107.9 421.5L107.7 420.9L108.8 420.9L107.9 420.9L107.1 420.0L107.8 420.1L108.1 419.4L108.6 420.2L108.7 419.7L108.5 419.3L107.4 419.6L107.6 418.2L106.9 417.4L107.6 415.4L106.7 415.7L106.6 414.4L107.1 414.3L106.4 414.2L106.5 413.0L106.7 412.4L107.3 413.1L107.3 412.6L106.3 412.3L106.5 411.8L106.0 411.0L106.5 412.0L106.6 411.3L107.2 411.2L106.4 411.2L107.1 410.3L106.5 410.4L106.6 409.7L106.2 409.8L105.6 408.1L105.8 407.6L104.8 406.1L105.4 406.0L106.1 406.8L106.0 406.3L106.8 406.2L105.7 406.2L105.2 404.4L104.4 404.0L105.2 403.3L104.7 403.2L104.8 401.8L103.8 400.8L105.2 400.2L104.4 400.4L103.8 399.8L103.4 398.4L103.8 397.7L102.9 395.3L103.6 395.3L102.9 395.2L102.8 394.1L102.2 394.0L103.0 393.2L102.3 393.5L101.8 393.0L102.9 392.2L101.6 392.2L101.3 391.6L102.0 391.0L101.6 391.5L101.1 391.0L101.1 388.2L100.0 387.7L100.1 386.4L100.6 386.4L100.8 387.1L102.6 387.7L102.4 388.4L103.1 389.2L102.4 388.2L102.7 387.3L102.1 386.1L102.8 385.6L101.8 386.7L99.8 385.1L99.5 381.2L100.6 381.3L101.4 382.7L100.7 381.2L99.9 381.2L98.6 378.1L98.8 376.0L99.7 376.2L100.1 375.5L101.2 376.4L100.9 377.0L101.6 377.7L100.9 376.0L101.5 376.0L101.0 375.8L101.1 374.7L99.9 375.0L99.6 374.1L100.3 374.2L100.3 373.1L101.0 373.1L100.5 372.6L102.5 371.6L101.3 371.9L101.0 368.2L100.4 370.1L100.0 370.3L100.3 370.2L100.5 371.3L99.7 372.1L98.8 371.9L98.4 373.5L97.7 374.1L98.0 373.3L97.4 373.1L98.3 371.1L97.9 371.1L98.2 370.2L97.7 369.1L98.1 368.4L97.5 369.4L97.2 368.9L98.3 366.9L97.3 368.2L97.3 365.9L98.6 365.7L99.6 366.2L98.6 365.0L97.8 365.5L97.2 365.0L96.6 362.8L99.2 361.5L98.4 361.2L98.1 361.8L97.2 361.9L97.3 361.5L96.9 361.9L96.3 361.4L96.0 360.2L96.6 360.0L95.6 357.5L96.0 357.1L95.6 357.2L95.7 356.0L94.9 355.3L95.6 354.7L95.1 353.3L95.9 352.6L96.6 353.2L95.9 350.6L96.6 348.0L97.3 347.8L96.6 347.9L96.7 346.2L98.3 344.6L98.1 343.2L99.4 341.4L99.2 339.5L99.7 339.3L99.2 339.3L98.4 337.1L100.0 336.8L98.6 337.0L98.6 335.5L98.1 336.1L97.3 333.6L98.0 333.7L98.0 333.0L98.8 333.1L98.2 332.8L98.5 332.6L96.8 333.4L96.4 332.0L96.3 330.9L98.5 331.4L97.5 331.0L98.1 330.2L97.2 330.7L95.9 330.3L95.9 329.4L97.4 328.4L96.7 328.4L96.3 329.1L95.3 328.8L94.6 330.4L94.6 327.9L95.0 327.5L95.6 328.1L96.5 328.0L94.6 327.3L94.7 326.7L94.2 326.6L94.6 326.0L93.9 326.0L94.6 325.6L94.4 325.1L95.5 324.9L95.0 325.1L94.7 324.3L95.7 322.7L96.3 322.7L96.5 323.3L96.9 323.0L96.2 322.4L94.7 323.1L95.4 322.0L97.1 320.1L98.0 319.8L98.2 318.7L99.9 318.5L98.8 318.2L97.3 318.7L96.4 318.2L92.8 318.8L92.5 317.8L94.2 313.9L94.8 313.1L96.0 313.3L96.6 312.5L96.3 312.2L96.2 313.0L94.8 312.7L92.7 314.1L92.2 313.3L92.8 309.4L93.6 307.9L94.7 307.7L96.9 308.5L97.9 306.9L99.0 307.4L99.6 306.7L98.3 306.4L96.6 307.4L92.7 305.9L90.8 307.9L89.8 305.3L89.4 306.3L88.9 305.8L88.9 307.0L88.1 307.1L88.3 309.9L87.2 311.8L86.2 311.6L87.2 312.0L87.4 313.5L85.9 312.8L87.4 313.8L87.4 315.8L86.8 315.5L86.8 314.9L85.9 315.8L86.4 315.6L86.8 316.1L87.2 317.8L88.0 318.2L88.5 319.5L87.2 322.9L84.9 326.0L84.5 325.7L84.9 326.0L84.4 327.1L84.9 328.0L83.0 329.3L81.0 329.7L79.1 331.0L78.8 330.6L79.3 331.3L78.5 330.7L78.1 331.3L78.7 331.2L78.5 331.6L74.9 333.0L74.3 333.1L75.2 332.2L73.9 332.9L72.6 334.6L71.1 334.6L71.5 334.9L68.3 335.9L66.8 336.7L67.2 336.8L66.0 336.6L65.8 337.3L63.9 337.4L64.4 337.7L64.1 338.0L62.6 338.1L62.2 337.4L62.1 337.9L61.2 338.2L58.1 336.8L58.2 336.4L57.4 336.6L54.3 335.0L53.8 334.1L52.7 334.0L48.9 330.9L41.9 322.9L42.4 322.8L41.9 322.8L34.8 315.9L34.5 315.4L34.9 314.9L34.2 315.3L32.4 313.7L27.2 307.7L26.4 305.9L27.3 303.8L28.9 302.4L28.3 304.2L31.2 303.6L30.5 305.8L31.8 306.9L33.5 306.2L33.7 305.4L36.5 305.4L37.3 304.6L37.0 303.5L37.8 304.0L37.8 305.0L38.5 304.7L38.2 305.6L38.6 305.0L38.9 305.4L39.1 304.7L39.9 305.5L39.5 304.9L39.8 304.1L40.5 304.0L41.0 302.5L41.2 303.4L41.6 303.2L42.5 304.0L42.9 303.0L44.2 302.7L44.6 303.2L44.3 302.2L45.3 301.9L45.0 301.5L45.8 301.1L48.2 301.0L48.0 301.6L48.4 301.0L49.2 301.2L49.6 300.4L50.0 300.6L49.7 300.0L50.7 298.4L51.3 298.5L50.8 297.6L51.9 296.8L52.5 294.3L54.3 292.6L53.3 292.4L53.2 293.3L52.5 293.5L51.3 293.1L50.4 292.4L50.1 290.9L50.2 292.9L48.7 293.1L48.2 292.8L48.4 292.1L48.0 292.7L48.6 293.3L47.9 293.8L46.1 293.6L44.2 294.6L43.9 293.7L43.7 294.7L42.3 295.1L42.1 294.7L42.0 295.3L41.0 295.6L41.3 296.3L40.8 296.0L40.8 297.1L40.2 296.7L40.7 297.2L39.8 296.6L39.8 297.0L38.7 296.4L38.9 296.9L38.2 296.8L37.8 296.4L38.1 296.1L35.9 296.5L34.1 295.6L34.3 294.4L34.1 295.6L33.2 295.4L33.6 295.1L31.9 295.3L31.8 294.5L31.8 295.3L31.2 295.3L29.8 294.4L30.2 294.1L29.6 294.3L28.9 293.7L29.0 293.0L28.8 293.7L27.8 293.1L27.9 292.3L27.4 292.9L27.3 292.2L26.9 292.6L20.8 288.6L22.5 289.3L19.9 287.5L20.8 287.6L20.3 287.2L21.4 286.5L20.9 286.7L20.8 286.1L21.7 286.0L20.9 285.9L20.4 284.7L20.6 285.5L19.8 285.1L19.7 284.5L20.2 284.7L19.1 283.9L18.8 282.9L18.4 282.9L18.6 282.1L17.5 282.4L18.1 281.7L17.6 281.7L17.8 281.0L17.5 281.9L17.0 281.8L17.1 280.8L19.3 277.7L21.5 275.8L24.1 274.4L23.4 274.8L23.2 274.3L23.0 275.1L21.3 274.8L21.7 275.1L19.9 275.7L19.0 277.0L18.7 276.4L18.7 277.1L17.7 276.5L18.0 277.1L17.2 277.3L17.5 276.4L17.1 275.6L16.6 279.3L16.0 279.5L16.4 279.9L15.9 279.8L15.6 280.4L14.1 280.9L14.5 280.0L14.2 279.5L13.9 280.6L12.4 279.6L14.0 279.0L15.6 277.4L15.1 276.8L15.2 277.3L14.5 277.4L14.2 278.0L14.0 277.3L13.7 278.6L12.7 277.4L13.2 276.8L13.0 275.3L13.7 274.9L14.0 275.3L14.3 273.7L15.4 273.7L15.8 272.5L15.9 273.2L16.2 272.6L23.1 272.6L23.3 266.1L24.1 265.7L24.5 265.8L25.1 267.8L26.6 265.9L27.7 267.5L29.4 266.5L31.2 267.3L33.4 266.4L36.7 266.6L38.6 266.2L41.1 268.6L46.5 268.6L48.0 266.1L56.4 263.6L57.1 263.8L56.4 264.9L56.5 267.0L59.2 267.7L62.7 266.8L62.1 266.1L63.5 265.0L65.2 265.0L66.6 264.0L66.3 263.3L64.4 263.1L64.2 260.1L66.2 258.2L63.3 253.2L62.4 249.0L58.3 244.1L58.2 238.0L57.2 237.7L53.2 238.5L51.0 237.7L47.9 233.2L47.6 230.3L49.2 227.0L49.2 221.0L47.1 220.0L42.8 220.2L37.0 217.1L36.5 215.9L37.1 211.8L38.4 208.3L46.5 200.7L48.5 195.9L52.9 191.8L55.3 191.3L56.9 191.8L58.5 193.6L58.6 195.4L59.6 197.2L62.1 197.9L68.2 195.3L71.5 194.5L76.7 194.4L81.0 192.8L81.5 189.6L86.6 184.1L88.4 178.6L90.0 176.6L100.3 171.4L106.5 160.6L108.6 153.1L116.1 150.6L119.2 148.0L118.9 146.5L117.5 144.8L119.2 143.1L118.3 143.2L118.5 142.2L119.0 142.9L119.9 141.3L121.0 141.5L121.4 139.8L123.2 138.7L123.9 137.5L124.9 137.3L124.5 136.5L125.2 136.4L125.6 135.1L126.7 134.8L126.4 134.1L127.4 133.8L127.3 133.2L129.7 132.2L130.1 130.9L130.7 131.2L132.5 130.5L132.4 129.4L130.8 129.3L130.9 130.0L130.2 130.4L129.1 129.4L129.8 124.7L130.7 123.6L131.7 123.5L131.4 122.3L130.3 122.0L130.9 121.5L131.0 120.6L129.9 119.8L129.5 118.4L128.6 117.7L130.0 116.8L130.8 114.2L134.7 112.8L135.9 110.9L136.9 110.7L138.3 111.3L140.3 110.4L141.3 110.6L141.8 109.6L142.5 110.2L144.0 108.4L143.9 107.8L144.9 107.5L145.1 106.6L144.0 106.1L144.0 105.1L141.6 104.0L141.6 103.5L140.5 103.8L139.9 102.5L138.6 102.0L138.4 102.7L137.2 103.1L135.8 102.1L132.2 102.1L132.4 101.3L131.4 99.7L132.5 98.8L131.7 97.4L132.6 95.2L131.3 95.8L131.8 96.3L131.4 97.0L129.1 97.1L127.9 95.9L126.5 96.6L125.9 95.8L119.7 92.9L118.3 91.3L116.3 91.8L112.9 90.1L112.8 89.4L113.6 89.0L113.6 87.8L112.8 87.2L111.9 84.5L112.9 82.9L112.5 81.8L112.9 81.5L111.8 79.4L112.3 78.0L111.7 76.0L112.2 74.2L110.5 71.6L110.2 66.4L108.6 64.4L109.6 60.6L111.6 60.2L113.3 60.7L114.1 59.0L113.5 58.6L114.7 56.7L116.7 55.7L118.3 55.8L120.5 54.2L120.8 52.2L121.7 51.6L121.1 51.0L121.3 50.3L122.1 49.6L121.7 48.9L120.3 49.0L119.7 48.3L118.9 48.7L118.3 47.8L117.3 47.9L116.2 47.1L115.1 47.6L114.0 45.0L114.6 43.6L115.9 43.0L115.7 41.5L108.7 41.4L108.5 40.3L107.3 38.7L105.7 38.8L103.6 37.6L103.3 36.8L104.9 36.3L104.5 34.8L103.6 35.1L103.0 34.5L101.7 35.2L101.2 34.7L99.5 35.2L99.2 34.5L97.9 34.2L97.3 35.0L95.4 35.6L93.3 35.0L92.2 34.0L93.3 31.8L92.4 30.4L93.0 27.3L93.8 26.6L95.5 26.5L98.5 24.5L98.9 23.0L100.7 22.5L102.6 19.8L102.4 18.1L108.1 16.8L111.7 17.3L112.4 17.8L116.9 17.6L117.2 16.9L116.7 16.0L114.1 14.9L113.2 13.7L113.6 13.6L116.8 13.9L120.4 15.3L122.1 14.9L122.4 13.6L124.8 13.7L127.5 11.9L129.3 11.9L130.0 12.6L130.2 11.2L132.4 10.1L133.2 11.2L135.1 10.7L136.3 13.2L137.0 13.0L136.9 12.2L140.8 11.3L142.5 12.6L145.8 12.8L145.3 13.4L146.1 14.5L145.9 16.3L146.5 17.4L147.9 17.3L148.0 16.4L151.6 16.9L155.4 19.9L155.3 20.5L157.0 23.2L159.2 23.5L160.9 25.6L163.6 25.8L165.1 27.6L168.8 28.2L169.7 28.8L170.8 31.2L170.8 33.8L171.9 34.8L175.1 35.6L176.5 37.2L178.7 37.8L181.3 37.6L182.7 39.2L183.5 39.0L184.4 42.3ZM485.0 607.1L485.9 607.9L486.0 610.2L487.2 611.9L486.6 612.1L487.1 612.8L486.2 613.9L486.3 615.8L485.9 616.1L485.4 615.7L485.0 616.9L484.7 616.0L482.9 612.1L481.8 611.7L481.6 609.4L482.1 608.3L484.4 607.9L484.4 607.3L485.0 607.1ZM483.0 603.5L483.7 604.4L483.3 605.5L481.7 607.0L481.4 606.0L481.4 604.6L482.8 604.2L482.7 603.1L483.0 603.5ZM476.4 591.6L478.1 594.3L477.8 594.6L477.1 594.0L476.1 594.4L475.7 594.2L476.1 593.3L475.4 593.6L475.2 592.9L475.4 592.0L476.4 591.6ZM479.9 591.5L480.3 593.5L479.3 592.6L479.0 592.1L479.5 591.5L479.8 592.1L479.9 591.5ZM479.4 587.3L479.6 588.4L478.8 589.0L479.8 591.3L479.0 591.4L478.8 592.0L478.9 590.9L479.5 590.4L478.6 591.0L478.0 588.7L479.4 587.3ZM471.9 584.9L472.0 586.7L473.3 587.7L472.9 588.0L471.2 586.6L471.3 585.3L471.9 584.9ZM465.4 567.1L466.1 567.7L466.3 569.2L464.9 569.5L464.3 569.2L464.3 567.8L465.1 567.7L465.4 567.1ZM461.2 534.4L461.9 534.9L462.0 536.2L461.5 536.1L462.5 536.7L462.5 538.5L461.3 539.6L461.1 540.3L461.7 540.6L460.8 541.8L459.1 541.1L458.1 541.4L458.7 539.4L458.2 538.9L458.1 536.4L460.3 534.2L460.5 534.7L460.7 534.1L461.2 534.4ZM463.2 522.1L463.8 523.6L463.1 523.9L463.9 524.4L463.5 525.0L462.3 525.2L461.9 524.8L462.0 524.1L462.6 524.0L462.5 522.2L462.8 521.8L463.2 522.1ZM455.3 520.3L456.2 520.5L456.3 521.4L455.8 521.6L455.1 521.3L454.9 520.3L455.3 520.3ZM469.0 511.3L469.7 511.6L470.6 514.1L470.0 514.3L469.7 512.9L469.5 512.4L469.8 512.8L469.4 512.6L469.2 513.1L468.2 512.1L469.0 511.3ZM469.6 509.9L469.6 511.0L469.1 510.7L468.9 509.9L469.6 509.9ZM470.0 509.1L470.5 510.6L470.4 511.1L470.1 510.7L469.6 509.4L470.0 509.1ZM470.9 507.8L471.2 510.1L470.9 510.4L470.3 509.5L470.9 507.8ZM464.1 507.5L464.1 508.7L465.1 508.6L464.8 510.9L464.2 511.0L465.7 511.0L465.2 511.6L464.7 511.4L465.3 512.0L464.5 512.5L464.4 513.5L464.7 514.1L464.9 513.4L465.6 513.3L465.8 514.1L465.1 518.1L464.1 518.0L464.3 518.7L463.4 519.1L464.0 519.7L464.5 518.4L464.9 519.3L464.3 522.5L463.4 522.0L463.1 520.7L462.6 520.9L462.3 520.2L463.0 519.4L462.3 519.3L462.3 518.0L461.5 517.9L461.3 515.1L460.9 515.6L460.6 515.1L461.6 513.2L462.4 515.1L462.6 510.0L463.4 507.8L463.6 508.5L464.1 507.5ZM464.7 507.9L464.9 507.3L465.3 507.6L465.0 508.4L464.5 508.2L464.7 507.2L464.7 507.9ZM466.3 505.9L467.2 506.0L467.6 506.9L467.1 507.2L467.4 508.2L466.7 508.1L467.0 508.7L466.2 508.8L465.8 510.2L465.3 510.8L464.8 510.4L465.5 507.3L464.8 507.1L465.5 506.5L465.4 505.8L466.3 505.9ZM467.8 493.8L468.7 495.3L468.4 496.5L469.3 497.8L468.5 499.7L469.3 501.4L469.0 502.4L468.7 502.1L468.2 502.7L468.9 502.7L468.0 504.0L467.8 502.9L467.5 503.2L466.7 502.6L467.7 503.6L467.4 503.8L466.0 502.9L467.6 505.1L467.2 505.4L467.5 505.6L465.1 506.1L464.1 505.5L464.2 500.1L463.8 499.8L465.0 498.7L465.6 499.3L465.7 497.9L465.4 498.6L464.7 498.6L464.5 495.6L464.8 495.8L465.1 495.2L465.6 495.5L465.8 494.2L467.0 494.5L467.8 493.8ZM464.1 492.3L464.6 494.2L463.7 496.0L463.3 496.3L463.2 494.9L463.5 492.7L464.1 492.3ZM470.4 481.1L470.2 483.4L469.7 483.5L470.8 483.7L470.6 484.5L471.2 485.4L470.8 485.9L470.4 485.0L469.4 485.5L469.0 484.8L468.8 485.2L469.6 485.8L469.4 486.2L469.8 485.7L469.8 486.5L470.8 486.7L470.2 490.9L468.9 491.9L468.4 491.3L468.5 490.1L468.4 491.0L467.6 490.2L468.0 490.9L467.4 491.2L468.0 491.2L467.9 492.1L468.5 492.5L467.9 492.9L467.7 492.2L467.0 493.2L467.2 494.4L465.9 493.8L465.8 492.5L466.5 491.8L465.7 491.7L465.8 490.2L466.2 490.6L466.1 489.5L466.8 489.3L466.1 489.1L466.4 487.3L466.9 487.3L466.3 486.7L466.4 485.5L466.7 484.6L466.9 484.8L467.4 484.3L466.7 484.2L467.4 483.9L467.2 482.7L468.3 482.1L468.1 481.4L469.4 481.4L469.4 480.7L469.9 481.2L470.1 480.5L470.4 481.1ZM387.2 320.8L386.3 320.7L386.6 320.0L387.2 320.8ZM393.0 320.0L393.8 320.4L393.7 320.9L392.9 320.7L393.0 320.0ZM387.6 319.4L388.2 320.2L387.4 320.6L387.3 320.2L386.8 320.0L387.1 319.0L387.6 319.4ZM383.1 317.9L383.8 318.4L383.5 319.7L383.1 319.7L383.1 317.9ZM390.8 318.7L391.6 318.9L392.1 320.1L390.9 320.5L390.5 319.7L390.1 318.3L390.2 317.8L390.8 318.7ZM381.3 318.6L381.7 319.2L381.3 320.1L380.8 318.8L381.1 317.5L381.3 318.6ZM387.7 317.4L388.5 318.4L388.5 319.5L388.1 319.5L387.3 319.1L386.9 317.8L387.7 317.4ZM387.4 315.8L387.9 317.3L387.0 317.6L386.7 316.6L387.4 315.8ZM380.5 316.3L380.3 318.4L379.8 318.4L380.3 318.5L380.1 319.4L378.4 319.2L378.2 318.4L379.8 314.5L380.5 316.3ZM389.3 313.7L389.7 313.7L389.2 316.2L388.8 315.5L388.4 314.8L389.3 313.7ZM389.6 311.6L390.6 312.0L390.0 312.9L389.0 312.8L389.6 311.6ZM378.7 313.6L378.3 313.4L378.9 311.8L379.9 311.5L378.7 313.6Z";
+(function(){
+  const COS=Math.cos(23*Math.PI/180), P=(lat,lon)=>[(lon-67.5)*COS*20,(37.6-lat)*20];
+  const svg=$('#indiaMap');
+  const vis=Object.fromEntries(Object.keys(MCATS).map(k=>[k,true]));
+  let sel=-1;
+  // Gujarat sites are drawn in a zoomed inset (bottom-left, over the sea) because they overlap at national scale
+  const isGJ=s=>s[4]==='Bengaluru';
+  const IN={x:2,y:404,w:108,h:212,Z:8,lat:12.985,lon:77.61};
+  const [icx,icy]=P(IN.lat,IN.lon);
+  const IP=(lat,lon)=>{const [x,y]=P(lat,lon);return [IN.x+IN.w/2+(x-icx)*IN.Z,IN.y+IN.h/2+(y-icy)*IN.Z]};
+  const pos=SITES.map(s=>isGJ(s)?IP(s[2],s[3]):P(s[2],s[3]));
+  // spread markers that sit on top of each other
+  const done=new Set();
+  pos.forEach((p,i)=>{if(done.has(i))return;const lim=isGJ(SITES[i])?22:9,grp=[i];pos.forEach((q,j)=>{if(j>i&&!done.has(j)&&isGJ(SITES[j])===isGJ(SITES[i])&&Math.hypot(p[0]-q[0],p[1]-q[1])<lim)grp.push(j)});
+    if(grp.length>1){const cx=grp.reduce((a,j)=>a+pos[j][0],0)/grp.length,cy=grp.reduce((a,j)=>a+pos[j][1],0)/grp.length,R=isGJ(SITES[i])?14:8;
+      grp.forEach((j,k)=>{const a=k/grp.length*2*Math.PI-Math.PI/2;pos[j]=[cx+Math.cos(a)*R,cy+Math.sin(a)*R];done.add(j)})}});
+  const rad=s=>s[6]?5+Math.sqrt(s[6])/32:5.5;
+  const insetCities=[];
+  const cities=[['Noida · Gurugram',28.5,77.2,10,-10],['Mumbai · Pune',19.0,73.0,-80,4],['Nagpur',21.15,79.09,10,4],
+    ['Hyderabad',17.4,78.45,12,4],['Chennai',13.0,80.2,10,14],['Coimbatore',11.02,76.96,-62,4],['Bhubaneswar',20.28,85.8,12,4],
+    ['Kanpur',26.5,80.2,10,4],['Visakhapatnam',17.69,83.22,10,4],['Chitradurga',14.23,76.4,-62,-6],['Bengaluru',12.97,77.6,10,6]];
+  function draw(){
+    const order=SITES.map((s,i)=>i).sort((a,b)=>rad(SITES[b])-rad(SITES[a]));
+    const [bx0,by0]=P(13.2,77.35),[bx1,by1]=P(12.75,77.9);
+    svg.innerHTML=`<defs><clipPath id="inclip"><rect x="${IN.x}" y="${IN.y}" width="${IN.w}" height="${IN.h}" rx="8"/></clipPath></defs><path class="land" d="${MAP_D}"/>`+
+      `<rect x="${bx0}" y="${by0}" width="${bx1-bx0}" height="${by1-by0}" rx="4" fill="none" stroke="var(--ink-3)" stroke-dasharray="3 2"/>`+
+      `<line x1="${bx0}" y1="${by1}" x2="${IN.x+IN.w/2}" y2="${IN.y}" stroke="var(--ink-3)" stroke-dasharray="3 2"/>`+
+      `<rect x="${IN.x}" y="${IN.y}" width="${IN.w}" height="${IN.h}" rx="8" fill="var(--surface)" stroke="var(--ink-3)"/>`+
+      `<g clip-path="url(#inclip)"><path class="land" vector-effect="non-scaling-stroke" transform="translate(${IN.x+IN.w/2} ${IN.y+IN.h/2}) scale(${IN.Z}) translate(${-icx} ${-icy})" d="${MAP_D}"/></g>`+
+      `<text class="city" x="${IN.x+8}" y="${IN.y+IN.h-8}" style="font-size:9px;letter-spacing:.06em">BENGALURU (ZOOMED)</text>`+
+      insetCities.map(([n,la,lo,dx,dy])=>{const [x,y]=IP(la,lo);return `<text class="city" x="${x+dx}" y="${y+dy}">${n}</text>`}).join('')+
+      cities.map(([n,la,lo,dx,dy])=>{const [x,y]=P(la,lo);return `<text class="city" x="${x+dx}" y="${y+dy}">${n}</text>`}).join('')+
+      order.map(i=>{const s=SITES[i];if(!vis[s[1]])return '';const [x,y]=pos[i];
+        return `<circle class="mk ${s[1]==='plan'?'plan':''} ${i===sel?'sel':''}" data-i="${i}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad(s).toFixed(1)}" fill="${MCATS[s[1]][1]}" stroke="${s[1]==='plan'?'var(--ink-3)':''}" fill-opacity=".9"/>`}).join('');
+    svg.querySelectorAll('.mk').forEach(c=>{
+      c.addEventListener('mousemove',e=>{const s=SITES[c.dataset.i];showTip(e,`<b>${s[0]}</b><br>${s[4]}, ${s[5]}${s[6]?'<br>₹'+fmt(s[6])+' cr':''}<br><i>${s[7]}</i>`)});
+      c.addEventListener('mouseleave',hideTip);
+      c.addEventListener('click',()=>pick(+c.dataset.i))});
+    $('#siteList').innerHTML=SITES.map((s,i)=>vis[s[1]]?`<div data-i="${i}" class="${i===sel?'sel':''}"><i style="--c:${MCATS[s[1]][1]}"></i><b>${s[0]}</b><span>${s[4]}</span></div>`:'').join('');
+    $('#siteList').querySelectorAll('div').forEach(d=>d.onclick=()=>pick(+d.dataset.i));
+  }
+  function summary(){
+    const by={};SITES.forEach(s=>{by[s[5]]=(by[s[5]]||0)+1});
+    const rows=Object.entries(by).sort((a,b)=>b[1]-a[1]);
+    $('#mdetail').innerHTML=`<h3>Sites tracked, by state</h3><p class="small muted" style="margin:4px 0 8px">The industry clusters in Bengaluru (design, avionics, DRDO and HAL), Hyderabad (defence drones, motors and counter-drone), Chennai (agri drones and autopilots) and the Delhi region. There are no big plant investments yet: most drone firms are small, so the map counts sites rather than money.</p><div class="state-bars" id="stateBars"></div>`;
+    $('#stateBars').innerHTML=rows.map(([st,v])=>`<div class="hbar"><div class="n">${st}</div><div class="t"><i style="width:${v/rows[0][1]*100}%;background:var(--navy)"></i></div><div class="v">${v} site${v>1?'s':''}</div></div>`).join('');
+  }
+  function pick(i){
+    if(sel===i){sel=-1;draw();summary();return}
+    sel=i;const s=SITES[i];draw();
+    $('#mdetail').innerHTML=`<span class="pill" style="background:${MCATS[s[1]][1]};color:#fff">${MCATS[s[1]][0]}</span>
+      <h3 style="margin-top:10px">${s[0]}</h3><div class="place">${s[4]}, ${s[5]}</div>
+      <dl><dt>Status</dt><dd>${s[7]}</dd>${s[6]?`<dt>Investment</dt><dd>₹${fmt(s[6])} crore</dd>`:''}</dl>
+      <p class="small" style="color:var(--ink-2);margin:12px 0 0">${s[8]}</p>
+      <button class="small" style="margin-top:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit" onclick="this.dispatchEvent(new CustomEvent('back',{bubbles:true}))">← State summary</button>`;
+    const row=$(`#siteList div[data-i="${i}"]`);if(row)row.scrollIntoView({block:'nearest'});
+  }
+  $('#mdetail').addEventListener('back',()=>{sel=-1;draw();summary()});
+  $('#mfilters').innerHTML=Object.entries(MCATS).map(([k,[n,c]])=>`<button data-k="${k}"><i style="--c:${c}"></i>${n}</button>`).join('');
+  $('#mfilters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;vis[b.dataset.k]=!vis[b.dataset.k];b.classList.toggle('off',!vis[b.dataset.k]);draw()});
+  draw();summary();
+})();
+
+// checklist
+$('#checklist').innerHTML=CHECK.map(([s,t,d])=>{const c={g:['var(--green)','✓'],a:['var(--amber)','~'],r:['var(--red)','✕']}[s];
+  return `<li><span class="ic" style="background:${c[0]}">${c[1]}</span><div><b>${t}</b><div class="small muted">${d}</div></div></li>`}).join('');
+
+</script>
+</body>
+</html>
