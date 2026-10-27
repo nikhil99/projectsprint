@@ -262,20 +262,35 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .size-tools .grp{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
 .size-tools button{border:none;background:none;color:var(--ink-2);padding:6px 13px;font:inherit;font-size:.84rem;cursor:pointer}
 .size-tools button.on{background:var(--ink);color:var(--bg)}
-.size-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-left:auto}
+.size-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:12px}
 .size-legend span{display:inline-flex;align-items:center;gap:6px}
-.size-legend i{width:12px;height:12px;border-radius:50%;background:var(--c)}
-.size-card{margin-top:14px;padding:14px 10px;overflow-x:auto}
+.size-legend i{width:12px;height:12px;border-radius:50%;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.size-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.size-kpis div{padding:14px 16px;font-size:.84rem;color:var(--ink-2)}
+.size-kpis b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.6rem;line-height:1.15;color:var(--ink)}
+.size-card{margin-top:14px;padding:10px 8px;overflow-x:auto}
 #sizeChart{display:block}
-#sizeChart .bub{cursor:default;transition:r .6s cubic-bezier(.2,.8,.2,1)}
-#sizeChart .nm{font:600 11px Inter,system-ui,sans-serif;fill:var(--ink)}
-#sizeChart .vl{font:500 10px Inter,system-ui,sans-serif;fill:var(--ink-3)}
-#sizeChart .hd{font:700 12px 'Plus Jakarta Sans',Inter,sans-serif;fill:var(--ink)}
-#sizeChart .hs{font:500 10.5px Inter,sans-serif;fill:var(--ink-3)}
+#sizeChart .bub{cursor:pointer}
+#sizeChart g.co:hover .bub{stroke-width:2.5}
+#sizeChart .nm{font:600 10.5px Inter,system-ui,sans-serif;fill:var(--ink)}
+#sizeChart .vl{font:500 9.5px Inter,system-ui,sans-serif;fill:var(--ink-3)}
+#sizeChart .rl{font:700 12.5px 'Plus Jakarta Sans',Inter,sans-serif;fill:var(--ink)}
+#sizeChart .rs{font:500 10px Inter,sans-serif;fill:var(--ink-3)}
+#sizeChart .grp-h{font:800 10.5px Inter,sans-serif;letter-spacing:.14em;fill:var(--saffron)}
+#sizeChart .side{font:700 10px Inter,sans-serif;letter-spacing:.12em;fill:var(--ink-3)}
+#sizeChart .none{font:600 10.5px Inter,sans-serif;fill:var(--red)}
+.size-detail{margin-top:14px;padding:18px;display:none}
+.size-detail.show{display:block}
+.size-detail .top{display:flex;justify-content:space-between;gap:12px;align-items:start;flex-wrap:wrap}
+.size-detail dl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 0}
+.size-detail dl div{background:var(--surface-2);border-radius:10px;padding:9px 12px}
+.size-detail dt{font-size:.74rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.size-detail dd{margin:2px 0 0;font-weight:600;font-size:.9rem}
+.size-detail p{font-size:.9rem;color:var(--ink-2);margin:12px 0 0}
 .size-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
 .size-insights div{padding:16px;font-size:.88rem;color:var(--ink-2)}
 .size-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.5rem;color:var(--ink);line-height:1.2}
-@media (max-width:980px){.size-insights{grid-template-columns:1fr}}
+@media (max-width:980px){.size-insights{grid-template-columns:1fr}.size-kpis,.size-detail dl{grid-template-columns:1fr 1fr}}
 
 /* map */
 .map-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:24px;align-items:start}
@@ -487,16 +502,24 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
 
 <section id="size"><div class="wrap">
   <div class="kicker">05b · Company size</div>
-  <h2>How big is each company, at each stage of the phone chain</h2>
-  <p class="lede">Bubbles are sized by approximate annual revenue (whole company, latest year). <b style="color:var(--green)">Green</b> is Indian, <b style="color:var(--navy)">blue</b> is the global leader for scale. Switch to <b>true scale</b> to see how wide the gap really is.</p>
+  <h2>How big is each company, at every stage of the phone chain</h2>
+  <p class="lede">Thirteen sub-stages, from processor design to AI models. On each row, <b style="color:var(--green)">Indian companies are on the left</b> and <b style="color:var(--navy)">global leaders on the right</b>, with bubbles sized by approximate annual revenue. Plants still being built are shown as dotted rings sized by committed investment. The figure at the left of each row is the gap between the biggest global and biggest Indian company. Click any bubble for details.</p>
+  <div class="size-kpis" id="sizeKpis"></div>
   <div class="size-tools">
     <div class="grp" id="scaleBtns"><button data-v="log" class="on">Readable scale</button><button data-v="lin">True scale</button></div>
-    <div class="grp" id="originBtns"><button data-v="all" class="on">Indian + global</button><button data-v="in">Indian only</button></div>
-    <div class="size-legend"><span><i style="--c:var(--green)"></i>Indian</span><span><i style="--c:var(--navy)"></i>Global benchmark</span><span><i style="--c:transparent;border:1.5px dashed var(--ink-3)"></i>Estimate band (figures not public)</span></div>
+    <div class="grp" id="grpBtns"><button data-v="all" class="on">All stages</button><button data-v="SILICON">Silicon</button><button data-v="COMPONENTS">Components</button><button data-v="MAKE & SELL">Make &amp; sell</button><button data-v="SOFTWARE & AI">Software &amp; AI</button></div>
   </div>
-  <div class="card size-card"><svg id="sizeChart" role="img" aria-label="Company size by stage of the phone value chain"></svg></div>
+  <div class="size-legend">
+    <span><i style="--c:var(--green)"></i>Indian private</span>
+    <span><i style="--c:#20b3ad"></i>Indian government / academic</span>
+    <span><i style="--c:var(--navy)"></i>Foreign</span>
+    <span><i style="--c:transparent;--b:var(--ink-3);border-style:dashed"></i>Revenue not public (size band)</span>
+    <span><i style="--c:transparent;--b:var(--green);border-style:dotted;border-width:2px"></i>Under construction (sized by investment)</span>
+  </div>
+  <div class="card size-card"><svg id="sizeChart" role="img" aria-label="Company size by sub-stage of the phone value chain, Indian versus global"></svg></div>
+  <div class="card size-detail" id="sizeDetail"></div>
   <div class="size-insights" id="sizeInsights"></div>
-  <p class="small muted" style="margin-top:12px">Approximate revenue for FY2024–25 or calendar 2024/25, whole company (not only the phone business), from public filings and press reports; foreign figures converted at ~₹84/US$. Where figures aren't public, a size band is shown instead of a number. Indicative only; verify before citing.</p>
+  <p class="small muted" style="margin-top:12px">Approximate revenue for FY2024–25 or calendar 2024/25, whole company (not only the phone business), from public filings and press reports; foreign figures converted at ~₹84/US$. Indian arms of foreign brands show India revenue. *Jio's figure is whole-company telecom revenue, so it isn't a like-for-like AI comparison. Where figures aren't public, a size band is shown instead of a number. Indicative only; verify before citing.</p>
 </div></section>
 
 <section id="players"><div class="wrap">
@@ -1117,87 +1140,158 @@ const T = {n:'Indian AI phone', sub:'~19% Indian-owned today', s:'p', c:[
 })();
 
 // ---------- company size ----------
-const STAGES = [
-  ['design','Chip design','processor, modem, NPU'],
-  ['fab','Fabs & packaging','wafers, OSAT/ATMP'],
-  ['comp','Components','battery, camera, passives'],
-  ['asm','Assembly / EMS','building the phone'],
-  ['brand','Phone brands','selling the phone'],
-  ['os','OS & apps','platform & services'],
-  ['ai','AI models','the AI in the AI phone']
-];
-// [name, stage, I=Indian / F=foreign, approx ₹ crore revenue, exact? (false = show band), note]
-const COS_ = [
-  ['Qualcomm','design','F',330000,true,'Global leader in phone SoCs and modems (~US$39 bn).'],
-  ['MediaTek','design','F',140000,true,'Largest SoC supplier for Android phones in India (~US$17 bn).'],
-  ['Tejas Networks','design','I',8900,true,'Tata-owned telecom gear maker; owns Saankhya Labs baseband silicon.'],
-  ['MosChip','design','I',450,false,'Hyderabad chip-design services company.'],
-  ['Mindgrove','design','I',20,false,'IIT Madras spin-off; Secure IoT SoC on Shakti RISC-V.'],
-  ['Netrasemi','design','I',15,false,'A2000 edge-AI SoC with in-house NPU.'],
-  ['Signalchip','design','I',10,false,'India\'s first LTE modem chips.'],
-  ['TSMC','fab','F',750000,true,'Makes almost every leading phone processor (~US$90 bn).'],
-  ['Micron','fab','F',210000,true,'Global memory maker (~US$25 bn); runs the Sanand ATMP plant.'],
-  ['CG Power','fab','I',10000,true,'Murugappa group company behind the CG–Renesas OSAT (group revenue).'],
-  ['Kaynes Technology','fab','I',2700,true,'EMS and PCB firm; Kaynes Semicon OSAT at Sanand.'],
-  ['SCL Mohali','fab','I',200,false,'Government 180 nm fab for strategic chips.'],
-  ['TDK (ATL)','comp','F',120000,true,'Japanese parent of ATL, the largest phone-battery cell maker.'],
-  ['Sunny Optical','comp','F',45000,true,'Leading phone camera module and lens maker (China).'],
-  ['Amara Raja','comp','I',12400,true,'Battery maker building lithium-ion lines.'],
-  ['Ola Electric','comp','I',4500,true,'EV maker with an in-house cell gigafactory.'],
-  ['Foxconn','asm','F',1790000,true,'World\'s largest electronics manufacturer (~US$213 bn); biggest iPhone maker in India.'],
-  ['Tata Electronics','asm','I',66600,true,'iPhone assembly and enclosures; Dholera fab; Assam OSAT.'],
-  ['Dixon Technologies','asm','I',38900,true,'Largest Indian-owned contract manufacturer.'],
-  ['Optiemus','asm','I',1900,false,'Indian contract manufacturer under PLI.'],
-  ['Samsung India','brand','F',110000,false,'No. 1 brand in India (17%, Q3 2026); Noida factory.'],
-  ['Vivo India','brand','F',30000,false,'Leading Chinese brand in India.'],
-  ['Xiaomi India','brand','F',26000,false,'Leading Chinese brand in India.'],
-  ['Lava','brand','I',2500,false,'Largest Indian phone brand.'],
-  ['Ai+ (NxtQuantum)','brand','I',1500,false,'Launched 2025; 2 mn units in 10 months.'],
-  ['Micromax','brand','I',300,false,'Former No. 1, now marginal.'],
-  ['Alphabet (Google)','os','F',2900000,true,'Owner of Android and Play Services (~US$350 bn).'],
-  ['Zoho','os','I',8700,true,'Bootstrapped software suite; candidate for Indian default apps.'],
-  ['PhonePe','os','I',7100,true,'Payments leader; runs the Indus Appstore.'],
-  ['JandK Ops (BharOS)','os','I',5,false,'IIT Madras-incubated Android fork.'],
-  ['OpenAI','ai','F',110000,false,'Global AI leader (2025 estimate, ~US$13 bn).'],
-  ['Jio Platforms','ai','I',128000,true,'Telecom and digital arm of Reliance; AI ambitions (whole-company revenue).'],
-  ['Sarvam AI','ai','I',50,false,'Sovereign Indian-language models; Sarvam Edge on-device AI.'],
-  ['Krutrim (Ola)','ai','I',50,false,'Indian LLMs; announced Bodhi AI chips.']
+// own: I = Indian private, G = Indian govt/academic, F = foreign
+// [name, own, ₹ crore (revenue, or committed investment if pre), exact?, pre-revenue?, HQ, role, India footprint]
+const SROWS = [
+  {g:'SILICON', n:'Processor & modem design', sub:'SoC, NPU, baseband', lay:'soc', co:[
+    ['Qualcomm','F',330000,1,0,'San Diego, US','Snapdragon SoCs and modems in most premium Android phones.','Large design centres in Bengaluru, Hyderabad, Chennai.'],
+    ['MediaTek','F',140000,1,0,'Hsinchu, Taiwan','Dimensity/Helio SoCs; largest supplier to Indian budget phones.','Design centres in Bengaluru and Noida.'],
+    ['Unisoc','F',15000,0,0,'Shanghai, China','Low-cost SoCs for entry phones and feature phones.','Supplies Indian and Chinese budget brands.'],
+    ['Tejas Networks','I',8900,1,0,'Bengaluru','Telecom gear; owns Saankhya Labs (5G and broadcast baseband silicon).','Tata group company.'],
+    ['L&T Semiconductor','I',50,0,0,'Bengaluru','Fabless power and analog chips (founded 2024).','Candidate for phone power-management chips.'],
+    ['Mindgrove','I',20,0,0,'Chennai','Secure IoT SoC on Shakti RISC-V core.','IIT Madras spin-off.'],
+    ['Netrasemi','I',15,0,0,'Thiruvananthapuram','A2000 edge-AI SoC with in-house NPU, VPU and ISP.','Zoho-backed.'],
+    ['Signalchip','I',10,0,0,'Bengaluru','India\'s first indigenous LTE modem chips (Agumbe).','Candidate for a 4G feature-phone modem.'],
+    ['InCore','I',10,0,0,'Chennai','RISC-V CPU core IP.','IIT Madras ecosystem.']]},
+  {g:'SILICON', n:'Design tools, IP & services', sub:'EDA, CPU IP, design services', co:[
+    ['Synopsys','F',51000,1,0,'Sunnyvale, US','Chip-design (EDA) software and IP used by every chipmaker.','One of its largest R&D bases is in India.'],
+    ['Cadence','F',39000,1,0,'San Jose, US','EDA software and IP.','Major R&D centres in Noida and Bengaluru.'],
+    ['Arm','F',27000,1,0,'Cambridge, UK','CPU architecture inside almost every phone processor.','Design centre in Bengaluru.'],
+    ['Tata Elxsi','I',3700,1,0,'Bengaluru','Design services incl. camera, multimedia and embedded software.','Candidate for an AI camera pipeline.'],
+    ['MosChip','I',450,0,0,'Hyderabad','Chip-design and turnkey ASIC services.','Candidate for power-management chips.'],
+    ['Ittiam Systems','I',200,0,0,'Bengaluru','Imaging and video codec IP.','Candidate for camera image processing.']]},
+  {g:'SILICON', n:'Logic chip fabs', sub:'wafer manufacturing', lay:'soc', co:[
+    ['TSMC','F',750000,1,0,'Hsinchu, Taiwan','Makes nearly every leading phone processor (3–5 nm).','Technology partner discussions only.'],
+    ['SMIC','F',67000,1,0,'Shanghai, China','China\'s largest foundry.','—'],
+    ['UMC','F',61000,1,0,'Hsinchu, Taiwan','Mature-node foundry.','—'],
+    ['GlobalFoundries','F',57000,1,0,'New York, US','Mature and specialty-node foundry.','Design centre in Bengaluru.'],
+    ['Tata–PSMC fab','I',91526,1,1,'Dholera, Gujarat','India\'s first commercial fab: 28–110 nm, 50k wafers/month.','~50% built; first chips slipping past Dec 2026.'],
+    ['SCL Mohali','G',200,0,0,'Mohali, Punjab','180 nm government fab for strategic and space chips.','Being modernised under ISM.']]},
+  {g:'SILICON', n:'Memory chips', sub:'DRAM & NAND', lay:'mem', co:[
+    ['SK hynix','F',410000,1,0,'Icheon, Korea','DRAM, HBM and NAND.','—'],
+    ['Micron','F',210000,1,0,'Boise, US','DRAM and NAND.','Sanand ATMP packages memory in India (₹22,516 cr).']]},
+  {g:'SILICON', n:'Chip packaging & test', sub:'OSAT / ATMP', lay:'mem', co:[
+    ['ASE Technology','F',155000,1,0,'Kaohsiung, Taiwan','World\'s largest OSAT.','—'],
+    ['Amkor','F',53000,1,0,'Arizona, US','Second-largest OSAT.','—'],
+    ['CG Power','I',10000,1,0,'Mumbai','Murugappa group; CG–Renesas–Stars OSAT at Sanand (group revenue).','₹7,584 cr OSAT under construction.'],
+    ['Kaynes Technology','I',2700,1,0,'Mysuru','EMS and PCBs; Kaynes Semicon OSAT.','₹3,307 cr OSAT at Sanand.'],
+    ['Tata TSAT (Assam)','I',27120,1,1,'Jagiroad, Assam','Advanced chip packaging.','Under construction.'],
+    ['HCL–Foxconn JV','I',3706,1,1,'Jewar, UP','Display driver IC packaging.','Approved.']]},
+  {g:'COMPONENTS', n:'Display panels', sub:'OLED & LCD', lay:'disp', co:[
+    ['BOE','F',230000,1,0,'Beijing, China','World\'s largest display maker by volume.','—'],
+    ['Samsung Display','F',190000,0,0,'Asan, Korea','Leading OLED supplier for premium phones.','Module assembly at Noida.']]},
+  {g:'COMPONENTS', n:'Camera sensors & modules', sub:'image sensors, lenses', lay:'cam', co:[
+    ['Sony (imaging)','F',100000,0,0,'Tokyo, Japan','Largest smartphone image-sensor maker.','—'],
+    ['Sunny Optical','F',45000,1,0,'Ningbo, China','Camera modules and lenses.','—']]},
+  {g:'COMPONENTS', n:'Batteries', sub:'cells & packs', lay:'bat', co:[
+    ['TDK (ATL)','F',120000,1,0,'Tokyo, Japan','Parent of ATL, the largest phone-battery cell maker.','Battery pack plant in Haryana.'],
+    ['Sunwoda','F',65000,0,0,'Shenzhen, China','Phone and EV battery packs and cells.','Pack assembly in India.'],
+    ['Exide Industries','I',16000,0,0,'Kolkata','Lead-acid leader building lithium-ion cell plant.','Candidate for phone cells.'],
+    ['Amara Raja','I',12400,1,0,'Tirupati','Batteries; building lithium-ion lines.','Candidate for phone cells.'],
+    ['Ola Electric','I',4500,1,0,'Bengaluru','EV maker with in-house cell gigafactory.','Candidate for phone cells.']]},
+  {g:'COMPONENTS', n:'Passives & circuit boards', sub:'MLCCs, HDI PCBs', lay:'pcb', co:[
+    ['Murata','F',97000,1,0,'Kyoto, Japan','World\'s largest MLCC capacitor maker.','—'],
+    ['Zhen Ding','F',42000,0,0,'Taoyuan, Taiwan','World\'s largest PCB maker.','—']]},
+  {g:'MAKE & SELL', n:'Phone assembly (EMS)', sub:'contract manufacturing', lay:'asm', co:[
+    ['Foxconn','F',1790000,1,0,'New Taipei, Taiwan','World\'s largest electronics manufacturer.','Largest iPhone maker in India (TN, Karnataka).'],
+    ['Pegatron','F',330000,1,0,'Taipei, Taiwan','Electronics manufacturer.','Sold its India iPhone plant to Tata.'],
+    ['Tata Electronics','I',66600,1,0,'Bengaluru','iPhone assembly and enclosures.','Hosur, Narasapura, Chengalpattu; plus fab and OSAT.'],
+    ['Dixon Technologies','I',38900,1,0,'Noida','Largest Indian-owned contract manufacturer.','Makes phones for Motorola, Xiaomi and others.'],
+    ['Optiemus','I',1900,0,0,'Noida','Contract manufacturer under PLI.','—']]},
+  {g:'MAKE & SELL', n:'Phone brands (India business)', sub:'who sells the phone', lay:'brand', co:[
+    ['Samsung India','F',110000,0,0,'Noida / Seoul','No. 1 in India (17%, Q3 2026).','One of the world\'s largest phone factories at Noida.'],
+    ['Vivo India','F',30000,0,0,'Greater Noida / Dongguan','Leading Chinese brand.','—'],
+    ['Xiaomi India','F',26000,0,0,'Bengaluru / Beijing','Leading Chinese brand.','—'],
+    ['Lava','I',2500,0,0,'Noida','Largest Indian phone brand.','Own factory and R&D.'],
+    ['Ai+ (NxtQuantum)','I',1500,0,0,'Hyderabad','Launched 2025; own Android-based OS.','2 mn units in 10 months.'],
+    ['Micromax','I',300,0,0,'Gurugram','Former No. 1 in India (2014).','Now marginal.']]},
+  {g:'SOFTWARE & AI', n:'OS, app stores & services', sub:'platform layer', lay:'os', co:[
+    ['Alphabet (Google)','F',2900000,1,0,'Mountain View, US','Android, Play Store, Play Services.','Bengaluru and Hyderabad engineering hubs.'],
+    ['Zoho','I',8700,1,0,'Chennai','Bootstrapped software suite (Arattai, Ulaa browser).','Candidate for Indian default apps.'],
+    ['PhonePe','I',7100,1,0,'Bengaluru','Payments leader; runs Indus Appstore.','Indian app distribution layer.'],
+    ['JandK Ops (BharOS)','G',5,0,0,'Chennai','IIT Madras-incubated Android fork.','Small user base.']]},
+  {g:'SOFTWARE & AI', n:'AI models & assistants', sub:'the AI in the AI phone', lay:'ai', co:[
+    ['OpenAI','F',110000,0,0,'San Francisco, US','Global AI leader (2025 est.).','—'],
+    ['Jio Platforms','I',128000,1,0,'Mumbai','Reliance telecom/digital arm (whole-company revenue).','Distribution to 450 mn+ subscribers.'],
+    ['Sarvam AI','I',50,0,0,'Bengaluru','Sovereign Indian-language models; on-device Sarvam Edge.','IndiaAI Mission.'],
+    ['Krutrim (Ola)','I',50,0,0,'Bengaluru','Indian LLMs and cloud.','Announced Bodhi AI chips.'],
+    ['BharatGen','G',20,0,0,'Mumbai (IIT Bombay)','Government-funded Param multilingual models.','IndiaAI Mission.']]}
 ];
 (function(){
-  const svg=$('#sizeChart');let scale='log',origin='all';
+  const svg=$('#sizeChart');let scale='log',grp='all',pinned=null;
+  const OC={I:'var(--green)',G:'#20b3ad',F:'var(--navy)'}, ON={I:'Indian private',G:'Indian government / academic',F:'Foreign'};
   const band=v=>v<100?'< ₹100 cr':v<1000?'₹100–1,000 cr':v<10000?'₹1k–10k cr':v<100000?'₹10k cr–1 lakh cr':'₹1 lakh cr+';
-  const short=v=>v>=100000?`~₹${(v/100000).toFixed(v>=1000000?0:1)} lakh cr`:`~₹${fmt(Math.round(v/100)*100||v)} cr`;
-  const MAXV=Math.max(...COS_.map(c=>c[3]));
-  const R=v=>scale==='log'?4+7*Math.log10(v+1):Math.max(1.6,Math.sqrt(v/MAXV)*62);
-  const COLW=162;
+  const short=v=>v>=100000?`~₹${(v/100000).toFixed(v>=1000000?0:1)} lakh cr`:v>=1000?`~₹${fmt(Math.round(v/100)*100)} cr`:`~₹${fmt(v)} cr`;
+  const val=c=>c[4]?`₹${fmt(c[2])} cr committed`:c[3]?short(c[2]):band(c[2]);
+  const ALL=SROWS.flatMap(r=>r.co), MAXV=Math.max(...ALL.map(c=>c[2]));
+  const R=v=>scale==='log'?3+5.4*Math.log10(v+1):Math.max(1.6,Math.sqrt(v/MAXV)*44);
+  const MID=700, W=1110;
+  const gap=r=>{const ind=r.co.filter(c=>c[1]!=='F'&&!c[4]),fr=r.co.filter(c=>c[1]==='F');
+    if(!ind.length)return {t:'No Indian company',none:1};
+    const top=ind.reduce((m,c)=>c[2]>m[2]?c:m),a=Math.max(...fr.map(c=>c[2])),b=top[2];
+    return a>=b?{t:`Gap ~${a/b>=100?fmt(Math.round(a/b/10)*10):Math.round(a/b)}× vs ${top[0]}`,x:a/b}:{t:`${top[0]} larger*`,x:a/b}};
+
+  // KPIs
+  const gaps=SROWS.map(gap), none=gaps.filter(g=>g.none).length, ratios=gaps.filter(g=>g.x).map(g=>g.x).sort((a,b)=>a-b);
+  const med=ratios[Math.floor(ratios.length/2)];
+  $('#sizeKpis').innerHTML=`
+    <div class="card"><b>${SROWS.length}</b>sub-stages of the phone chain</div>
+    <div class="card"><b>${ALL.length}</b>companies compared</div>
+    <div class="card"><b style="color:var(--red)">${none}</b>sub-stages with no Indian company yet</div>
+    <div class="card"><b>~${Math.round(med)}×</b>median gap, biggest global vs biggest Indian</div>`;
+
   function draw(){
-    const list=COS_.filter(c=>origin==='all'||c[2]==='I');
-    let H=0;const out=[];
-    STAGES.forEach(([k,t,sub],ci)=>{
-      const cx=ci*COLW+COLW/2;let y=58;
-      out.push(`<text class="hd" x="${cx}" y="18" text-anchor="middle">${t}</text><text class="hs" x="${cx}" y="33" text-anchor="middle">${sub}</text>`);
-      if(ci)out.push(`<line x1="${ci*COLW}" y1="4" x2="${ci*COLW}" y2="100%" stroke="var(--line)" stroke-dasharray="2 4"/>`);
-      list.filter(c=>c[1]===k).sort((a,b)=>b[3]-a[3]).forEach(c=>{
-        const r=R(c[3]),col=c[2]==='I'?'var(--green)':'var(--navy)';y+=r;
-        out.push(`<g data-n="${COS_.indexOf(c)}"><circle class="bub" cx="${cx}" cy="${y}" r="${r}" fill="${col}" fill-opacity="${c[4]?.88:.22}" stroke="${col}" stroke-width="1.5" ${c[4]?'':'stroke-dasharray="3 2"'}/>
-          <text class="nm" x="${cx}" y="${y+r+13}" text-anchor="middle">${c[0]}</text>
-          <text class="vl" x="${cx}" y="${y+r+25}" text-anchor="middle">${c[4]?short(c[3]):band(c[3])}</text></g>`);
-        y+=r+36});
-      H=Math.max(H,y)});
-    const W=STAGES.length*COLW;
-    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('width',W);svg.setAttribute('height',H);
+    const rows=SROWS.filter(r=>grp==='all'||r.g===grp);
+    const out=[];let y=8,lastG=null;
+    out.push(`<text class="side" x="${MID-14}" y="${y+10}" text-anchor="end">◀ INDIAN</text><text class="side" x="${MID+14}" y="${y+10}">GLOBAL ▶</text>`);
+    y+=22;
+    rows.forEach(r=>{
+      if(r.g!==lastG){out.push(`<text class="grp-h" x="4" y="${y+14}">${r.g}</text><line x1="${4}" y1="${y+20}" x2="${W}" y2="${y+20}" stroke="var(--line)"/>`);y+=30;lastG=r.g}
+      const ind=r.co.filter(c=>c[1]!=='F').sort((a,b)=>b[2]-a[2]), fr=r.co.filter(c=>c[1]==='F').sort((a,b)=>b[2]-a[2]);
+      const maxR=Math.max(10,...r.co.map(c=>R(c[2])));const cy=y+maxR+4, rowH=maxR*2+38;
+      const g=gap(r);
+      out.push(`<text class="rl" x="4" y="${cy-8}">${r.n}</text><text class="rs" x="4" y="${cy+6}">${r.sub}</text>
+        <text x="4" y="${cy+22}" style="font:700 11px Inter,sans-serif;fill:${g.none?'var(--red)':g.x<1?'var(--green)':'var(--ink-2)'}">${g.t}</text>`);
+      out.push(`<line x1="${MID}" y1="${y-4}" x2="${MID}" y2="${y+rowH-6}" stroke="var(--line)" stroke-width="1.5"/>`);
+      const place=(list,dir)=>{let x=MID+dir*14;list.forEach(c=>{const r0=R(c[2]),lw=Math.max(r0*2,c[0].length*5.9,val(c).length*5.1)+12;
+        const cx=x+dir*lw/2;x+=dir*lw;
+        const col=OC[c[1]], i=ALL.indexOf(c);
+        const st=c[4]?`fill="none" stroke="${col}" stroke-width="2" stroke-dasharray="1.5 3" stroke-linecap="round"`:
+          `fill="${col}" fill-opacity="${c[3]?.88:.2}" stroke="${col}" stroke-width="1.5" ${c[3]?'':'stroke-dasharray="3 2"'}`;
+        out.push(`<g class="co" data-i="${i}"><circle class="bub" cx="${cx}" cy="${cy}" r="${r0}" ${st} ${pinned===i?'style="stroke:var(--ink);stroke-width:3"':''}/>
+          <text class="nm" x="${cx}" y="${cy+r0+13}" text-anchor="middle">${c[0]}</text>
+          <text class="vl" x="${cx}" y="${cy+r0+24}" text-anchor="middle">${val(c)}</text></g>`)});
+        return x};
+      if(ind.length)place(ind,-1);else out.push(`<text class="none" x="${MID-16}" y="${cy+4}" text-anchor="end">No Indian company at scale →  an open opportunity</text>`);
+      place(fr,1);
+      y+=rowH+6;
+    });
+    svg.setAttribute('viewBox',`0 0 ${W} ${y}`);svg.setAttribute('width',W);svg.setAttribute('height',y);
     svg.innerHTML=out.join('');
-    svg.querySelectorAll('g[data-n]').forEach(g=>{const c=COS_[+g.dataset.n];
-      g.addEventListener('mousemove',e=>showTip(e,`<b>${c[0]}</b> · ${c[2]==='I'?'Indian':'Foreign'}<br>${c[4]?short(c[3])+' revenue':'Revenue band: '+band(c[3])}<br><br>${c[5]}`));
-      g.addEventListener('mouseleave',hideTip)});
+    svg.querySelectorAll('g.co').forEach(g=>{const c=ALL[+g.dataset.i];
+      g.addEventListener('mousemove',e=>showTip(e,`<b>${c[0]}</b> · ${ON[c[1]]}<br>${c[4]?'Pre-revenue · '+val(c):c[3]?short(c[2])+' revenue':'Revenue band: '+band(c[2])}<br>${c[6]}<br><i>Click for details</i>`));
+      g.addEventListener('mouseleave',hideTip);
+      g.addEventListener('click',()=>{pinned=pinned===+g.dataset.i?null:+g.dataset.i;draw();detail()})});
   }
-  const get=n=>COS_.find(c=>c[0]===n)[3];
+  function detail(){
+    const el=$('#sizeDetail');if(pinned===null){el.classList.remove('show');return}
+    const c=ALL[pinned],row=SROWS.find(r=>r.co.includes(c)),g=gap(row),L=row.lay&&LAYERS.find(l=>l.id===row.lay);
+    el.innerHTML=`<div class="top"><div><span class="pill" style="background:${OC[c[1]]};color:#fff">${ON[c[1]]}</span><h3 style="margin-top:8px">${c[0]}</h3><div class="small muted">${row.n} · ${c[5]}</div></div>
+      <button onclick="this.closest('.size-detail').classList.remove('show')" style="border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer;font:inherit;font-size:.84rem">Close</button></div>
+      <dl><div><dt>${c[4]?'Committed investment':'Revenue (approx.)'}</dt><dd>${c[4]?'₹'+fmt(c[2])+' cr':c[3]?short(c[2]):band(c[2])}</dd></div>
+      <div><dt>Status</dt><dd>${c[4]?'Under construction':'Operating'}</dd></div>
+      <div><dt>Stage gap</dt><dd>${g.t}</dd></div>
+      <div><dt>India readiness, this layer</dt><dd>${L?L.score+'/100':'—'}</dd></div></dl>
+      <p><b>Role in the phone:</b> ${c[6]}</p><p><b>India footprint:</b> ${c[7]}</p>`;
+    el.classList.add('show');
+  }
+  const get=n=>ALL.find(c=>c[0]===n)[2];
   $('#sizeInsights').innerHTML=`
-    <div class="card"><b>~${Math.round(get('Qualcomm')/get('Tejas Networks'))}×</b>Qualcomm's revenue vs the largest Indian firm with modem silicon (Tejas). Pure Indian chip-design startups are thousands of times smaller.</div>
-    <div class="card"><b>~${Math.round(get('Foxconn')/get('Tata Electronics'))}×</b>Foxconn vs Tata Electronics. Even in assembly, where Indian firms are already big, the global leader is far larger.</div>
-    <div class="card"><b>~${Math.round(get('Samsung India')/get('Lava'))}×</b>Samsung India vs Lava, the largest Indian brand. Brand scale is the gap MPMS's 5% brand incentive targets.</div>`;
+    <div class="card"><b>~${Math.round(get('Qualcomm')/get('Tejas Networks'))}×</b>Qualcomm vs the largest Indian firm with modem silicon (Tejas). Pure Indian chip-design startups are thousands of times smaller.</div>
+    <div class="card"><b>${none} of ${SROWS.length}</b>sub-stages have no Indian company at all: memory, display panels, camera sensors and passives. These are the deepest import dependencies.</div>
+    <div class="card"><b>~${Math.round(get('Foxconn')/get('Tata Electronics'))}×</b>Foxconn vs Tata Electronics. Assembly is India's strongest stage, yet the global leader is still far larger.</div>`;
   const wire=(id,fn)=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);draw()});
-  wire('#scaleBtns',v=>scale=v);wire('#originBtns',v=>origin=v);
+  wire('#scaleBtns',v=>scale=v);wire('#grpBtns',v=>grp=v);
   draw();
 })();
 
