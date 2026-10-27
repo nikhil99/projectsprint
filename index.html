@@ -292,6 +292,42 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .size-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.5rem;color:var(--ink);line-height:1.2}
 @media (max-width:980px){.size-insights{grid-template-columns:1fr}.size-kpis,.size-detail dl{grid-template-columns:1fr 1fr}}
 
+/* phone scorecard */
+.pc-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:20px}
+.pc-legend span{display:inline-flex;align-items:center;gap:6px}
+.pc-legend i{width:16px;height:14px;border-radius:4px;background:var(--c);border:1.5px solid var(--b,var(--c))}
+.pc-card{margin-top:14px;padding:6px;overflow-x:auto}
+.pc{border-collapse:separate;border-spacing:3px;width:100%;min-width:980px;font-size:.8rem}
+.pc th{font-size:.68rem;letter-spacing:.04em;text-transform:none;color:var(--ink-3);font-weight:700;padding:6px 2px;text-align:center;border:none;vertical-align:bottom;line-height:1.2}
+.pc th.grp{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);border-bottom:2px solid var(--saffron-soft)}
+.pc td{border:none;padding:0;vertical-align:middle}
+.pc td.ph{padding:8px 8px;min-width:150px;cursor:pointer;border-radius:10px}
+.pc tr:hover td.ph,.pc tr.sel td.ph{background:var(--surface-2)}
+.pc td.ph b{display:block;font-size:.88rem}
+.pc td.ph span{color:var(--ink-3);font-size:.74rem}
+.cell{height:40px;border-radius:7px;display:grid;place-items:center;font-size:.66rem;font-weight:700;cursor:default;border:1.5px solid transparent;min-width:46px;padding:0 3px;text-align:center;line-height:1.1}
+.cell.I{background:var(--green);color:#fff}
+.cell.P{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+.cell.F{background:var(--surface-2);color:var(--ink-3);border-color:var(--line)}
+.cell.U{background:transparent;color:var(--ink-3);border:1.5px dashed var(--ink-3)}
+.cell.N{background:transparent;color:var(--line)}
+.scorebar{min-width:84px;padding:0 6px}
+.scorebar .t{height:9px;background:var(--track);border-radius:99px;overflow:hidden}
+.scorebar .t i{display:block;height:100%;border-radius:99px}
+.scorebar .n{font-weight:800;font-size:.86rem;margin-bottom:3px;font-family:'Plus Jakarta Sans',Inter,sans-serif}
+.pc tr.ref td.ph{font-style:italic}
+.pc tr.sep td{height:10px}
+.pc-detail{margin-top:14px;padding:20px;display:none}
+.pc-detail.show{display:block}
+.pc-detail .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-top:10px}
+.pc-detail ul{margin:6px 0 0;padding-left:18px;font-size:.88rem;color:var(--ink-2)}
+.pc-detail li{margin:3px 0}
+.pc-detail h4{margin:0;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.pc-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.pc-insights div{padding:16px;font-size:.88rem;color:var(--ink-2)}
+.pc-insights b{display:block;font-family:'Plus Jakarta Sans',Inter,sans-serif;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
+@media (max-width:980px){.pc-insights,.pc-detail .cols{grid-template-columns:1fr}}
+
 /* map */
 .map-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:24px;align-items:start}
 .map-card{padding:12px;position:relative}
@@ -349,7 +385,7 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
 <nav class="top"><div class="wrap">
   <a class="brand" href="#top"><i></i>Swadeshi AI Phone</a>
   <div class="navlinks">
-    <a href="#progress">Progress</a><a href="#stack">The stack</a><a href="#tree-sec">Tree</a><a href="#value">Value</a><a href="#gaps">Stop-gaps</a><a href="#next">Up for grabs</a><a href="#money">Investment</a>
+    <a href="#progress">Progress</a><a href="#stack">The stack</a><a href="#tree-sec">Tree</a><a href="#value">Value</a><a href="#phones">Phones</a><a href="#gaps">Stop-gaps</a><a href="#next">Up for grabs</a><a href="#money">Investment</a>
     <a href="#map">Map</a><a href="#players">Companies</a><a href="#size">Size</a><a href="#history">History</a><a href="#attempts">Past attempts</a><a href="#roadmap">Roadmap</a><a href="#sources">Sources</a>
   </div>
   <button id="themeBtn" aria-label="Toggle theme">◐</button>
@@ -442,6 +478,26 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
     <div class="card note"><h3>Why official “value addition” looks higher</h3><p class="small" style="color:var(--ink-2)">The government's 25–28% domestic value addition counts work done in India — assembly, testing, locally made chargers, enclosures and packaging — regardless of who owns the technology. Our ~<b id="ownedTxt">18</b>% counts only value from Indian-owned design and production. Both are correct; they answer different questions.</p></div>
     <div class="card note"><h3>What the 2028 target actually requires</h3><p class="small" style="color:var(--ink-2)">“Indian-designed, Indian-manufactured, Indian-branded” means owning the phone's <b>system design</b> (board, industrial design, software) and the <b>brand</b>, plus building it here. It does <b>not</b> require an Indian processor, modem, memory or OS — which is why it is achievable by 2028 while a fully indigenous phone is not.</p></div>
   </div>
+</div></section>
+
+<section id="phones"><div class="wrap">
+  <div class="kicker">02b · Real phones, scored</div>
+  <h2>How Indian are the “Indian” phones? SAMBHAV and others, part by part</h2>
+  <p class="lede">The Army's <b>SAMBHAV</b> secure phone and the phones marketed as Indian, rated part by part, alongside foreign phones made in India for comparison. Two scores: <b>hardware</b>, weighted by how much each part costs, and <b>software &amp; control</b>, meaning who owns the OS, apps, AI and security. Click a phone for the details.</p>
+  <div class="pc-legend">
+    <span><i style="--c:var(--green)"></i>Indian</span>
+    <span><i style="--c:var(--green-soft);--b:var(--green)"></i>Partly Indian (Indian layer on a foreign base, or made here by an Indian firm)</span>
+    <span><i style="--c:var(--surface-2);--b:var(--line)"></i>Foreign</span>
+    <span><i style="--c:transparent;--b:var(--ink-3);border-style:dashed"></i>Not disclosed (scored as foreign)</span>
+  </div>
+  <div class="card pc-card"><table class="pc" id="pcTable"></table></div>
+  <div class="card pc-detail" id="pcDetail"></div>
+  <div class="pc-insights">
+    <div class="card"><b>SAMBHAV is sovereign where it counts for security</b>The encryption, messaging (M-Sigma) and device management were built in India, with IIT Madras and industry. The handset hardware and chip haven't been disclosed and are almost certainly commercial imports.</div>
+    <div class="card"><b>Indian brands own the box, not the brain</b>Ai+ and Lava phones are designed, assembled and branded in India, but run MediaTek processors and Android underneath. That's about 15–20% Indian by hardware value.</div>
+    <div class="card"><b>The 2028 target closes the software gap first</b>A 2028 phone could be about 85% Indian in software and control, but only about 20–25% Indian in hardware value until Indian chips, memory and displays exist.</div>
+  </div>
+  <p class="small muted" style="margin-top:12px">Ratings are our assessment from public reporting (Indian Army statements, The Week, Business Standard, WION, Medianama, GSMArena, company pages). SAMBHAV's hardware, chipset and OS base have not been officially disclosed. Where a part isn't disclosed it is scored as foreign. Hardware weights follow the bill of materials above.</p>
 </div></section>
 
 <section id="gaps"><div class="wrap">
@@ -579,6 +635,8 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:.85rem;col
     <li>PIB / Digital India — IndiaAI Mission: 38,000+ GPUs onboarded; ThePrint — ₹1,058 cr compute subsidy to 9 model builders.</li>
     <li>The Hindu — Netrasemi unveils A2000 AI SoC (May 2026). <a href="https://www.thehindu.com">thehindu.com</a></li>
     <li>SEMICON India 2026 (PIB, Sep 2026) — C-DAC &amp; IndieSemiC ISC-VEGA-SOM system-on-module.</li>
+    <li>SAMBHAV — <a href="https://www.theweek.in/news/defence/2025/01/18/all-you-need-to-know-about-sambhav-smartphones-used-by-indian-army-for-secure-communication.amp.html">The Week</a> (Jan 2025), <a href="https://www.business-standard.com/india-news/indian-army-indigenously-develops-secure-mobile-ecosystem-sambhav-124011201145_1.html">Business Standard/PTI</a> (Jan 2024), <a href="https://embed.wionews.com/india-news/what-is-sambhav-indian-army-s-5g-ready-indigenous-network-used-during-operation-sindoor-1757504639988">WION</a> (Operation Sindoor), <a href="https://www.medianama.com/2024/01/223-indian-army-sambhav-indigenous-mobile-ecosystem/">Medianama</a>.</li>
+    <li>Ai+ Nova 2 Pro and Lava Agni specs — <a href="https://www.theweek.in/news/sci-tech/2025/07/08/time-for-atmanirbharta-in-smartphones-too-new-make-in-india-ai-phone-to-take-on-industry-giants.amp.html">The Week</a>, <a href="https://m.gsmarena.com/newscomm-58566.php">GSMArena</a>, <a href="https://letsdatascience.com/news/lava-releases-agni-4-smartphone-featuring-ai-ac9cbe2d">Agni 4 launch coverage</a>.</li>
     <li>Wikipedia — BharOS (Android-based, IIT Madras / JandK Operations, 2023). <a href="https://en.wikipedia.org/wiki/BharOS">link</a></li>
     <li>Ai+ / NxtQuantum — “Built in India, powered by NxtQuantum OS”. <a href="https://aiplusstore.com/pages/about-us">link</a></li>
     <li>WION — “India is yet to build its first fully indigenous computer or mobile phone” (Jun 2026).</li>
@@ -1293,6 +1351,95 @@ const SROWS = [
   const wire=(id,fn)=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);draw()});
   wire('#scaleBtns',v=>scale=v);wire('#grpBtns',v=>grp=v);
   draw();
+})();
+
+// ---------- phone scorecard ----------
+// I = Indian, P = partly Indian, F = foreign, U = not disclosed (scored foreign), N = not applicable
+const PC_COLS = [
+  ['hw','soc','Processor',24],['hw','modem','Modem',6],['hw','mem','Memory',18],['hw','disp','Display',13],['hw','cam','Camera',9],
+  ['hw','bat','Battery',4],['hw','board','Board & design',8],['hw','asm','Assembly & body',11],
+  ['sw','os','OS',30],['sw','apps','Apps & services',25],['sw','ai','AI assistant',20],['sw','sec','Security & data',25],
+  ['own','brand','Brand / owner',0]
+];
+const PHONES = [
+  {n:'SAMBHAV', sub:'Indian Army secure phone · 2024–', r:{soc:'U',modem:'U',mem:'F',disp:'F',cam:'F',bat:'F',board:'U',asm:'U',os:'P',apps:'I',ai:'N',sec:'I',brand:'I'},
+   lab:{os:'Indigenous OS reported',apps:'M-Sigma',sec:'Multi-tier encryption',brand:'Indian Army'},
+   about:'SAMBHAV (Secure Army Mobile Bharat Version) is an end-to-end secure mobile ecosystem rolled out from January 2024 under the Army\'s Year of Technology Absorption. About 30,000 handsets have been issued to officers (35,000 planned in two phases). They are 5G-ready, work on Jio and Airtel, and were used for command communication during Operation Sindoor in 2025.',
+   ind:['Multi-tier encryption developed with academic and industry centres of excellence, incl. IIT Madras','M-Sigma: encrypted messaging, files and video, replacing WhatsApp','Pre-loaded official directory and closed device management','Runs over Indian telecom networks (Jio, Airtel)'],
+   fgn:['Handset maker and chipset not disclosed; reporting suggests commercial hardware','OS base not confirmed; analysts question whether it is Android-based','Memory, display, camera and battery are imported in every current phone']},
+  {n:'Ai+ Nova 2 Pro', sub:'NxtQuantum (Indian brand) · 2025–26', r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'P',asm:'I',os:'P',apps:'P',ai:'P',sec:'P',brand:'I'},
+   lab:{soc:'MediaTek Dimensity 7100',os:'nxtQ OS on Android 16',brand:'NxtQuantum'},
+   about:'Ai+ launched in July 2025 claiming to be India\'s first smartphone designed and built entirely in the country. Its nxtQ OS is a custom layer on Android, marketed as auditable and governed by Indian law.',
+   ind:['Indian brand, design and assembly','nxtQ OS layer and privacy positioning','Data governed under Indian law (company claim)'],
+   fgn:['MediaTek processor and modem','Android 16 underneath','Memory, display, camera, battery cells imported']},
+  {n:'Lava Agni 4', sub:'Lava (Indian brand) · 2025', r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'P',asm:'I',os:'F',apps:'F',ai:'P',sec:'F',brand:'I'},
+   lab:{soc:'MediaTek Dimensity 8350',os:'Android 15',ai:'Vayu AI',brand:'Lava'},
+   about:'Lava\'s flagship line, built in Noida. The Agni series was positioned as India\'s "made in India" 5G phone from 2021. The Agni 4 uses a 4 nm MediaTek chip and Lava\'s Vayu AI features on near-stock Android.',
+   ind:['Indian brand with in-house design team and factory','Vayu AI features'],
+   fgn:['MediaTek Dimensity 8350 (4 nm, TSMC)','Near-stock Android 15 with Google services','Core components imported']},
+  {n:'JioBharat / JioPhone', sub:'Reliance Jio · 2017–', r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'F',asm:'P',os:'F',apps:'I',ai:'N',sec:'P',brand:'I'},
+   lab:{soc:'Unisoc',os:'KaiOS / Jio OS',apps:'JioPay, UPI, JioCinema',brand:'Jio'},
+   about:'A low-cost 4G feature phone sold in tens of millions. Jio owns the brand, services and distribution, and invested in KaiOS. Hardware comes from Chinese chip and design partners, made in India by contract manufacturers.',
+   ind:['Indian brand, apps, payments (UPI) and network','Made in India under PLI'],
+   fgn:['Unisoc processor','KaiOS base (US/HK company, Jio is an investor)','Design by ODM partners']},
+  {n:'BharOS phone', sub:'JandK Operations / IIT Madras · 2023', r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'F',asm:'U',os:'P',apps:'P',ai:'N',sec:'P',brand:'N'},
+   lab:{os:'BharOS (AOSP fork)',apps:'PASS app store'},
+   about:'BharOS is a de-Googled Android (AOSP) fork from an IIT Madras-incubated company, tested by ministers in January 2023. It installs on existing commercial phones; no mass-market phone has shipped with it.',
+   ind:['Indian-maintained OS build without Google services','Private App Store Services (PASS) for vetted apps'],
+   fgn:['Runs on commercial foreign hardware','Android (AOSP) code base']},
+  {n:'Micromax In Note 1', sub:'Micromax (Indian brand) · 2020', r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'U',asm:'I',os:'F',apps:'F',ai:'N',sec:'F',brand:'I'},
+   lab:{soc:'MediaTek Helio G85',os:'Stock Android'},
+   about:'Micromax\'s Galwan-era comeback phone. Strong launch sales, then lost to Chinese brands on specs and service.',
+   ind:['Indian brand, assembled in India'],fgn:['MediaTek processor, stock Android, imported components']},
+  {sep:1},
+  {n:'iPhone (made in India)', sub:'Apple · Tata / Foxconn plants', ref:1, r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'F',asm:'P',os:'F',apps:'F',ai:'F',sec:'F',brand:'F'},
+   lab:{asm:'Tata, Foxconn'},
+   about:'For comparison: a foreign phone assembled in India. Tata Electronics (Indian-owned) and Foxconn build iPhones in Tamil Nadu and Karnataka, and Tata makes enclosures in Hosur.',
+   ind:['Assembly and enclosures by Tata Electronics'],fgn:['Everything else: Apple design, TSMC chips, iOS']},
+  {n:'Samsung Galaxy (Noida)', sub:'Samsung · Noida factory', ref:1, r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'F',board:'F',asm:'P',os:'F',apps:'F',ai:'F',sec:'F',brand:'F'},
+   lab:{asm:'Samsung Noida'},
+   about:'For comparison: the world\'s largest phone factory sits in Noida, but it is Korean-owned. "Made in India", Korean technology.',
+   ind:['Built in India by Indian workers'],fgn:['Korean-owned plant, Exynos/Snapdragon chips, Samsung display & memory, Android']},
+  {sep:1},
+  {n:'2028 target phone', sub:'Government goal · 23 Oct 2028', ref:1, r:{soc:'F',modem:'F',mem:'F',disp:'F',cam:'F',bat:'P',board:'I',asm:'I',os:'P',apps:'I',ai:'I',sec:'I',brand:'I'},
+   lab:{mem:'Packaged here',disp:'Module here',cam:'Module here',os:'Indian AOSP',ai:'Indian AI'},
+   about:'What a realistic “Indian-designed, Indian-manufactured, Indian-branded” phone could look like by 2028, based on projects already under way.',
+   ind:['Indian board and system design, brand and assembly','Indian on-device AI assistant, apps and security','Memory packaged at Sanand; display and camera modules under ECMS'],
+   fgn:['Processor and modem still foreign','Memory wafers, panels, sensors and cells still imported']},
+  {n:'Fully indigenous (vision)', sub:'2035+', ref:1, r:{soc:'I',modem:'I',mem:'I',disp:'I',cam:'I',bat:'I',board:'I',asm:'I',os:'I',apps:'I',ai:'I',sec:'I',brand:'I'},
+   about:'The end state: every layer Indian-owned. No country does all of this alone today.', ind:['Everything'], fgn:['—']}
+];
+(function(){
+  const W={I:1,P:.5,F:0,U:0};
+  const score=(ph,grp)=>{let a=0,t=0;PC_COLS.filter(c=>c[0]===grp).forEach(c=>{const v=ph.r[c[1]];if(v==='N')return;const w=grp==='hw'?c[3]:c[3];a+=w*W[v];t+=w});return t?Math.round(a/t*100):null};
+  const txt={I:'Indian',P:'Partly',F:'Foreign',U:'Not public',N:'—'};
+  const sb=(v,col)=>v===null?'<td class="scorebar"><div class="n muted">n/a</div></td>':`<td class="scorebar"><div class="n" style="color:${col}">${v}%</div><div class="t"><i style="width:${v}%;background:${col}"></i></div></td>`;
+  let sel=null;
+  function render(){
+    const hw=PC_COLS.filter(c=>c[0]==='hw'),sw=PC_COLS.filter(c=>c[0]==='sw');
+    let h=`<thead><tr><th></th><th class="grp" colspan="${hw.length}">Hardware</th><th class="grp" colspan="${sw.length}">Software &amp; control</th><th class="grp">Owner</th><th class="grp" colspan="2">Indigenous score</th></tr>
+      <tr><th style="text-align:left;padding-left:10px">Phone</th>${PC_COLS.map(c=>`<th>${c[2]}${c[0]==='hw'?`<br><span style="font-weight:500">${c[3]}%</span>`:''}</th>`).join('')}<th>Hardware<br><span style="font-weight:500">by value</span></th><th>Software<br><span style="font-weight:500">&amp; control</span></th></tr></thead><tbody>`;
+    PHONES.forEach((ph,i)=>{
+      if(ph.sep){h+='<tr class="sep"><td colspan="16"></td></tr>';return}
+      const hs=score(ph,'hw'),ss=score(ph,'sw');
+      h+=`<tr data-i="${i}" class="${ph.ref?'ref':''} ${sel===i?'sel':''}"><td class="ph"><b>${ph.n}</b><span>${ph.sub}</span></td>`+
+        PC_COLS.map(c=>{const v=ph.r[c[1]],lab=(ph.lab||{})[c[1]];return `<td><div class="cell ${v}" data-tip="${ph.n} · ${c[2]}: ${txt[v]}${lab?' ('+lab+')':''}">${lab&&lab.length<16?lab:txt[v]}</div></td>`}).join('')+
+        sb(hs,hs>=50?'var(--green)':hs>=20?'var(--amber)':'var(--red)')+sb(ss,ss>=50?'var(--green)':ss>=20?'var(--amber)':'var(--red)')+'</tr>';
+    });
+    $('#pcTable').innerHTML=h+'</tbody>';
+    $('#pcTable').querySelectorAll('.cell').forEach(c=>{c.addEventListener('mousemove',e=>showTip(e,c.dataset.tip));c.addEventListener('mouseleave',hideTip)});
+    $('#pcTable').querySelectorAll('tr[data-i]').forEach(tr=>tr.querySelector('.ph').addEventListener('click',()=>{const i=+tr.dataset.i;sel=sel===i?null:i;render();detail()}));
+  }
+  function detail(){
+    const el=$('#pcDetail');if(sel===null){el.classList.remove('show');return}
+    const ph=PHONES[sel];
+    el.innerHTML=`<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><h3>${ph.n}</h3><div class="small muted">${ph.sub}</div></div>
+      <div style="display:flex;gap:10px"><span class="pill p-navy">Hardware ${score(ph,'hw')}%</span><span class="pill p-green">Software &amp; control ${score(ph,'sw')}%</span></div></div>
+      <p style="font-size:.92rem;color:var(--ink-2);margin:12px 0 0">${ph.about}</p>
+      <div class="cols"><div><h4>What's Indian</h4><ul>${ph.ind.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>What's foreign or undisclosed</h4><ul>${ph.fgn.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`;
+    el.classList.add('show');
+  }
+  render();
 })();
 
 // ---------- map ----------
