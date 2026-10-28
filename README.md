@@ -1,6 +1,6 @@
 # Project Sprint
 
-Tracking India's deep-tech self-reliance. Eight single-page, dependency-free trackers that score each layer of a product for Indian ownership of design, manufacturing and supply, with companies, investments, an India map, talent, history, past attempts and open opportunities.
+Tracking India's deep-tech self-reliance. Ten single-page, dependency-free trackers that score each layer of a product for Indian ownership of design, manufacturing and supply, with companies, investments, an India map, talent, history, past attempts and open opportunities.
 
 Live at https://projectsprint.vokalglobe.com — served by GitHub Pages from `main`.
 
@@ -12,7 +12,9 @@ Live at https://projectsprint.vokalglobe.com — served by GitHub Pages from `ma
 | `/underwater-drones/` | Swadeshi Underwater Drone (UUV/AUV) Tracker |
 | `/counter-drone/` | Swadeshi Counter-Drone Tracker |
 | `/thermal-imaging/` | Swadeshi Thermal Imaging Tracker |
+| `/aesa-radar/` | Swadeshi AESA Radar Tracker |
 | `/jet-engines/` | Swadeshi Jet Engine Tracker |
+| `/small-satellites/` | Swadeshi Small Satellite Tracker |
 | `/construction-machines/` | Swadeshi Construction Machine (JCB-type) Tracker |
 | `/robot-arms/` | Swadeshi Robot Arm Tracker |
 
